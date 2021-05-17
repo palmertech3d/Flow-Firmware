@@ -1,7 +1,5 @@
-#include <Arduino.h>
-
 ///////////////////////////////////////////////////////////////////////////////////////////////
-// Title: Flow OS v1                                                                         //
+// Title: Flow  v1                                                                         //
 // Purpose: To create an operating system for Palmer Technologies' Flow Extruder Prototype.  //
 // Developer: Cameron Palmer, palmertech3d@gmail.com                                         //
 // Last Modified: September 22, 2020                                                          //
@@ -12,7 +10,7 @@
 
 
 // Included Libraries
-
+#include <Arduino.h>
 #include <AccelStepper.h> // For motors
 #include <LiquidCrystal.h> // For LCD
 #include <LiquidMenu.h> // For menus on the LCD
