@@ -1,0 +1,64 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+DB4	.\Firmware\src\main.cpp	37;"	d	file:
+DB5	.\Firmware\src\main.cpp	38;"	d	file:
+DB6	.\Firmware\src\main.cpp	39;"	d	file:
+DB7	.\Firmware\src\main.cpp	40;"	d	file:
+ENABLE	.\Firmware\src\main.cpp	42;"	d	file:
+ENC_CLK	.\Firmware\src\main.cpp	43;"	d	file:
+ENC_DATA	.\Firmware\src\main.cpp	44;"	d	file:
+ENC_SWITCH	.\Firmware\src\main.cpp	45;"	d	file:
+FAN	.\Firmware\src\main.cpp	30;"	d	file:
+HEATER	.\Firmware\src\main.cpp	31;"	d	file:
+Kd	.\Firmware\src\main.cpp	/^double Kp = 2.16, Ki =0.08 , Kd = 15.28;$/;"	v
+Ki	.\Firmware\src\main.cpp	/^double Kp = 2.16, Ki =0.08 , Kd = 15.28;$/;"	v
+Kp	.\Firmware\src\main.cpp	/^double Kp = 2.16, Ki =0.08 , Kd = 15.28;$/;"	v
+M_EXTRUDER_DIR	.\Firmware\src\main.cpp	49;"	d	file:
+M_EXTRUDER_STEP	.\Firmware\src\main.cpp	48;"	d	file:
+M_LEVEL_DIR	.\Firmware\src\main.cpp	55;"	d	file:
+M_LEVEL_STEP	.\Firmware\src\main.cpp	54;"	d	file:
+M_ROLLER_DIR	.\Firmware\src\main.cpp	52;"	d	file:
+M_ROLLER_STEP	.\Firmware\src\main.cpp	51;"	d	file:
+M_WINDER_DIR	.\Firmware\src\main.cpp	58;"	d	file:
+M_WINDER_STEP	.\Firmware\src\main.cpp	57;"	d	file:
+PROTOTYPE_VERSION	.\Firmware\src\main.cpp	11;"	d	file:
+RS	.\Firmware\src\main.cpp	41;"	d	file:
+THERMO_CS	.\Firmware\src\main.cpp	34;"	d	file:
+THERMO_SCK	.\Firmware\src\main.cpp	33;"	d	file:
+THERMO_SO	.\Firmware\src\main.cpp	35;"	d	file:
+WIND_LIM_SWITCH	.\Firmware\src\main.cpp	60;"	d	file:
+blankFunction	.\Firmware\src\main.cpp	/^void blankFunction() {$/;"	f
+currentStateCLK	.\Firmware\src\main.cpp	/^int currentStateCLK, lastStateCLK;$/;"	v
+currentTime	.\Firmware\src\main.cpp	/^int currentTime = millis();$/;"	v
+encPos	.\Firmware\src\main.cpp	/^int encPos = 0;$/;"	v
+execPath	.\Firmware\.gcc-flags.json	/^  "execPath": "C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/bin\/avr-g++.exe",$/;"	f
+extruderMotorStatus	.\Firmware\src\main.cpp	/^short extruderMotorStatus = 0; \/\/ The speed of the stepper motors in rpm$/;"	v
+gccDefaultCFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCFlags": "-fsyntax-only -std=gnu11 -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
+gccDefaultCppFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCppFlags": "-fsyntax-only -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
+gccErrorLimit	.\Firmware\.gcc-flags.json	/^  "gccErrorLimit": 15,$/;"	f
+gccIncludePaths	.\Firmware\.gcc-flags.json	/^  "gccIncludePaths": "C:\/Flow-Firmware\/Firmware\/include,C:\/Flow-Firmware\/Firmware\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/cores\/arduino,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/variants\/mega,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/EEPROM\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/HID\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SPI\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SoftwareSerial\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/Wire\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include-fixed,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/avr\/include",$/;"	f
+gccSuppressWarnings	.\Firmware\.gcc-flags.json	/^  "gccSuppressWarnings": false$/;"	f
+homeLevelWinder	.\Firmware\src\main.cpp	/^ void homeLevelWinder(){$/;"	f
+lastEncPos	.\Firmware\src\main.cpp	/^int lastEncPos = 0;$/;"	v
+lastStateCLK	.\Firmware\src\main.cpp	/^int currentStateCLK, lastStateCLK;$/;"	v
+levelHomed	.\Firmware\src\main.cpp	/^bool levelHomed = false; \/\/ Set to true when level winder has been homed$/;"	v
+levelMotorStatus	.\Firmware\src\main.cpp	/^short levelMotorStatus = 0;$/;"	v
+loop	.\Firmware\src\main.cpp	/^void loop() {$/;"	f
+newTemp	.\Firmware\src\main.cpp	/^double newTemp = 0; \/\/ A temporary temperature storage place used when reading the thermocouple$/;"	v
+optionsScreen	.\Firmware\src\main.cpp	/^LiquidScreen optionsScreen;$/;"	v
+output	.\Firmware\src\main.cpp	/^double output;$/;"	v
+pid	.\Firmware\src\main.cpp	/^PID pid(&temperature, &output, &setTemp, Kp, Ki, Kd, DIRECT);$/;"	v
+pidAuto	.\Firmware\src\main.cpp	/^PID_ATune pidAuto(&temperature, &output);$/;"	v
+pidTimekeeper	.\Firmware\src\main.cpp	/^unsigned long pidTimekeeper = 0;$/;"	v
+returnPIDConstants	.\Firmware\src\main.cpp	/^ void returnPIDConstants(){$/;"	f
+rollerMotorStatus	.\Firmware\src\main.cpp	/^short rollerMotorStatus = 0;$/;"	v
+setTemp	.\Firmware\src\main.cpp	/^double setTemp = 0;$/;"	v
+setup	.\Firmware\src\main.cpp	/^void setup() {$/;"	f
+stopPidAuto	.\Firmware\src\main.cpp	/^bool stopPidAuto = false; \/\/ Set to true when the autotuner finishes$/;"	v
+temperature	.\Firmware\src\main.cpp	/^double temperature = -99; \/\/ Used to display the temperature on the LCD$/;"	v
+thermocouple	.\Firmware\src\main.cpp	/^Thermocouple* thermocouple = new MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);$/;"	v
+winderMotorStatus	.\Firmware\src\main.cpp	/^short winderMotorStatus = 0;$/;"	v
