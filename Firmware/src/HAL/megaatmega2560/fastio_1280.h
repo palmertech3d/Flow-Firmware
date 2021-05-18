@@ -19,7 +19,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#pragma once
 
 /**
  * Pin mapping for the 1280 and 2560
@@ -29,20 +28,9 @@
  *   Logical Pin   : 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 | 78 79 80 xx xx 84 85 71 70 xx xx xx xx xx 81 82 83 xx xx 72 73 75 76 77 74 xx xx xx xx xx
  */
 
-#include "fastio.h"
-
-// change for your board
-#define DEBUG_LED   DIO21
-
 // UART
 #define RXD         DIO0
 #define TXD         DIO1
-
-// SPI
-#define SCK         DIO52
-#define MISO        DIO50
-#define MOSI        DIO51
-#define SS          DIO53
 
 // TWI (I2C)
 #define SCL         DIO21
@@ -64,6 +52,7 @@
 #define OC5A        DIO46
 #define OC5B        DIO45
 #define OC5C        DIO44
+
 
 // Digital I/O
 

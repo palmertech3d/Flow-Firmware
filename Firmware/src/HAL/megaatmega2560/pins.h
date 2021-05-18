@@ -1,5 +1,3 @@
-#include "user_pins.h"
-
 /**
  * Pin mapping for the 1280 and 2560
  *

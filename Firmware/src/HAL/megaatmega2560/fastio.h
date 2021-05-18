@@ -19,7 +19,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
-#pragma once
 
 /**
  * Fast I/O Routines for AVR
@@ -30,7 +29,8 @@
 #include <avr/io.h>
 #include "fastio_1280.h"
 #include "../macros.h"
-
+#include "pins.h"
+#include "user_pins.h"
 
 /**
  * Magic I/O routines

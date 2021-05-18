@@ -1,3 +1,6 @@
+// Modify this file to your particular extruder pinout. All pin numbers
+// are digital GPIOs.
+
 #define FAN 3
 #define HEATER 4
 
@@ -5,15 +8,7 @@
 #define THERMO_CS 6   // Thermocouple constants
 #define THERMO_SO 7
 
-#define DB4 8 // LCD DB4
-#define DB5 9 // LCD DB5
-#define DB6 10 // LCD DB6
-#define DB7 11 // LCD DB7     //Interface Constants
-#define RS 12 // LCD RS
-#define ENABLE 13 // LCD Enable
-#define ENC_CLK 14 // Encoder clock
-#define ENC_DATA 15 // Encoder data
-#define ENC_SWITCH 16 // Encoder push button
+#define ONBOARD_LED 13
 
 #define WIND_LIM_SWITCH 17 // Winder limit switch: Active LOW
 

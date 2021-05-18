@@ -1,10 +1,21 @@
-///////////////////////////////////////////////////////////////////////////////////////////////
-// Title: Flow  v1                                                                         //
-// Purpose: To create an operating system for Palmer Technologies' Flow Extruder Prototype.  //
-// Developer: Cameron Palmer, palmertech3d@gmail.com                                         //
-// Last Modified: September 22, 2020                                                          //
-///////////////////////////////////////////////////////////////////////////////////////////////
-
+/**
+ * Palmer Technologies Flow Extruder Firmware
+ * Copyright (c) 2021 palmertech3d [https://github.com/palmertech3d/Flow-Firmware]
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ */
 
 #define VERSION "1.0" // Prototype firmware version
 
@@ -12,55 +23,14 @@
 // Included Libraries
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
 #include "HAL/megaatmega2560/megaatmega2560.h"
+
 #include <AccelStepper.h> // For motors
-#include <LiquidCrystal.h> // For LCD
-#include <LiquidMenu.h> // For menus on the LCD
 #include <Encoder.h> // For rotary encoder
 #include <PID_v1.h> // For PID control
 #include <PID_AutoTune_v0.h>
 #include <Thermocouple.h>          // Thermocouple libraries
 #include <MAX6675_Thermocouple.h>  //
-
 //==================================
-
-
-// Pinout Constants
-
-#define FAN 3
-#define HEATER 4
-
-#define THERMO_SCK 5
-#define THERMO_CS 6   // Thermocouple constants
-#define THERMO_SO 7
-
-#define DB4 8 // LCD DB4
-#define DB5 9 // LCD DB5
-#define DB6 10 // LCD DB6
-#define DB7 11 // LCD DB7     //Interface Constants
-#define RS 12 // LCD RS
-#define ENABLE 13 // LCD Enable
-#define ENC_CLK 14 // Encoder clock
-#define ENC_DATA 15 // Encoder data
-#define ENC_SWITCH 16 // Encoder push button
-
-
-#define M_EXTRUDER_STEP 46
-#define M_EXTRUDER_DIR 47
-
-#define M_ROLLER_STEP 48
-#define M_ROLLER_DIR 49
-
-#define M_LEVEL_STEP 50               //Motor Constants
-#define M_LEVEL_DIR 51
-
-#define M_WINDER_STEP 52
-#define M_WINDER_DIR 53
-
-#define WIND_LIM_SWITCH 17 // Winder limit switch: Active LOW
-
-//==================================
-
-
 
 // Function Declarations
 
@@ -84,11 +54,6 @@ AccelStepper m_winder(1, M_WINDER_STEP, M_WINDER_DIR);
 
 // Thermocouple Object
 Thermocouple* thermocouple = new MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);
-//==================================
-
-
-// LCD Object
-LiquidCrystal lcd(RS, ENABLE, DB4, DB5, DB6, DB7);
 //==================================
 
 
@@ -119,54 +84,6 @@ short winderMotorStatus = 0;
 
 //==================================
 
-// Encoder Object & Variables
-int encPos = 0;
-int lastEncPos = 0;
-int currentStateCLK, lastStateCLK;
-int currentTime = millis();
-//==================================
-
-
-//// MENU CREATION
-
-LiquidMenu menu(lcd);
-
-// Create lines for the welcome screen and add them to it
-
-LiquidLine welcomeLine0(0,0, "Flow Extruder");
-LiquidLine welcomeLine1(0,1, "Prototype v", VERSION);
-LiquidScreen welcomeScreen(welcomeLine0, welcomeLine1); // Welcome screen
-
-
-
-// Create lines for the status screen and add them to it
-
-LiquidLine statusLine0(0,0, temperature, "C");
-LiquidLine statusLine1(0,1,"Click for more");
-LiquidScreen statusScreen(statusLine0, statusLine1); // Status screen. Shows temp of heater and prompts the user to click for more options
-
-
-
-// Create lines for the options screen, initialize the options screen, but wait to add the lines to it until void setup()
-// This is because the LiquidScreen constructor can only take so many (4 maybe?) lines in its constructor
-
-LiquidLine optionsLine0(0,0, " Back"); // On screens with selectable elements, like the options screen, leave a space at the front of the string for the focus symbol
-LiquidLine optionsLine1(0,1, " Set temp ", setTemp, "C");
-LiquidLine optionsLine2(0,1, " Set ext spd");
-LiquidLine optionsLine3(0,1, " Set rol spd");
-LiquidLine optionsLine4(0,1, " Set lvl spd");
-LiquidLine optionsLine5(0,1, " Set wind spd"); // Options screen to change set temp, motor speeds, eventually (in prototype v2?) filament diameter
-LiquidScreen optionsScreen;
-
-
-// Create lines for the temp screen and add them to it
-
-LiquidLine tempLine0(0,0, "T: ", temperature, "C");
-LiquidLine tempLine1(0,1, "Set: <", setTemp, ">");
-LiquidScreen tempScreen(tempLine0, tempLine1);
-
-
-
 //// SETUP FUNCTION
 
 void setup() {
@@ -182,46 +99,8 @@ void setup() {
   pinMode(WIND_LIM_SWITCH, INPUT);
 
 
-  // Set up lcd
-  lcd.begin(16,2);
-
-
-  // Adding the lines to the options screen
-  optionsScreen.add_line(optionsLine0);
-  optionsScreen.add_line(optionsLine1);
-  optionsScreen.add_line(optionsLine2);
-  optionsScreen.add_line(optionsLine3);
-  optionsScreen.add_line(optionsLine4);
-  optionsScreen.add_line(optionsLine5);
-
-
-  // Attach functions to options lines to make them scrollable
-  optionsLine0.attach_function(1, blankFunction);
-  optionsLine1.attach_function(1, blankFunction);
-  optionsLine2.attach_function(1, blankFunction);
-  optionsLine3.attach_function(1, blankFunction);
-  optionsLine4.attach_function(1, blankFunction);
-  optionsLine5.attach_function(1, blankFunction);
-
-
-  // Set the number of lines the display has; this is necessary to allow scrolling
-  optionsScreen.set_displayLineCount(2);
-
-
-  // Add the screens to the menu
-  menu.add_screen(welcomeScreen);
-  menu.add_screen(statusScreen);
-  menu.add_screen(optionsScreen);
-  menu.add_screen(tempScreen);
-
-  // Set the focus position so the selecting arrow is on the left of menu items
-  menu.set_focusPosition(Position::LEFT);
-
-
   // Begin initial device setup
-  menu.update(); // Get the menu setup and ready to go
   homeLevelWinder(); // Home the level winder; this function will delay all future action until the winder has been homed
-  menu.next_screen(); // Show the status screen
 
 
   // Start PID
@@ -242,154 +121,14 @@ void setup() {
 
   m_winder.setMaxSpeed(1000);
   m_winder.setSpeed(50);
-
-
-  // Encoder setup
-  pinMode(ENC_CLK, INPUT);
-  pinMode(ENC_DATA, INPUT);
-  pinMode(ENC_SWITCH, INPUT);
-
-  lastStateCLK = digitalRead(ENC_CLK);
-
-
 }
-
 
 //// LOOP FUNCTION
 
 void loop() {
   HAL::blinkLED();
   Serial.println("Hi there!");
-
-  if(millis() >= currentTime + 500){
-    currentTime = millis();
-  }
-
-
-
-  // Reading encoder turns
-  currentStateCLK = digitalRead(ENC_CLK);
-
-  if (currentStateCLK != lastStateCLK && currentStateCLK == 1){
-    lastEncPos = encPos;
-    if (digitalRead(ENC_DATA) != currentStateCLK){
-        encPos--;
-      }else{
-        encPos++;
-      }
-
-
-  }
-
-
-
-
-
-  if ((currentStateCLK != lastStateCLK) && (menu.get_currentScreen() != &statusScreen)) {
-    lastStateCLK = currentStateCLK;
-    // Encoder test output
-
-    Serial.print("Old Pos: ");
-    Serial.println(lastEncPos);
-    Serial.print("New Pos: ");
-    Serial.println(encPos);
-    Serial.println("------------");
-
-
-    if(menu.get_currentScreen() == &optionsScreen && encPos > lastEncPos){
-     menu.switch_focus(false); // Focus backwards (up the screen) when encoder is turned counter-clockwise
-    }
-
-    if(menu.get_currentScreen() == &optionsScreen && encPos < lastEncPos){
-      menu.switch_focus(true); // Focus forwards (down the screen) when encoder is turned clockwise
-    }
-
-    if(menu.get_currentScreen() == &tempScreen){
-      if (encPos > lastEncPos){
-        setTemp += (lastEncPos - encPos); // Subtract when encoder is turned counter-clockwise
-      }else{
-        setTemp += (lastEncPos - encPos); // Add when encoder is turned clockwise
-      }
-
-    }
-    menu.update();
-  }
-
-
-  // Reading encoder button
-  if(digitalRead(ENC_SWITCH) == LOW && (currentTime + 500 <= millis())){
-
-   // If current screen is the status screen, go to the options screen
-   if(menu.get_currentScreen() == &statusScreen){
-      menu.change_screen(&optionsScreen);
-      menu.update();
-    }
-    // If current screen is the options screen, and the selected line is "Back"
-    else if(menu.get_currentScreen() == &optionsScreen && menu.get_focusedLine() == 0){
-      menu.change_screen(&statusScreen);
-      menu.update();
-    }
-
-    // If current screen is the options screen, and the selected line is "Set temp"
-    else if(menu.get_currentScreen() == &optionsScreen && menu.get_focusedLine() == 1){
-      menu.change_screen(&tempScreen);
-      menu.update();
-    }
-
-    else if(menu.get_currentScreen() == &tempScreen){
-      menu.change_screen(&optionsScreen);
-      menu.update();
-    }
-   }
-
-  // Reading thermocouple, storing value in short temperature if value needs to be updated, and updating menu if needed
-  if (millis() >= pidTimekeeper + 500){
-    newTemp = thermocouple->readCelsius();
-
-    // Graphing temperature output vs.time
-    /*
-    Serial.println(newTemp);
-    Serial.print(",");
-    Serial.println(setTemp);
-    */
-    if(temperature != newTemp){
-       temperature = newTemp;
-        if (menu.get_currentScreen() == &statusScreen || menu.get_currentScreen() == &tempScreen){
-          menu.update();
-      }
-    }
-    pidTimekeeper = millis();
-  }
-
-
-   // Heater PID
-   pid.Compute();
-   analogWrite(HEATER, output);
-
-   /*
-   // Running PID autotuner for heater and checking if it's done
-   if(!stopPidAuto){
-    int PIDdone = pidAuto.Runtime();
-    if(PIDdone == 1){
-      returnPIDConstants();
-      stopPidAuto = true;
-     }
-   }
-   */
-
-
-
 }
-
-
-//// void blankFunction()
-
-
-// Used for attaching to LiquidLines to make them focusable, and thus scrollable
-void blankFunction() {
-  return;
-
- }
 
 
 
@@ -404,9 +143,6 @@ void blankFunction() {
    Serial.println(pidAuto.GetKd());
    return;
  }
-
-
- //// void homeLevelWinder()
 
  // Homes the level winder; this function will delay all future action until the winder has been homed
  void homeLevelWinder(){
