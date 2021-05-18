@@ -11,7 +11,7 @@
 
 // Included Libraries
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
-#include "HAL/HALmegaatmega2560.h"
+#include "HAL/megaatmega2560/megaatmega2560.h"
 #include <AccelStepper.h> // For motors
 #include <LiquidCrystal.h> // For LCD
 #include <LiquidMenu.h> // For menus on the LCD
@@ -175,6 +175,7 @@ void setup() {
   Serial.begin(9600);
 
 
+
   // General pinmodes
   pinMode(FAN, OUTPUT);
   pinMode(HEATER, OUTPUT);
@@ -258,6 +259,7 @@ void setup() {
 
 void loop() {
   HAL::blinkLED();
+  Serial.println("Hi there!");
 
   if(millis() >= currentTime + 500){
     currentTime = millis();
