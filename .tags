@@ -6,6 +6,7 @@
 !_TAG_PROGRAM_VERSION	5.8	//
 AUTOMATIC	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	12;"	d
 AVERAGE_THERMOCOUPLE_H	.\Firmware\lib\MAX6675_Thermocouple\src\AverageThermocouple.h	44;"	d
+AVR_IO	.\Firmware\src\HAL\HALmegaatmega2560.h	2;"	d
 AccelStepper	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^AccelStepper::AccelStepper(uint8_t interface, uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, bool enable)$/;"	f	class:AccelStepper
 AccelStepper	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^AccelStepper::AccelStepper(void (*forward)(), void (*backward)())$/;"	f	class:AccelStepper
 AccelStepper	.\Firmware\lib\AccelStepper\AccelStepper.h	/^class AccelStepper$/;"	c
@@ -280,10 +281,10 @@ CS_pin	.\Firmware\lib\MAX6675_Thermocouple\src\MAX6675_Thermocouple.h	/^		int CS
 CUSTOM	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  CUSTOM = 3,$/;"	m	class:DataType::Position
 Cancel	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^void PID_ATune::Cancel()$/;"	f	class:PID_ATune
 Compute	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^bool PID::Compute()$/;"	f	class:PID
-DB4	.\Firmware\src\main.cpp	35;"	d	file:
-DB5	.\Firmware\src\main.cpp	36;"	d	file:
-DB6	.\Firmware\src\main.cpp	37;"	d	file:
-DB7	.\Firmware\src\main.cpp	38;"	d	file:
+DB4	.\Firmware\src\main.cpp	36;"	d	file:
+DB5	.\Firmware\src\main.cpp	37;"	d	file:
+DB6	.\Firmware\src\main.cpp	38;"	d	file:
+DB7	.\Firmware\src\main.cpp	39;"	d	file:
 DEBUG	.\Firmware\lib\LiquidMenu\src\LiquidMenu_debug.h	11;"	d
 DEBUG	.\Firmware\lib\LiquidMenu\src\LiquidMenu_debug.h	16;"	d
 DEBUG	.\Firmware\lib\LiquidMenu\src\LiquidMenu_debug.h	23;"	d
@@ -321,22 +322,22 @@ DRIVER	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	DRIVER    = 1, \/\/\/< Step
 DataType	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^enum class DataType : uint8_t {$/;"	c
 Direction	.\Firmware\lib\AccelStepper\AccelStepper.h	/^    } Direction;$/;"	t	class:AccelStepper	typeref:enum:AccelStepper::__anon2
 DisplayClass	.\Firmware\lib\LiquidMenu\src\LiquidMenu_config.h	35;"	d
-ENABLE	.\Firmware\src\main.cpp	40;"	d	file:
+ENABLE	.\Firmware\src\main.cpp	41;"	d	file:
 ENCODER_ARGLIST_SIZE	.\Firmware\lib\Encoder\Encoder.h	45;"	d
 ENCODER_ARGLIST_SIZE	.\Firmware\lib\Encoder\Encoder.h	51;"	d
 ENCODER_OPTIMIZE_INTERRUPTS	.\Firmware\lib\Encoder\utility\interrupt_config.h	78;"	d
 ENCODER_OPTIMIZE_INTERRUPTS	.\Firmware\lib\Encoder\utility\interrupt_config.h	84;"	d
 ENCODER_USE_INTERRUPTS	.\Firmware\lib\Encoder\Encoder.h	44;"	d
-ENC_CLK	.\Firmware\src\main.cpp	41;"	d	file:
-ENC_DATA	.\Firmware\src\main.cpp	42;"	d	file:
-ENC_SWITCH	.\Firmware\src\main.cpp	43;"	d	file:
+ENC_CLK	.\Firmware\src\main.cpp	42;"	d	file:
+ENC_DATA	.\Firmware\src\main.cpp	43;"	d	file:
+ENC_SWITCH	.\Firmware\src\main.cpp	44;"	d	file:
 EXT_PORT_OFFSET_SOC	.\Firmware\lib\Encoder\utility\direct_pin_read.h	85;"	d
 EXT_PORT_OFFSET_SS	.\Firmware\lib\Encoder\utility\direct_pin_read.h	84;"	d
 Encoder	.\Firmware\lib\Encoder\Encoder.h	/^	Encoder(uint8_t pin1, uint8_t pin2) {$/;"	f	class:Encoder
 Encoder	.\Firmware\lib\Encoder\Encoder.h	/^class Encoder$/;"	c
 Encoder_h_	.\Firmware\lib\Encoder\Encoder.h	30;"	d
 Encoder_internal_state_t	.\Firmware\lib\Encoder\Encoder.h	/^} Encoder_internal_state_t;$/;"	t	typeref:struct:__anon3
-FAN	.\Firmware\src\main.cpp	28;"	d	file:
+FAN	.\Firmware\src\main.cpp	29;"	d	file:
 FLOAT	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  FLOAT = 50, DOUBLE = 50,$/;"	m	class:DataType
 FLOAT_GETTER	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  FLOAT_GETTER = 240, DOUBLE_GETTER = 240,$/;"	m	class:DataType
 FULL2WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FULL2WIRE = 2, \/\/\/< 2 wire stepper, 2 motor pins required$/;"	e	enum:AccelStepper::__anon1
@@ -360,9 +361,11 @@ GetLookbackSec	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^int PID_ATun
 GetMode	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^int PID::GetMode(){ return  inAuto ? AUTOMATIC : MANUAL;}$/;"	f	class:PID
 GetNoiseBand	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^double PID_ATune::GetNoiseBand()$/;"	f	class:PID_ATune
 GetOutputStep	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^double PID_ATune::GetOutputStep()$/;"	f	class:PID_ATune
+HAL	.\Firmware\src\HAL\HALmegaatmega2560.cpp	/^namespace HAL{$/;"	n	file:
+HAL	.\Firmware\src\HAL\HALmegaatmega2560.h	/^namespace HAL{$/;"	n
 HALF3WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	HALF3WIRE = 6, \/\/\/< 3 wire half stepper, such as HDD spindle, 3 motor pins required$/;"	e	enum:AccelStepper::__anon1
 HALF4WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	HALF4WIRE = 8  \/\/\/< 4 wire half stepper, 4 motor pins required$/;"	e	enum:AccelStepper::__anon1
-HEATER	.\Firmware\src\main.cpp	29;"	d	file:
+HEATER	.\Firmware\src\main.cpp	30;"	d	file:
 INT16_T	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  INT16_T = 16,$/;"	m	class:DataType
 INT16_T_GETTER	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  INT16_T_GETTER = 216,$/;"	m	class:DataType
 INT32_T	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  INT32_T = 32,$/;"	m	class:DataType
@@ -460,14 +463,14 @@ MAX_SCREENS	.\Firmware\lib\LiquidMenu\src\LiquidMenu_config.h	/^const uint8_t MA
 MAX_VARIABLES	.\Firmware\lib\LiquidMenu\src\LiquidMenu_config.h	/^const uint8_t MAX_VARIABLES = 5; \/\/\/< @note Default: 5$/;"	v
 MIN_SMOOTHING_FACTOR	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    static const int MIN_SMOOTHING_FACTOR = 2;$/;"	m	class:final
 MULTISTEPPER_MAX_STEPPERS	.\Firmware\lib\AccelStepper\MultiStepper.h	14;"	d
-M_EXTRUDER_DIR	.\Firmware\src\main.cpp	47;"	d	file:
-M_EXTRUDER_STEP	.\Firmware\src\main.cpp	46;"	d	file:
-M_LEVEL_DIR	.\Firmware\src\main.cpp	53;"	d	file:
-M_LEVEL_STEP	.\Firmware\src\main.cpp	52;"	d	file:
-M_ROLLER_DIR	.\Firmware\src\main.cpp	50;"	d	file:
-M_ROLLER_STEP	.\Firmware\src\main.cpp	49;"	d	file:
-M_WINDER_DIR	.\Firmware\src\main.cpp	56;"	d	file:
-M_WINDER_STEP	.\Firmware\src\main.cpp	55;"	d	file:
+M_EXTRUDER_DIR	.\Firmware\src\main.cpp	48;"	d	file:
+M_EXTRUDER_STEP	.\Firmware\src\main.cpp	47;"	d	file:
+M_LEVEL_DIR	.\Firmware\src\main.cpp	54;"	d	file:
+M_LEVEL_STEP	.\Firmware\src\main.cpp	53;"	d	file:
+M_ROLLER_DIR	.\Firmware\src\main.cpp	51;"	d	file:
+M_ROLLER_STEP	.\Firmware\src\main.cpp	50;"	d	file:
+M_WINDER_DIR	.\Firmware\src\main.cpp	57;"	d	file:
+M_WINDER_STEP	.\Firmware\src\main.cpp	56;"	d	file:
 MotorInterfaceType	.\Firmware\lib\AccelStepper\AccelStepper.h	/^    } MotorInterfaceType;$/;"	t	class:AccelStepper	typeref:enum:AccelStepper::__anon1
 MultiStepper	.\Firmware\lib\AccelStepper\MultiStepper.cpp	/^MultiStepper::MultiStepper()$/;"	f	class:MultiStepper
 MultiStepper	.\Firmware\lib\AccelStepper\MultiStepper.h	/^class MultiStepper$/;"	c
@@ -503,14 +506,13 @@ PIN_TO_BITMASK	.\Firmware\lib\Encoder\utility\direct_pin_read.h	73;"	d
 PIN_TO_BITMASK	.\Firmware\lib\Encoder\utility\direct_pin_read.h	87;"	d
 PIN_TO_BITMASK	.\Firmware\lib\Encoder\utility\direct_pin_read.h	8;"	d
 PROG_CONST_CHAR_PTR	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  PROG_CONST_CHAR_PTR = 65,$/;"	m	class:DataType
-PROTOTYPE_VERSION	.\Firmware\src\main.cpp	9;"	d	file:
 P_ON_E	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	17;"	d
 P_ON_M	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	16;"	d
 Position	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^enum class Position : uint8_t {$/;"	c	class:DataType
 Pu	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	double Ku, Pu;$/;"	m	class:PID_ATune
 REVERSE	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	15;"	d
 RIGHT	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  RIGHT = 1, NORMAL = 1,$/;"	m	class:DataType::Position
-RS	.\Firmware\src\main.cpp	39;"	d	file:
+RS	.\Firmware\src\main.cpp	40;"	d	file:
 Runtime	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^int PID_ATune::Runtime()$/;"	f	class:PID_ATune
 SCK_pin	.\Firmware\lib\MAX6675_Thermocouple\src\MAX6675_Thermocouple.h	/^		int SCK_pin;$/;"	m	class:final
 SCRAMBLE_INT_ORDER	.\Firmware\lib\Encoder\utility\interrupt_config.h	11;"	d
@@ -559,9 +561,9 @@ SetTunings	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^void PID::SetTunings(
 SetTunings	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^void PID::SetTunings(double Kp, double Ki, double Kd, int POn)$/;"	f	class:PID
 SmoothThermocouple	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.cpp	/^SmoothThermocouple::SmoothThermocouple($/;"	f	class:SmoothThermocouple
 THERMOCOUPLE_H	.\Firmware\lib\MAX6675_Thermocouple\src\Thermocouple.h	18;"	d
-THERMO_CS	.\Firmware\src\main.cpp	32;"	d	file:
-THERMO_SCK	.\Firmware\src\main.cpp	31;"	d	file:
-THERMO_SO	.\Firmware\src\main.cpp	33;"	d	file:
+THERMO_CS	.\Firmware\src\main.cpp	33;"	d	file:
+THERMO_SCK	.\Firmware\src\main.cpp	32;"	d	file:
+THERMO_SO	.\Firmware\src\main.cpp	34;"	d	file:
 Thermocouple	.\Firmware\lib\MAX6675_Thermocouple\src\Thermocouple.h	/^class Thermocouple {$/;"	c
 UINT16_T	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  UINT16_T = 17,$/;"	m	class:DataType
 UINT16_T_GETTER	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  UINT16_T_GETTER = 217,$/;"	m	class:DataType
@@ -569,7 +571,8 @@ UINT32_T	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  UINT32_T = 33,$/;"	m	cla
 UINT32_T_GETTER	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  UINT32_T_GETTER = 233,$/;"	m	class:DataType
 UINT8_T	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  UINT8_T = 9,$/;"	m	class:DataType
 UINT8_T_GETTER	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  UINT8_T_GETTER = 209, BYTE_GETTER = 209,$/;"	m	class:DataType
-WIND_LIM_SWITCH	.\Firmware\src\main.cpp	58;"	d	file:
+VERSION	.\Firmware\src\main.cpp	9;"	d	file:
+WIND_LIM_SWITCH	.\Firmware\src\main.cpp	59;"	d	file:
 YIELD	.\Firmware\lib\AccelStepper\AccelStepper.h	274;"	d
 YIELD	.\Firmware\lib\AccelStepper\AccelStepper.h	276;"	d
 _a0	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_a_hello_menu_8ino-example.html	/^<div class="fragment"><div class="line"><span class="comment">\/*<\/span><\/div><div class="line"><span class="comment"> * LiquidMenu library - hello_menu.ino<\/span><\/div><div class="line"><span class="comment"> *<\/span><\/div><div class="line"><span class="comment"> * This is the get started example demonstrating how to create<\/span><\/div><div class="line"><span class="comment"> * a menu of two screens with dynamically changing information.<\/span><\/div><div class="line"><span class="comment"> *<\/span><\/div><div class="line"><span class="comment"> * The first screen shows some static text. The second screen<\/span><\/div><div class="line"><span class="comment"> * shows the reading of analog pin A1. To display a changing<\/span><\/div><div class="line"><span class="comment"> * variable on the LCD, simply put the variable in the LiquidLine<\/span><\/div><div class="line"><span class="comment"> * constructor. In this case the LiquidLine object is &quot;analogReading_line&quot;<\/span><\/div><div class="line"><span class="comment"> * and the variable is &quot;analogReading&quot;. This line is on the second<\/span><\/div><div class="line"><span class="comment"> * screen. The value of the analog pin is read every second and if<\/span><\/div><div class="line"><span class="comment"> * it has changed the display is updated with the new value. The<\/span><\/div><div class="line"><span class="comment"> * menu cycles through its two screens every five seconds.<\/span><\/div><div class="line"><span class="comment"> *<\/span><\/div><div class="line"><span class="comment"> * The circuit:<\/span><\/div><div class="line"><span class="comment"> * https:\/\/github.com\/VasilKalchev\/LiquidMenu\/blob\/master\/examples\/A_hello_menu\/hello_menu.png<\/span><\/div><div class="line"><span class="comment"> * - LCD RS pin to Arduino pin 12<\/span><\/div><div class="line"><span class="comment"> * - LCD E pin to Arduino pin 11<\/span><\/div><div class="line"><span class="comment"> * - LCD D4 pin to Arduino pin 5<\/span><\/div><div class="line"><span class="comment"> * - LCD D5 pin to Arduino pin 4<\/span><\/div><div class="line"><span class="comment"> * - LCD D6 pin to Arduino pin 3<\/span><\/div><div class="line"><span class="comment"> * - LCD D7 pin to Arduino pin 2<\/span><\/div><div class="line"><span class="comment"> * - LCD R\/W pin to ground<\/span><\/div><div class="line"><span class="comment"> * - LCD VSS pin to ground<\/span><\/div><div class="line"><span class="comment"> * - LCD VDD pin to 5V<\/span><\/div><div class="line"><span class="comment"> * - 10k ohm potentiometer: ends to 5V and ground, wiper to LCD V0<\/span><\/div><div class="line"><span class="comment"> * - 150 ohm resistor from 5V to LCD Anode<\/span><\/div><div class="line"><span class="comment"> * - LCD Cathode to ground<\/span><\/div><div class="line"><span class="comment"> * - ----<\/span><\/div><div class="line"><span class="comment"> * - some analog input to Arduino pin A1 (unconnected also works)<\/span><\/div><div class="line"><span class="comment"> *<\/span><\/div><div class="line"><span class="comment"> * Created July 24, 2016<\/span><\/div><div class="line"><span class="comment"> * by Vasil Kalchev<\/span><\/div><div class="line"><span class="comment"> *<\/span><\/div><div class="line"><span class="comment"> * https:\/\/github.com\/VasilKalchev\/LiquidMenu<\/span><\/div><div class="line"><span class="comment"> *<\/span><\/div><div class="line"><span class="comment"> *\/<\/span><\/div><div class="line"><\/div><div class="line"><span class="comment">\/\/ The LCD library<\/span><\/div><div class="line"><span class="preprocessor">#include &lt;LiquidCrystal.h&gt;<\/span><\/div><div class="line"><span class="comment">\/\/ The menu wrapper library<\/span><\/div><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="_liquid_menu_8h.html">LiquidMenu.h<\/a>&gt;<\/span><\/div><div class="line"><\/div><div class="line"><span class="comment">\/\/ Pin mapping for the display:<\/span><\/div><div class="line"><span class="keyword">const<\/span> byte LCD_RS = 12;<\/div><div class="line"><span class="keyword">const<\/span> byte LCD_E = 11;<\/div><div class="line"><span class="keyword">const<\/span> byte LCD_D4 = 5;<\/div><div class="line"><span class="keyword">const<\/span> byte LCD_D5 = 4;<\/div><div class="line"><span class="keyword">const<\/span> byte LCD_D6 = 3;<\/div><div class="line"><span class="keyword">const<\/span> byte LCD_D7 = 2;<\/div><div class="line"><span class="comment">\/\/LCD R\/W pin to ground<\/span><\/div><div class="line"><span class="comment">\/\/10K potentiometer wiper to VO<\/span><\/div><div class="line">LiquidCrystal lcd(LCD_RS, LCD_E, LCD_D4, LCD_D5, LCD_D6, LCD_D7);<\/div><div class="line"><\/div><div class="line"><span class="comment">\/*<\/span><\/div><div class="line"><span class="comment"> * Variable &#39;analogReading&#39; is later configured to<\/span><\/div><div class="line"><span class="comment"> * be printed on the display. &#39;lastAnalogReading&#39;<\/span><\/div><div class="line"><span class="comment"> * is used to check if the variable has changed.<\/span><\/div><div class="line"><span class="comment"> *\/<\/span><\/div><div class="line"><span class="keyword">const<\/span> byte analogPin = A1;<\/div><div class="line"><span class="keywordtype">unsigned<\/span> <span class="keywordtype">short<\/span> analogReading = 0;<\/div><div class="line"><span class="keywordtype">unsigned<\/span> <span class="keywordtype">short<\/span> lastAnalogReading = 0;<\/div><div class="line"><\/div><div class="line"><span class="comment">\/*<\/span><\/div><div class="line"><span class="comment"> * Variables used for periodic execution of code. The first one is the period<\/span><\/div><div class="line"><span class="comment"> * in milliseconds and the second one is the last time the code executed.<\/span><\/div><div class="line"><span class="comment"> *\/<\/span><\/div><div class="line"><span class="keywordtype">unsigned<\/span> <span class="keywordtype">int<\/span> period_check = 1000;<\/div><div class="line"><span class="keywordtype">unsigned<\/span> <span class="keywordtype">long<\/span> lastMs_check = 0;<\/div><div class="line"><\/div><div class="line"><span class="keywordtype">unsigned<\/span> <span class="keywordtype">int<\/span> period_nextScreen = 5000;<\/div><div class="line"><span class="keywordtype">unsigned<\/span> <span class="keywordtype">long<\/span> lastMs_nextScreen = 0;<\/div><div class="line"><\/div><div class="line"><span class="comment">\/*<\/span><\/div><div class="line"><span class="comment"> * LiquidLine objects represent a single line of text and\/or variables<\/span><\/div><div class="line"><span class="comment"> * on the display. The first two parameters are the column and row from<\/span><\/div><div class="line"><span class="comment"> * which the line starts, the rest of the parameters are the text and\/or<\/span><\/div><div class="line"><span class="comment"> * variables that will be printed on the display. They can be up to four.<\/span><\/div><div class="line"><span class="comment"> *\/<\/span><\/div><div class="line"><span class="comment">\/\/ Here the line is set to column 1, row 0 and will print the passed<\/span><\/div><div class="line"><span class="comment">\/\/ string and the passed variable.<\/span><\/div><div class="line"><a name="_a0"><\/a><a class="code" href="class_liquid_line.html">LiquidLine<\/a> welcome_line1(1, 0, <span class="stringliteral">&quot;LiquidMenu &quot;<\/span>, <a name="a1"><\/a><a class="code" href="_liquid_menu_8h.html#a7189c07575adbb1070c89dcd0ab5e272">LIQUIDMENU_VERSION<\/a>);<\/div><div class="line"><span class="comment">\/\/ Here the column is 3, the row is 1 and the string is &quot;Hello Menu&quot;.<\/span><\/div><div class="line"><a class="code" href="class_liquid_line.html">LiquidLine<\/a> welcome_line2(3, 1, <span class="stringliteral">&quot;Hello Menu&quot;<\/span>);<\/div><div class="line"><\/div><div class="line"><span class="comment">\/*<\/span><\/div><div class="line"><span class="comment"> * LiquidScreen objects represent a single screen. A screen is made of<\/span><\/div><div class="line"><span class="comment"> * one or more LiquidLine objects. Up to four LiquidLine objects can<\/span><\/div><div class="line"><span class="comment"> * be inserted from here, but more can be added later in setup() using<\/span><\/div><div class="line"><span class="comment"> * welcome_screen.add_line(someLine_object);.<\/span><\/div><div class="line"><span class="comment"> *\/<\/span><\/div><div class="line"><span class="comment">\/\/ Here the LiquidLine objects are the two objects from above.<\/span><\/div><div class="line"><a name="_a2"><\/a><a class="code" href="class_liquid_screen.html">LiquidScreen<\/a> welcome_screen(welcome_line1, welcome_line2);<\/div><div class="line"><\/div><div class="line"><span class="comment">\/\/ Here there is not only a text string but also a changing integer variable.<\/span><\/div><div class="line"><a class="code" href="class_liquid_line.html">LiquidLine<\/a> analogReading_line(0, 0, <span class="stringliteral">&quot;Analog: &quot;<\/span>, analogReading);<\/div><div class="line"><a class="code" href="class_liquid_screen.html">LiquidScreen<\/a> secondary_screen(analogReading_line);<\/div><div class="line"><\/div><div class="line"><span class="comment">\/*<\/span><\/div><div class="line"><span class="comment"> * The LiquidMenu object combines the LiquidScreen objects to form the<\/span><\/div><div class="line"><span class="comment"> * menu. Here it is only instantiated and the screens are added later<\/span><\/div><div class="line"><span class="comment"> * using menu.add_screen(someScreen_object);. This object is used to<\/span><\/div><div class="line"><span class="comment"> * control the menu, for example: menu.next_screen(), menu.switch_focus()...<\/span><\/div><div class="line"><span class="comment"> *\/<\/span><\/div><div class="line"><a name="_a3"><\/a><a class="code" href="class_liquid_menu.html">LiquidMenu<\/a> menu(lcd);<\/div><div class="line"><\/div><div class="line"><\/div><div class="line"><span class="keywordtype">void<\/span> setup() {<\/div><div class="line">  Serial.begin(250000);<\/div><div class="line"><\/div><div class="line">  pinMode(analogPin, INPUT);<\/div><div class="line"><\/div><div class="line">  lcd.begin(16, 2);<\/div><div class="line"><\/div><div class="line">  <span class="comment">\/\/ This is the method used to add a screen object to the menu.<\/span><\/div><div class="line">  menu.add_screen(welcome_screen);<\/div><div class="line">  menu.add_screen(secondary_screen);<\/div><div class="line">}<\/div><div class="line"><\/div><div class="line"><span class="keywordtype">void<\/span> loop() {<\/div><div class="line">  <span class="comment">\/\/ Periodic reading of the analog pin.<\/span><\/div><div class="line">  <span class="keywordflow">if<\/span> (millis() - lastMs_check &gt; period_check) {<\/div><div class="line">    lastMs_check = millis();<\/div><div class="line">    analogReading = analogRead(analogPin);<\/div><div class="line">    <span class="comment">\/*<\/span><\/div><div class="line"><span class="comment">     * Check if the analog value have changed<\/span><\/div><div class="line"><span class="comment">     * and update the display if it has.<\/span><\/div><div class="line"><span class="comment">     *\/<\/span><\/div><div class="line">    <span class="keywordflow">if<\/span> (analogReading != lastAnalogReading) {<\/div><div class="line">      lastAnalogReading = analogReading;<\/div><div class="line">      menu.update();<\/div><div class="line">    }<\/div><div class="line">  }<\/div><div class="line"><\/div><div class="line">  <span class="comment">\/\/ Periodic switching to the next screen.<\/span><\/div><div class="line">  <span class="keywordflow">if<\/span> (millis() - lastMs_nextScreen &gt; period_nextScreen) {<\/div><div class="line">    lastMs_nextScreen = millis();<\/div><div class="line">    menu.next_screen();<\/div><div class="line">  }<\/div><div class="line">}<\/div><\/div><!-- fragment --> <\/div><!-- contents -->$/;"	a
@@ -672,6 +675,7 @@ average	.\Firmware\lib\MAX6675_Thermocouple\src\AverageThermocouple.cpp	/^inline
 begin	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::begin(uint8_t cols, uint8_t lines, uint8_t dotsize) {$/;"	f	class:LiquidCrystal
 blankFunction	.\Firmware\src\main.cpp	/^void blankFunction() {$/;"	f
 blink	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::blink() {$/;"	f	class:LiquidCrystal
+blinkLED	.\Firmware\src\HAL\HALmegaatmega2560.cpp	/^  void blinkLED(){$/;"	f	namespace:HAL
 boolFnPtr	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^typedef bool (*boolFnPtr)();$/;"	t
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::call_function(uint8_t number) const {$/;"	f	class:LiquidLine
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^bool LiquidMenu::call_function(uint8_t number) const {$/;"	f	class:LiquidMenu

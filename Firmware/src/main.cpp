@@ -6,11 +6,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#define PROTOTYPE_VERSION "1.0" // Prototype firmware version
+#define VERSION "1.0" // Prototype firmware version
 
 
 // Included Libraries
-#include <Arduino.h>
+#include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
+#include "HAL/HALmegaatmega2560.h"
 #include <AccelStepper.h> // For motors
 #include <LiquidCrystal.h> // For LCD
 #include <LiquidMenu.h> // For menus on the LCD
@@ -133,7 +134,7 @@ LiquidMenu menu(lcd);
 // Create lines for the welcome screen and add them to it
 
 LiquidLine welcomeLine0(0,0, "Flow Extruder");
-LiquidLine welcomeLine1(0,1, "Prototype v", PROTOTYPE_VERSION);
+LiquidLine welcomeLine1(0,1, "Prototype v", VERSION);
 LiquidScreen welcomeScreen(welcomeLine0, welcomeLine1); // Welcome screen
 
 
@@ -256,6 +257,7 @@ void setup() {
 //// LOOP FUNCTION
 
 void loop() {
+  HAL::blinkLED();
 
   if(millis() >= currentTime + 500){
     currentTime = millis();
