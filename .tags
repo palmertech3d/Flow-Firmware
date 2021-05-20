@@ -2986,6 +2986,7 @@ begin	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::b
 blink	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::blink() {$/;"	f	class:LiquidCrystal
 blinkLED	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.cpp	/^  void blinkLED(){$/;"	f	namespace:HAL
 boolFnPtr	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^typedef bool (*boolFnPtr)();$/;"	t
+buffer	.\Firmware\src\main.cpp	/^char *buffer = (char *)malloc(sizeof(char) * 4);$/;"	v
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::call_function(uint8_t number) const {$/;"	f	class:LiquidLine
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^bool LiquidMenu::call_function(uint8_t number) const {$/;"	f	class:LiquidMenu
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^bool LiquidScreen::call_function(uint8_t number) const {$/;"	f	class:LiquidScreen

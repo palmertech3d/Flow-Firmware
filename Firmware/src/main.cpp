@@ -24,6 +24,7 @@
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
 #include "HAL/megaatmega2560/megaatmega2560.h"
 
+
 #include <AccelStepper.h> // For motors
 #include <Encoder.h> // For rotary encoder
 #include <PID_v1.h> // For PID control
@@ -84,6 +85,7 @@ short winderMotorStatus = 0;
 
 //==================================
 
+char *buffer = (char *)malloc(sizeof(char) * 4);
 //// SETUP FUNCTION
 
 void setup() {
@@ -91,25 +93,19 @@ void setup() {
   // Start serial monitor for debugging purposes
   Serial.begin(9600);
 
-
-
   // General pinmodes
   pinMode(FAN, OUTPUT);
   pinMode(HEATER, OUTPUT);
   pinMode(WIND_LIM_SWITCH, INPUT);
 
-
   // Begin initial device setup
-  homeLevelWinder(); // Home the level winder; this function will delay all future action until the winder has been homed
-
+  //homeLevelWinder(); // Home the level winder; this function will delay all future action until the winder has been homed
 
   // Start PID
   pid.SetMode(AUTOMATIC);
 
-
   // PID AutoTune
   pidAuto.SetControlType(1);
-
 
   // Stepper motor setup
   m_extruder.setMaxSpeed(1000);
@@ -118,16 +114,32 @@ void setup() {
   m_roller.setMaxSpeed(1000);
   m_roller.setSpeed(200); // SAMPLE SPEED!!!!
 
-
   m_winder.setMaxSpeed(1000);
   m_winder.setSpeed(50);
+
+  // Serial setup for communication with PC
+  Serial.println("Flow Extruder MK1 running firmware version 1.0.");
+  Serial.println("Type a gcode command.");
 }
 
-//// LOOP FUNCTION
 
+
+
+//// LOOP FUNCTION
 void loop() {
-  HAL::blinkLED();
-  Serial.println("Hi there!");
+  //HAL::blinkLED();
+  if (Serial.available() > 0){
+    Serial.readBytesUntil(13, buffer, 20);
+    Serial.print("Echo: ");
+    //Serial.println(buffer);
+    //*buffer = NULL;
+
+    for (int i = 0; i < sizeof(buffer); i++){
+      Serial.print(buffer[i]);
+    }
+    Serial.println("");
+
+  }
 }
 
 
