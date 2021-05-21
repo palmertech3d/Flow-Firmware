@@ -24,7 +24,7 @@
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
-
+#include "gcode/gcode.h"
 
 #include <AccelStepper.h> // For motors
 #include <Encoder.h> // For rotary encoder
@@ -38,7 +38,6 @@
 
 void blankFunction(); // Used for attaching to LiquidLines to make them focusable, and thus scrollable
 void returnPIDConstants(); // Displays constants for the PID calculated by the PID AutoTune library
-void homeLevelWinder(); // Call to home the level winder; this function will delay all future action until the winder has been homed
 
 //==================================
 
@@ -49,7 +48,6 @@ void homeLevelWinder(); // Call to home the level winder; this function will del
 // Stepper objects
 AccelStepper m_extruder(1, M_EXTRUDER_STEP, M_EXTRUDER_DIR);
 AccelStepper m_roller(1, M_ROLLER_STEP, M_ROLLER_DIR);
-AccelStepper m_level(1, M_LEVEL_STEP, M_LEVEL_DIR);
 AccelStepper m_winder(1, M_WINDER_STEP, M_WINDER_DIR);
 //==================================
 
@@ -87,6 +85,7 @@ short winderMotorStatus = 0;
 //==================================
 
 char *buffer = (char *)malloc(sizeof(char) * 6); // Buffer for serial input
+gcode* gcodeHandler = new gcode();
 
 //// SETUP FUNCTION
 
@@ -95,10 +94,11 @@ void setup() {
   SET_OUTPUT(FAN);
   SET_OUTPUT(HEATER);
   SET_INPUT(WIND_LIM_SWITCH);
+  SET_INPUT_PULLUP(WIND_LIM_SWITCH);
 
 
   // Begin initial device setup
-  homeLevelWinder(); // Home the level winder; this function will delay all future action until the winder has been homed
+  gcodeHandler->G28(); // Home winder
 
   // Start PID
   pid.SetMode(AUTOMATIC);
@@ -144,30 +144,4 @@ void loop() {
    Serial.print("PID Kd = ");
    Serial.println(pidAuto.GetKd());
    return;
- }
-
- // Homes the level winder; this function will delay all future action until the winder has been homed
- void homeLevelWinder(){
-
-   // Get level winder ready to be homed
-   m_level.setCurrentPosition(0);
-   m_level.moveTo(5000); // Get the level winder ready to move fast towards the limit switch
-   m_level.setMaxSpeed(1000);
-   m_level.setSpeed(500);
-   m_level.setAcceleration(1000);
-
-   while(!levelHomed){
-     m_level.run(); // Move the level winder towards the limit switch
-
-     if(digitalRead(WIND_LIM_SWITCH) == LOW){
-       levelHomed = true; // Let us know that the level has been homed
-       m_level.setCurrentPosition(0); // Set our starting pos to 0
-       m_level.moveTo(-1500); // Move the level winder out from the limit switch
-
-     }
-   }
-
-   while(m_level.currentPosition() != -1500){
-     m_level.run();
-     }
  }

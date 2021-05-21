@@ -1286,6 +1286,7 @@ FULL3WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FULL3WIRE = 3, \/\/\/< 3
 FULL4WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^        FULL4WIRE = 4, \/\/\/< 4 wire full stepper, 4 motor pins required$/;"	e	enum:AccelStepper::__anon1
 FUNCTION	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FUNCTION  = 0, \/\/\/< Use the functional interface, implementing your own driver functions (internal use only)$/;"	e	enum:AccelStepper::__anon1
 FinishUp	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^void PID_ATune::FinishUp()$/;"	f	class:PID_ATune
+G28	.\Firmware\src\gcode\gcode.cpp	/^void gcode::G28(){$/;"	f	class:gcode
 GET_COM	.\Firmware\src\HAL\megaatmega2560\fastio.h	162;"	d
 GET_COMA	.\Firmware\src\HAL\megaatmega2560\fastio.h	163;"	d
 GET_COMB	.\Firmware\src\HAL\megaatmega2560\fastio.h	164;"	d
@@ -3095,6 +3096,9 @@ gccDefaultCppFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCppFlags": "-fsynta
 gccErrorLimit	.\Firmware\.gcc-flags.json	/^  "gccErrorLimit": 15,$/;"	f
 gccIncludePaths	.\Firmware\.gcc-flags.json	/^  "gccIncludePaths": "C:\/Flow-Firmware\/Firmware\/include,C:\/Flow-Firmware\/Firmware\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/cores\/arduino,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/variants\/mega,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/EEPROM\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/HID\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SPI\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SoftwareSerial\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/Wire\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include-fixed,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/avr\/include",$/;"	f
 gccSuppressWarnings	.\Firmware\.gcc-flags.json	/^  "gccSuppressWarnings": false$/;"	f
+gcode	.\Firmware\src\gcode\gcode.cpp	/^gcode::gcode(){};$/;"	f	class:gcode
+gcode	.\Firmware\src\gcode\gcode.h	/^class gcode{$/;"	c
+gcodeHandler	.\Firmware\src\main.cpp	/^gcode* gcodeHandler = new gcode();$/;"	v
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
 getYPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getYPos(item)$/;"	f
@@ -3115,7 +3119,7 @@ handleReset	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function hand
 handleZoom	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function handleZoom(evt,direction)$/;"	f
 hide	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^void LiquidScreen::hide(bool hide) {$/;"	f	class:LiquidScreen
 home	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::home()$/;"	f	class:LiquidCrystal
-homeLevelWinder	.\Firmware\src\main.cpp	/^ void homeLevelWinder(){$/;"	f
+homeLevelWinder	.\Firmware\src\gcode\G28.cpp	/^void gcode::homeLevelWinder(){$/;"	f	class:gcode
 inAuto	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
 include	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "include": "PID_v1",$/;"	f
 indexSectionLabels.0	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\searchdata.js	/^  0: "All",$/;"	p
@@ -3700,6 +3704,8 @@ override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    doub
 override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    double readKelvin() override;$/;"	m	class:final
 pOn	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	int pOn;$/;"	m	class:PID
 pOnE	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
+parsegcode	.\Firmware\src\gcode\parser.cpp	/^int parser::parsegcode(char * input){$/;"	f	class:parser
+parser	.\Firmware\src\gcode\parser.h	/^class parser{$/;"	c
 peak1	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 peak2	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 peakCount	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	int peakCount;$/;"	m	class:PID_ATune

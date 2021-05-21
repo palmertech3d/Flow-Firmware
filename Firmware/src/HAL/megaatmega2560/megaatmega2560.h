@@ -3,6 +3,7 @@
 
 #include <util/delay.h>
 #include "fastio.h"
+#include "stepper.h"
 
 namespace HAL{
 
