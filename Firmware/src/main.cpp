@@ -60,7 +60,7 @@ Thermocouple* thermocouple = new MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THE
 
 
 // PID object & variables
-double temperature = -99; // Used to display the temperature on the LCD
+double temperature = -99; // Used to display the temperature to serial
 double newTemp = 0; // A temporary temperature storage place used when reading the thermocouple
 double setTemp = 0;
 double output;
@@ -86,21 +86,19 @@ short winderMotorStatus = 0;
 
 //==================================
 
-char *buffer = (char *)malloc(sizeof(char) * 6);
+char *buffer = (char *)malloc(sizeof(char) * 6); // Buffer for serial input
+
 //// SETUP FUNCTION
 
 void setup() {
+  // Setting output for fan, heater, and winder limit switch
+  SET_OUTPUT(FAN);
+  SET_OUTPUT(HEATER);
+  SET_INPUT(WIND_LIM_SWITCH);
 
-  // Start serial monitor for debugging purposes
-  Serial.begin(9600);
-
-  // General pinmodes
-  pinMode(FAN, OUTPUT);
-  pinMode(HEATER, OUTPUT);
-  pinMode(WIND_LIM_SWITCH, INPUT);
 
   // Begin initial device setup
-  //homeLevelWinder(); // Home the level winder; this function will delay all future action until the winder has been homed
+  homeLevelWinder(); // Home the level winder; this function will delay all future action until the winder has been homed
 
   // Start PID
   pid.SetMode(AUTOMATIC);
@@ -119,58 +117,18 @@ void setup() {
   m_winder.setSpeed(50);
 
   // Serial setup for communication with PC
-  //Serial.println("Flow Extruder MK1 running firmware version 1.0.");
-  //Serial.println("Type a gcode command.");
+  usart0_init(9600);
+  usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
+  usart0_write("Type a gcode command to start.\r\n");
 
-  //usart0_init();
+
 }
 
 
 
-char someChar = 0;
 //// LOOP FUNCTION
 void loop() {
-  //HAL::blinkLED();
 
-  /*
-  if (Serial.available() > 0){
-    Serial.readBytesUntil(13, buffer, 20);
-    Serial.print("Echo: ");
-    //Serial.println(buffer);
-    //*buffer = NULL;
-
-    for (int i = 0; i < sizeof(buffer); i++){
-      Serial.print(buffer[i]);
-    }
-    Serial.println("");
-    ++*buffer = 0;
-
-  }
-  */
-
-  /*
-  if(Serial.available() > 0 && Serial.read() !=13 ){
-    int i = 0;
-
-    while(Serial.read() != 13){
-      if (Serial.available() > 0){
-        buffer[i] = Serial.read();
-        i++;
-        Serial.print("Going!");
-      }
-    }
-
-    for (int i = 0; i < sizeof(buffer); i++){
-      Serial.print(buffer[i]);
-    }
-
-  }
-
-*/
-//someChar = usart0_receive();
-//usart0_transmit('a');
-Serial.println(F_CPU);
-_delay_ms(1000);
 
 }
 
