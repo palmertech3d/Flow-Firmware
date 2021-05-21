@@ -23,6 +23,7 @@
 // Included Libraries
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
 #include "HAL/megaatmega2560/megaatmega2560.h"
+#include "HAL/megaatmega2560/serial.h"
 
 
 #include <AccelStepper.h> // For motors
@@ -85,7 +86,7 @@ short winderMotorStatus = 0;
 
 //==================================
 
-char *buffer = (char *)malloc(sizeof(char) * 4);
+char *buffer = (char *)malloc(sizeof(char) * 6);
 //// SETUP FUNCTION
 
 void setup() {
@@ -118,16 +119,20 @@ void setup() {
   m_winder.setSpeed(50);
 
   // Serial setup for communication with PC
-  Serial.println("Flow Extruder MK1 running firmware version 1.0.");
-  Serial.println("Type a gcode command.");
+  //Serial.println("Flow Extruder MK1 running firmware version 1.0.");
+  //Serial.println("Type a gcode command.");
+
+  //usart0_init();
 }
 
 
 
-
+char someChar = 0;
 //// LOOP FUNCTION
 void loop() {
   //HAL::blinkLED();
+
+  /*
   if (Serial.available() > 0){
     Serial.readBytesUntil(13, buffer, 20);
     Serial.print("Echo: ");
@@ -138,8 +143,35 @@ void loop() {
       Serial.print(buffer[i]);
     }
     Serial.println("");
+    ++*buffer = 0;
 
   }
+  */
+
+  /*
+  if(Serial.available() > 0 && Serial.read() !=13 ){
+    int i = 0;
+
+    while(Serial.read() != 13){
+      if (Serial.available() > 0){
+        buffer[i] = Serial.read();
+        i++;
+        Serial.print("Going!");
+      }
+    }
+
+    for (int i = 0; i < sizeof(buffer); i++){
+      Serial.print(buffer[i]);
+    }
+
+  }
+
+*/
+//someChar = usart0_receive();
+//usart0_transmit('a');
+Serial.println(F_CPU);
+_delay_ms(1000);
+
 }
 
 

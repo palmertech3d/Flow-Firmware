@@ -35,6 +35,8 @@ AccelStepper	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^AccelStepper::AccelS
 AccelStepper	.\Firmware\lib\AccelStepper\AccelStepper.h	/^class AccelStepper$/;"	c
 AccelStepper_h	.\Firmware\lib\AccelStepper\AccelStepper.h	258;"	d
 AverageThermocouple	.\Firmware\lib\MAX6675_Thermocouple\src\AverageThermocouple.cpp	/^AverageThermocouple::AverageThermocouple($/;"	f	class:AverageThermocouple
+BAUD	.\Firmware\src\HAL\megaatmega2560\serial.cpp	4;"	d	file:
+BAUDRATE	.\Firmware\src\HAL\megaatmega2560\serial.cpp	5;"	d	file:
 BOOL	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  BOOL = 1, BOOLEAN = 1,$/;"	m	class:DataType
 BOOLEAN	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  BOOL = 1, BOOLEAN = 1,$/;"	m	class:DataType
 BOOLEAN_GETTER	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  BOOL_GETTER = 201, BOOLEAN_GETTER = 201,$/;"	m	class:DataType
@@ -2650,6 +2652,7 @@ SCRAMBLE_INT_ORDER	.\Firmware\lib\Encoder\utility\interrupt_config.h	11;"	d
 SCRAMBLE_INT_ORDER	.\Firmware\lib\Encoder\utility\interrupt_config.h	8;"	d
 SDA	.\Firmware\src\HAL\megaatmega2560\fastio_1280.h	37;"	d
 SECOND	.\Firmware\src\HAL\macros.h	512;"	d
+SERIALH	.\Firmware\src\HAL\megaatmega2560\serial.h	2;"	d
 SET_BIT_TO	.\Firmware\src\HAL\macros.h	88;"	d
 SET_COM	.\Firmware\src\HAL\megaatmega2560\fastio.h	218;"	d
 SET_COMA	.\Firmware\src\HAL\megaatmega2560\fastio.h	219;"	d
@@ -2986,7 +2989,7 @@ begin	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::b
 blink	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::blink() {$/;"	f	class:LiquidCrystal
 blinkLED	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.cpp	/^  void blinkLED(){$/;"	f	namespace:HAL
 boolFnPtr	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^typedef bool (*boolFnPtr)();$/;"	t
-buffer	.\Firmware\src\main.cpp	/^char *buffer = (char *)malloc(sizeof(char) * 4);$/;"	v
+buffer	.\Firmware\src\main.cpp	/^char *buffer = (char *)malloc(sizeof(char) * 6);$/;"	v
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::call_function(uint8_t number) const {$/;"	f	class:LiquidLine
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^bool LiquidMenu::call_function(uint8_t number) const {$/;"	f	class:LiquidMenu
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^bool LiquidScreen::call_function(uint8_t number) const {$/;"	f	class:LiquidScreen
@@ -3063,7 +3066,6 @@ enable_if	.\Firmware\src\HAL\macros.h	/^    template<bool, typename _Tp = void> 
 enable_if	.\Firmware\src\HAL\macros.h	/^    template<typename _Tp>              struct enable_if<true, _Tp> { typedef _Tp type; };$/;"	s	namespace:Private
 encoder	.\Firmware\lib\Encoder\Encoder.h	/^	Encoder_internal_state_t encoder;$/;"	m	class:Encoder
 enum-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"><\/a>$/;"	a
-execPath	.\Firmware\.gcc-flags.json	/^  "execPath": "C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/bin\/avr-g++.exe",$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^uint8_t extDigitalRead(const int8_t pin) {$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.h	72;"	d
 extDigitalWrite	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^void extDigitalWrite(const int8_t pin, const uint8_t state) {$/;"	f
@@ -3088,11 +3090,6 @@ friends	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\class_liquid_screen.html	/^<t
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_line_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\recognize_type_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
-gccDefaultCFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCFlags": "-fsyntax-only -std=gnu11 -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
-gccDefaultCppFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCppFlags": "-fsyntax-only -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
-gccErrorLimit	.\Firmware\.gcc-flags.json	/^  "gccErrorLimit": 15,$/;"	f
-gccIncludePaths	.\Firmware\.gcc-flags.json	/^  "gccIncludePaths": "C:\/Flow-Firmware\/Firmware\/include,C:\/Flow-Firmware\/Firmware\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/cores\/arduino,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/variants\/mega,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/EEPROM\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/HID\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SPI\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SoftwareSerial\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/Wire\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include-fixed,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/avr\/include",$/;"	f
-gccSuppressWarnings	.\Firmware\.gcc-flags.json	/^  "gccSuppressWarnings": false$/;"	f
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
 getYPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getYPos(item)$/;"	f
@@ -3870,6 +3867,7 @@ smoothe	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.cpp	/^double 
 smoothingFactor	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    int smoothingFactor;$/;"	m	class:final
 softUpdate	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^void LiquidMenu::softUpdate() const {$/;"	f	class:LiquidMenu
 softUpdate	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^void LiquidSystem::softUpdate() const {$/;"	f	class:LiquidSystem
+someChar	.\Firmware\src\main.cpp	/^char someChar = 0;$/;"	v
 speed	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^float AccelStepper::speed()$/;"	f	class:AccelStepper
 spiread	.\Firmware\lib\MAX6675_Thermocouple\src\MAX6675_Thermocouple.cpp	/^byte MAX6675_Thermocouple::spiread() {$/;"	f	class:MAX6675_Thermocouple
 state	.\Firmware\lib\Encoder\Encoder.h	/^	uint8_t                state;$/;"	m	struct:__anon3
@@ -3914,6 +3912,9 @@ updateStripes	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\dynsections.js	/^functi
 url	.\Firmware\lib\Arduino-PID-Library\library.json	/^    "url": "https:\/\/github.com\/br3ttb\/Arduino-PID-Library.git"$/;"	f
 url	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "url": "http:\/\/playground.arduino.cc\/Code\/PIDLibrary",$/;"	f
 url	.\Firmware\lib\Encoder\library.json	/^    "url": "https:\/\/github.com\/PaulStoffregen\/Encoder.git"$/;"	f
+usart0_init	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_init(){$/;"	f
+usart0_receive	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^unsigned char usart0_receive()$/;"	f
+usart0_transmit	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_transmit(unsigned char data){$/;"	f
 validate	.\Firmware\lib\MAX6675_Thermocouple\src\AverageThermocouple.cpp	/^inline A AverageThermocouple::validate(A data, B alternative) {$/;"	f	class:AverageThermocouple
 value	.\Firmware\src\HAL\macros.h	/^    template<typename T, typename U> struct is_same { enum { value = false }; };$/;"	e	enum:Private::is_same::__anon4
 value	.\Firmware\src\HAL\macros.h	/^    template<typename T> struct is_same<T, T> { enum { value = true }; };$/;"	e	enum:Private::is_same::__anon5
