@@ -1286,7 +1286,7 @@ FULL3WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FULL3WIRE = 3, \/\/\/< 3
 FULL4WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^        FULL4WIRE = 4, \/\/\/< 4 wire full stepper, 4 motor pins required$/;"	e	enum:AccelStepper::__anon1
 FUNCTION	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FUNCTION  = 0, \/\/\/< Use the functional interface, implementing your own driver functions (internal use only)$/;"	e	enum:AccelStepper::__anon1
 FinishUp	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^void PID_ATune::FinishUp()$/;"	f	class:PID_ATune
-G28	.\Firmware\src\gcode\gcode.cpp	/^void gcode::G28(){$/;"	f	class:gcode
+G28	.\Firmware\src\gcode\G28.cpp	/^void gcode::G28(){$/;"	f	class:gcode
 GET_COM	.\Firmware\src\HAL\megaatmega2560\fastio.h	162;"	d
 GET_COMA	.\Firmware\src\HAL\megaatmega2560\fastio.h	163;"	d
 GET_COMB	.\Firmware\src\HAL\megaatmega2560\fastio.h	164;"	d
@@ -2989,6 +2989,7 @@ begin	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::b
 blink	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::blink() {$/;"	f	class:LiquidCrystal
 blinkLED	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.cpp	/^  void blinkLED(){$/;"	f	namespace:HAL
 boolFnPtr	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^typedef bool (*boolFnPtr)();$/;"	t
+buffer	.\Firmware\src\gcode\gcode.h	/^    int* buffer;$/;"	m	class:gcode
 buffer	.\Firmware\src\main.cpp	/^char *buffer = (char *)malloc(sizeof(char) * 6); \/\/ Buffer for serial input$/;"	v
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::call_function(uint8_t number) const {$/;"	f	class:LiquidLine
 call_function	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^bool LiquidMenu::call_function(uint8_t number) const {$/;"	f	class:LiquidMenu
@@ -3067,6 +3068,7 @@ enable_if	.\Firmware\src\HAL\macros.h	/^    template<typename _Tp>              
 encoder	.\Firmware\lib\Encoder\Encoder.h	/^	Encoder_internal_state_t encoder;$/;"	m	class:Encoder
 enum-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"><\/a>$/;"	a
 execPath	.\Firmware\.gcc-flags.json	/^  "execPath": "C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/bin\/avr-g++.exe",$/;"	f
+execute_buffer	.\Firmware\src\gcode\gcode.cpp	/^int execute_buffer(){$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^uint8_t extDigitalRead(const int8_t pin) {$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.h	72;"	d
 extDigitalWrite	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^void extDigitalWrite(const int8_t pin, const uint8_t state) {$/;"	f
@@ -3107,6 +3109,7 @@ get_currentScreen	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^LiquidScreen*
 get_focusedLine	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^uint8_t LiquidMenu::get_focusedLine() const {$/;"	f	class:LiquidMenu
 get_focusedLine	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^uint8_t LiquidScreen::get_focusedLine() const {$/;"	f	class:LiquidScreen
 get_focusedLine	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^uint8_t LiquidSystem::get_focusedLine() const {$/;"	f	class:LiquidSystem
+get_gcode	.\Firmware\src\gcode\gcode.cpp	/^int gcode::get_gcode(){$/;"	f	class:gcode
 glyph	.\Firmware\lib\LiquidMenu\src\glyphs.h	/^namespace glyph {$/;"	n
 gtn	.\Firmware\src\HAL\macros.h	/^  inline const char* gtn(T*) {$/;"	f
 handleMouseDown	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function handleMouseDown(evt)$/;"	f
@@ -3119,7 +3122,7 @@ handleReset	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function hand
 handleZoom	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function handleZoom(evt,direction)$/;"	f
 hide	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^void LiquidScreen::hide(bool hide) {$/;"	f	class:LiquidScreen
 home	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::home()$/;"	f	class:LiquidCrystal
-homeLevelWinder	.\Firmware\src\gcode\G28.cpp	/^void gcode::homeLevelWinder(){$/;"	f	class:gcode
+home_level_winder	.\Firmware\src\gcode\G28.cpp	/^void gcode::home_level_winder(){$/;"	f	class:gcode
 inAuto	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
 include	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "include": "PID_v1",$/;"	f
 indexSectionLabels.0	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\searchdata.js	/^  0: "All",$/;"	p
@@ -3704,8 +3707,10 @@ override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    doub
 override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    double readKelvin() override;$/;"	m	class:final
 pOn	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	int pOn;$/;"	m	class:PID
 pOnE	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
-parsegcode	.\Firmware\src\gcode\parser.cpp	/^int parser::parsegcode(char * input){$/;"	f	class:parser
+parsegcode	.\Firmware\src\gcode\parser.cpp	/^int parser::parsegcode(char* input){$/;"	f	class:parser
+parser	.\Firmware\src\gcode\parser.cpp	/^parser::parser(){};$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.h	/^class parser{$/;"	c
+parserHandler	.\Firmware\src\main.cpp	/^parser* parserHandler = new parser();$/;"	v
 peak1	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 peak2	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 peakCount	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	int peakCount;$/;"	m	class:PID_ATune

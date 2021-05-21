@@ -1,5 +1,8 @@
 class parser{
   public:
+    // Default constructor
+    parser();
+
     // Takes in a char* to an inputted string. Returns an int value
     // corresponding to a gcode command.
     // int values:
@@ -8,5 +11,5 @@ class parser{
     int parsegcode(char*);
 
   private:
-    
+
 };

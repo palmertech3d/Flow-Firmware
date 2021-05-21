@@ -27,6 +27,5 @@ void usart0_write(uint8_t* data){
 uint8_t usart0_receive()
 {
     while(!((UCSR0A) & (1<<RXC0)));                   // wait while data is being received
-
     return UDR0;                                   // return 8-bit data
 }
