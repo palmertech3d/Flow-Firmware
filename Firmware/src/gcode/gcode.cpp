@@ -9,7 +9,7 @@ gcode::gcode(){};
 int gcode::get_gcode(){
 
   // first, poll serial for inputs
-  parser* parserHandler = new parser();
+  parser parserHandler;
   char* gcodeInChar = (char *)malloc(sizeof(char) * 4);
 
   char temp = usart0_receive();
@@ -20,22 +20,24 @@ int gcode::get_gcode(){
 
     usart0_write("Echo: ");
     for (int j = 0; j <= i; j++){
-      usart0_write_int(gcodeInChar[j]);
-
+      usart0_write_char(gcodeInChar[j]);
     }
-    usart0_write("\r\n");
+    usart0_write_str("\r\n");
     temp = usart0_receive();
     i++;
   }
 
   gcodeInChar[i] = 0;
+  usart0_write_str("Your inputed number:\r\n");
+  usart0_write_str(gcodeInChar);
+  usart0_write_str("\r\n");
 
   // TODO: then parse this input
-  uint8_t parsedgcode = parserHandler->parsegcode(gcodeInChar);
+  int parsedgcode = parserHandler.parsegcode(gcodeInChar);
 
   // TODO: then put the parsed gcode in the buffer
-  //usart0_write_int(111);
-  usart0_write_int(parsedgcode);
+  
+  //usart0_write_int(parsedgcode);
 
   return 0;
 }

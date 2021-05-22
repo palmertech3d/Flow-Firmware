@@ -86,8 +86,8 @@ short winderMotorStatus = 0;
 //==================================
 
 char *buffer = (char *)malloc(sizeof(char) * 6); // Buffer for serial input
-gcode* gcodeHandler = new gcode();
-parser* parserHandler = new parser();
+gcode gcodeHandler;
+parser parserHandler;
 
 //// SETUP FUNCTION
 
@@ -130,12 +130,11 @@ void setup() {
 
 //// LOOP FUNCTION
 void loop() {
-  //gcodeHandler->get_gcode();
-  //usart0_write("\r\nHere's your answer:");
-  usart0_write_int(parserHandler->parsegcode("G12"));
-  //usart0_write("\r\n");
+  gcodeHandler.get_gcode();
+
   _delay_ms(5000);
 
+  usart0_write_str("\r\n");
 
 
 }

@@ -16,10 +16,23 @@ void usart0_write_int(uint8_t data){
   UDR0 = data;
 }
 
+void usart0_write_char(char data){
+  while (!(UCSR0A & (1<<UDRE0))); // wait while register is free
+  UDR0 = data;
+}
+
 void usart0_write(uint8_t* data){
   int i = 0;
   while (data[i] != 0){
     usart0_write_int(data[i]);
+    i++;
+  }
+}
+
+void usart0_write_str(char* data){
+  int i = 0;
+  while (data[i] != 0){
+    usart0_write_char(data[i]);
     i++;
   }
 }

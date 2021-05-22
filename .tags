@@ -3067,7 +3067,6 @@ enable_if	.\Firmware\src\HAL\macros.h	/^    template<bool, typename _Tp = void> 
 enable_if	.\Firmware\src\HAL\macros.h	/^    template<typename _Tp>              struct enable_if<true, _Tp> { typedef _Tp type; };$/;"	s	namespace:Private
 encoder	.\Firmware\lib\Encoder\Encoder.h	/^	Encoder_internal_state_t encoder;$/;"	m	class:Encoder
 enum-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"><\/a>$/;"	a
-execPath	.\Firmware\.gcc-flags.json	/^  "execPath": "C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/bin\/avr-g++.exe",$/;"	f
 execute_buffer	.\Firmware\src\gcode\gcode.cpp	/^int execute_buffer(){$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^uint8_t extDigitalRead(const int8_t pin) {$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.h	72;"	d
@@ -3093,14 +3092,9 @@ friends	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\class_liquid_screen.html	/^<t
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_line_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\recognize_type_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
-gccDefaultCFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCFlags": "-fsyntax-only -std=gnu11 -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
-gccDefaultCppFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCppFlags": "-fsyntax-only -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
-gccErrorLimit	.\Firmware\.gcc-flags.json	/^  "gccErrorLimit": 15,$/;"	f
-gccIncludePaths	.\Firmware\.gcc-flags.json	/^  "gccIncludePaths": "C:\/Flow-Firmware\/Firmware\/include,C:\/Flow-Firmware\/Firmware\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/cores\/arduino,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/variants\/mega,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/EEPROM\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/HID\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SPI\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SoftwareSerial\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/Wire\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include-fixed,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/avr\/include",$/;"	f
-gccSuppressWarnings	.\Firmware\.gcc-flags.json	/^  "gccSuppressWarnings": false$/;"	f
 gcode	.\Firmware\src\gcode\gcode.cpp	/^gcode::gcode(){};$/;"	f	class:gcode
 gcode	.\Firmware\src\gcode\gcode.h	/^class gcode{$/;"	c
-gcodeHandler	.\Firmware\src\main.cpp	/^gcode* gcodeHandler = new gcode();$/;"	v
+gcodeHandler	.\Firmware\src\main.cpp	/^gcode gcodeHandler;$/;"	v
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
 getYPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getYPos(item)$/;"	f
@@ -3710,7 +3704,7 @@ pOnE	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	cla
 parsegcode	.\Firmware\src\gcode\parser.cpp	/^int parser::parsegcode(char* input){$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.cpp	/^parser::parser(){};$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.h	/^class parser{$/;"	c
-parserHandler	.\Firmware\src\main.cpp	/^parser* parserHandler = new parser();$/;"	v
+parserHandler	.\Firmware\src\main.cpp	/^parser parserHandler;$/;"	v
 peak1	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 peak2	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 peakCount	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	int peakCount;$/;"	m	class:PID_ATune
@@ -3930,7 +3924,9 @@ url	.\Firmware\lib\Encoder\library.json	/^    "url": "https:\/\/github.com\/Paul
 usart0_init	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_init(int baudrate){$/;"	f
 usart0_receive	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^uint8_t usart0_receive()$/;"	f
 usart0_write	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_write(uint8_t* data){$/;"	f
+usart0_write_char	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_write_char(char data){$/;"	f
 usart0_write_int	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_write_int(uint8_t data){$/;"	f
+usart0_write_str	.\Firmware\src\HAL\megaatmega2560\serial.cpp	/^void usart0_write_str(char* data){$/;"	f
 validate	.\Firmware\lib\MAX6675_Thermocouple\src\AverageThermocouple.cpp	/^inline A AverageThermocouple::validate(A data, B alternative) {$/;"	f	class:AverageThermocouple
 value	.\Firmware\src\HAL\macros.h	/^    template<typename T, typename U> struct is_same { enum { value = false }; };$/;"	e	enum:Private::is_same::__anon4
 value	.\Firmware\src\HAL\macros.h	/^    template<typename T> struct is_same<T, T> { enum { value = true }; };$/;"	e	enum:Private::is_same::__anon5
