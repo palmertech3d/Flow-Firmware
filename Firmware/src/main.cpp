@@ -121,7 +121,7 @@ void setup() {
   // Serial setup for communication with PC
   usart0_init(9600);
   usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
-  usart0_write("Type a gcode command to start.\r\n");
+  usart0_write("Type a gcode command to start.\r\n> ");
 
 }
 
@@ -131,10 +131,9 @@ void setup() {
 //// LOOP FUNCTION
 void loop() {
   gcodeHandler.get_gcode();
+  _delay_ms(1000);
 
-  _delay_ms(5000);
-
-  usart0_write_str("\r\n");
+  usart0_write_str("\r\n> ");
 
 
 }
