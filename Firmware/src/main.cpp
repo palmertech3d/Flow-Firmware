@@ -122,13 +122,20 @@ void setup() {
   usart0_init(9600);
   usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
   usart0_write("Type a gcode command to start.\r\n");
-  //gcodeHandler->get_gcode();
+
 }
+
 
 
 
 //// LOOP FUNCTION
 void loop() {
+  //gcodeHandler->get_gcode();
+  //usart0_write("\r\nHere's your answer:");
+  usart0_write_int(parserHandler->parsegcode("G12"));
+  //usart0_write("\r\n");
+  _delay_ms(5000);
+
 
 
 }

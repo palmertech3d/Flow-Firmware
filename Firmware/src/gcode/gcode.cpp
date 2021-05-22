@@ -1,4 +1,6 @@
 #include "gcode.h"
+
+#include <stdlib.h>
 #include "../HAL/megaatmega2560/serial.h"
 #include "parser.h"
 
@@ -8,22 +10,34 @@ int gcode::get_gcode(){
 
   // first, poll serial for inputs
   parser* parserHandler = new parser();
-  char* gcodeInChar = 0;
-  int i = 0;
+  char* gcodeInChar = (char *)malloc(sizeof(char) * 4);
 
-  while (usart0_receive() != 13){
-    gcodeInChar[i] = usart0_receive();
+  char temp = usart0_receive();
+  int i = 0;
+  while(temp != 13){
+
+    gcodeInChar[i] = temp;
+
+    usart0_write("Echo: ");
+    for (int j = 0; j <= i; j++){
+      usart0_write_int(gcodeInChar[j]);
+
+    }
+    usart0_write("\r\n");
+    temp = usart0_receive();
     i++;
   }
 
+  gcodeInChar[i] = 0;
 
   // TODO: then parse this input
-  int parsedgcode = parserHandler->parsegcode(gcodeInChar);
+  uint8_t parsedgcode = parserHandler->parsegcode(gcodeInChar);
 
   // TODO: then put the parsed gcode in the buffer
+  //usart0_write_int(111);
   usart0_write_int(parsedgcode);
 
-  return 1;
+  return 0;
 }
 
 int execute_buffer(){
