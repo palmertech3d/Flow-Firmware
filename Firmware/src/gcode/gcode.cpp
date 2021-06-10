@@ -10,7 +10,9 @@ int gcode::get_gcode(){
 
   // first, poll serial for inputs
   parser* parserHandler = new parser();
-  char* gcodeInChar = (char *)malloc(sizeof(char) * 4);
+  char* gcodeInChar = (char *)malloc(sizeof(char) * 4); // 4 corresponds to the
+                                                        // max # of chars a
+                                                        // gcode command can be
 
   char temp = usart0_receive();
   int i = 0;
@@ -30,7 +32,7 @@ int gcode::get_gcode(){
 
   gcodeInChar[i] = 0;
 
-  // TODO: then parse this input
+  // then parse this input
   uint8_t parsedgcode = parserHandler->parsegcode(gcodeInChar);
 
   // TODO: then put the parsed gcode in the buffer

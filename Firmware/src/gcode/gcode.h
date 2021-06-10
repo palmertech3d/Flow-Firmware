@@ -21,6 +21,7 @@ class gcode{
     // G28 Functions
     void home_level_winder();
 
+    // gcode buffer/queue
     int* buffer;
 
 };

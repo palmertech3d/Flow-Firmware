@@ -3100,7 +3100,7 @@ gccIncludePaths	.\Firmware\.gcc-flags.json	/^  "gccIncludePaths": "C:\/Flow-Firm
 gccSuppressWarnings	.\Firmware\.gcc-flags.json	/^  "gccSuppressWarnings": false$/;"	f
 gcode	.\Firmware\src\gcode\gcode.cpp	/^gcode::gcode(){};$/;"	f	class:gcode
 gcode	.\Firmware\src\gcode\gcode.h	/^class gcode{$/;"	c
-gcodeHandler	.\Firmware\src\main.cpp	/^gcode* gcodeHandler = new gcode();$/;"	v
+gcodeHandler	.\Firmware\src\main.cpp	/^gcode gcodeHandler;$/;"	v
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
 getYPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getYPos(item)$/;"	f

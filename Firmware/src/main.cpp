@@ -24,8 +24,8 @@
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
-#include "gcode/gcode.h"
-#include "gcode/parser.h"
+#include "gcode/gcode.h" // gcode library
+#include "gcode/parser.h" // parser library
 
 #include <AccelStepper.h> // For motors
 #include <Encoder.h> // For rotary encoder
@@ -86,7 +86,7 @@ short winderMotorStatus = 0;
 //==================================
 
 char *buffer = (char *)malloc(sizeof(char) * 6); // Buffer for serial input
-gcode* gcodeHandler = new gcode();
+gcode gcodeHandler;
 parser* parserHandler = new parser();
 
 //// SETUP FUNCTION
@@ -100,7 +100,7 @@ void setup() {
 
 
   // Begin initial device setup
-  //gcodeHandler->G28(); // Home winder
+  //gcodeHandler.G28(); // Home winder
 
   // Start PID
   pid.SetMode(AUTOMATIC);
@@ -130,10 +130,9 @@ void setup() {
 
 //// LOOP FUNCTION
 void loop() {
-  //gcodeHandler->get_gcode();
-  //usart0_write("\r\nHere's your answer:");
+  gcodeHandler.get_gcode();
   usart0_write_int(parserHandler->parsegcode("G12"));
-  //usart0_write("\r\n");
+  
   _delay_ms(5000);
 
 
