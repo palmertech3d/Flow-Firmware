@@ -2977,6 +2977,8 @@ add_line	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^bool LiquidScreen::add
 add_menu	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^bool LiquidSystem::add_menu(LiquidMenu &liquidMenu) {$/;"	f	class:LiquidSystem
 add_screen	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^bool LiquidMenu::add_screen(LiquidScreen &liquidScreen) {$/;"	f	class:LiquidMenu
 add_variable	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  bool add_variable(T &variable) {$/;"	f	class:DataType::LiquidLine
+argChar	.\Firmware\src\gcode\parser.h	/^  char argChar[3]; \/\/ Letters for up to three arguments$/;"	m	struct:gcodeCommand
+argInt	.\Firmware\src\gcode\parser.h	/^  int argInt[3]; \/\/ Values for up to three arguments$/;"	m	struct:gcodeCommand
 attachInterrupt	.\Firmware\lib\Encoder\Encoder.h	964;"	d
 attachInterrupt	.\Firmware\lib\Encoder\utility\interrupt_config.h	6;"	d
 attach_function	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::attach_function(uint8_t number, void (*function)(void)) {$/;"	f	class:LiquidLine
@@ -3012,7 +3014,7 @@ check	.\Firmware\lib\LiquidMenu\examples\H_system_menu\Button.h	/^	bool check(bo
 check	.\Firmware\lib\LiquidMenu\examples\J_scrolling_menu\Button.h	/^	bool check(bool triggerState = LOW) {$/;"	f	class:Button
 clear	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::clear()$/;"	f	class:LiquidCrystal
 command	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^inline void LiquidCrystal::command(uint8_t value) {$/;"	f	class:LiquidCrystal
-command	.\Firmware\src\gcode\parser.h	/^  uint8_t command; \/\/ Number of the gcode command$/;"	m	struct:gcodeCommand
+command	.\Firmware\src\gcode\parser.h	/^  int command; \/\/ Number of the gcode command$/;"	m	struct:gcodeCommand
 computeNewSpeed	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::computeNewSpeed()$/;"	f	class:AccelStepper
 constcharPtrFnPtr	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^typedef const char * (*constcharPtrFnPtr)();$/;"	t
 contains	.\Firmware\src\HAL\macros.h	/^    constexpr bool contains(const char *str, const char ch) {$/;"	f	namespace:CompileTimeString
@@ -3026,6 +3028,7 @@ currentPosition	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^long AccelStepper
 cursor	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::cursor() {$/;"	f	class:LiquidCrystal
 cursorGrab	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^var cursorGrab = ' url("data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAlQTFRFAAAA\/\/\/\/\/\/\/\/c3ilYwAAAAN0Uk5T\/\/8A18oNQQAAAD1JREFUeNp0zlEKACAIA9Bt9z90bZBZkQj29qFBEuBOzQHSnWTTyckEfqUuZgFvslH4ch3qLCO\/Kr8cAgwATw4Ax6XRCcoAAAAASUVORK5CYII="), move';$/;"	v
 customFocus	.\Firmware\lib\LiquidMenu\src\glyphs.h	/^uint8_t customFocus[8] = {$/;"	m	namespace:glyph
+cutString	.\Firmware\src\gcode\parser.cpp	/^char* parser::cutString(char* input, int index){$/;"	f	class:parser
 define-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu__config_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"><\/a>$/;"	a
 define-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu__debug_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"><\/a>$/;"	a
 define-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\messages_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"><\/a>$/;"	a
@@ -3104,6 +3107,7 @@ gcode	.\Firmware\src\gcode\gcode.h	/^class gcode{$/;"	c
 gcodeCommand	.\Firmware\src\gcode\parser.h	/^struct gcodeCommand{$/;"	s
 gcodeHandler	.\Firmware\src\main.cpp	/^gcode gcodeHandler;$/;"	v
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
+getIntFromString	.\Firmware\src\gcode\parser.cpp	/^int parser::getIntFromString(char* input, unsigned int &index, int numPlaces){$/;"	f	class:parser
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
 getYPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getYPos(item)$/;"	f
 get_currentScreen	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^LiquidScreen* LiquidMenu::get_currentScreen() const {$/;"	f	class:LiquidMenu
@@ -3711,6 +3715,7 @@ override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    doub
 pOn	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	int pOn;$/;"	m	class:PID
 pOnE	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
 parsegcode	.\Firmware\src\gcode\parser.cpp	/^int parser::parsegcode(char* input){$/;"	f	class:parser
+parsegcode2	.\Firmware\src\gcode\parser.cpp	/^gcodeCommand parser::parsegcode2(char* input){$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.cpp	/^parser::parser(){};$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.h	/^class parser{$/;"	c
 parserHandler	.\Firmware\src\main.cpp	/^parser parserHandler;$/;"	v

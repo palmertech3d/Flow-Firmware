@@ -130,10 +130,22 @@ void setup() {
 
 //// LOOP FUNCTION
 void loop() {
-  gcodeHandler.get_gcode();
-  usart0_write_int(parserHandler.parsegcode("G12"));
 
-  _delay_ms(5000);
+  /*
+  //gcodeHandler.get_gcode()
+  gcodeCommand aTestGcode = parserHandler.parsegcode2("G12 T60");
+
+
+  usart0_write("Your input:" );
+  usart0_write_char(aTestGcode.letter);
+  usart0_write_char(aTestGcode.command);
+  usart0_write_char(aTestGcode.argChar[0]);
+  usart0_write_char(aTestGcode.argInt[0]);
+  */
+
+  usart0_write(parserHandler.cutString("Hello world!", 2));
+
+  _delay_ms(2000);
 
   usart0_write_str("\r\n> ");
 
