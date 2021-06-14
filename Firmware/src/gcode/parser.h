@@ -1,5 +1,12 @@
 #include <stdio.h>
 
+// A struct to hold a gcode command
+struct gcodeCommand{
+  char letter; // G or an M
+  uint8_t command; // Number of the gcode command
+
+};
+
 class parser{
   public:
     // Default constructor

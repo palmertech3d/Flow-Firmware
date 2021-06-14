@@ -3012,6 +3012,7 @@ check	.\Firmware\lib\LiquidMenu\examples\H_system_menu\Button.h	/^	bool check(bo
 check	.\Firmware\lib\LiquidMenu\examples\J_scrolling_menu\Button.h	/^	bool check(bool triggerState = LOW) {$/;"	f	class:Button
 clear	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::clear()$/;"	f	class:LiquidCrystal
 command	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^inline void LiquidCrystal::command(uint8_t value) {$/;"	f	class:LiquidCrystal
+command	.\Firmware\src\gcode\parser.h	/^  uint8_t command; \/\/ Number of the gcode command$/;"	m	struct:gcodeCommand
 computeNewSpeed	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::computeNewSpeed()$/;"	f	class:AccelStepper
 constcharPtrFnPtr	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^typedef const char * (*constcharPtrFnPtr)();$/;"	t
 contains	.\Firmware\src\HAL\macros.h	/^    constexpr bool contains(const char *str, const char ch) {$/;"	f	namespace:CompileTimeString
@@ -3067,6 +3068,7 @@ enable_if	.\Firmware\src\HAL\macros.h	/^    template<bool, typename _Tp = void> 
 enable_if	.\Firmware\src\HAL\macros.h	/^    template<typename _Tp>              struct enable_if<true, _Tp> { typedef _Tp type; };$/;"	s	namespace:Private
 encoder	.\Firmware\lib\Encoder\Encoder.h	/^	Encoder_internal_state_t encoder;$/;"	m	class:Encoder
 enum-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"><\/a>$/;"	a
+execPath	.\Firmware\.gcc-flags.json	/^  "execPath": "C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/bin\/avr-g++.exe",$/;"	f
 execute_buffer	.\Firmware\src\gcode\gcode.cpp	/^int execute_buffer(){$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^uint8_t extDigitalRead(const int8_t pin) {$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.h	72;"	d
@@ -3092,8 +3094,14 @@ friends	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\class_liquid_screen.html	/^<t
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_line_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\recognize_type_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
+gccDefaultCFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCFlags": "-fsyntax-only -std=gnu11 -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
+gccDefaultCppFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCppFlags": "-fsyntax-only -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
+gccErrorLimit	.\Firmware\.gcc-flags.json	/^  "gccErrorLimit": 15,$/;"	f
+gccIncludePaths	.\Firmware\.gcc-flags.json	/^  "gccIncludePaths": "C:\/Flow-Firmware\/Firmware\/include,C:\/Flow-Firmware\/Firmware\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/cores\/arduino,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/variants\/mega,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/EEPROM\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/HID\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SPI\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/SoftwareSerial\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/framework-arduino-avr\/libraries\/Wire\/src,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/lib\/gcc\/avr\/7.3.0\/include-fixed,C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/avr\/include",$/;"	f
+gccSuppressWarnings	.\Firmware\.gcc-flags.json	/^  "gccSuppressWarnings": false$/;"	f
 gcode	.\Firmware\src\gcode\gcode.cpp	/^gcode::gcode(){};$/;"	f	class:gcode
 gcode	.\Firmware\src\gcode\gcode.h	/^class gcode{$/;"	c
+gcodeCommand	.\Firmware\src\gcode\parser.h	/^struct gcodeCommand{$/;"	s
 gcodeHandler	.\Firmware\src\main.cpp	/^gcode gcodeHandler;$/;"	v
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
@@ -3645,6 +3653,7 @@ lastTime	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	unsigned long lastTime;$
 lastTime	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, peak2, lastTime;$/;"	m	class:PID_ATune
 leftFocus	.\Firmware\lib\LiquidMenu\src\glyphs.h	/^uint8_t leftFocus[8] = {$/;"	m	namespace:glyph
 leftToRight	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::leftToRight(void) {$/;"	f	class:LiquidCrystal
+letter	.\Firmware\src\gcode\parser.h	/^  char letter; \/\/ G or an M$/;"	m	struct:gcodeCommand
 letter_l	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\classes.html	/^<tr><td rowspan="2" valign="bottom"><a name="letter_l"><\/a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;l&#160;&#160;<\/div><\/td><\/tr><\/table>$/;"	a
 levelHomed	.\Firmware\src\main.cpp	/^bool levelHomed = false; \/\/ Set to true when level winder has been homed$/;"	v
 levelMotorStatus	.\Firmware\src\main.cpp	/^short levelMotorStatus = 0;$/;"	v

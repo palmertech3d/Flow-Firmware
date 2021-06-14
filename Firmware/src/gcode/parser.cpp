@@ -12,10 +12,7 @@ int parser::parsegcode(char* input){
   }else if (input[0] == 'M' || input[0] == 'm'){
     output[0] = '2';
   }else{
-<<<<<<< HEAD
-    usart0_write("Error with parsing first gcode letter");
-=======
->>>>>>> 156697314cddd2ad98465479b04dbcb4eca28b9e
+    usart0_write("Not a gcode command.");
     return 0;
   }
   if (input[2] == 0){ // if input is 2 chars long
@@ -32,10 +29,7 @@ int parser::parsegcode(char* input){
     output[3] = input[3];
   }
 
-<<<<<<< HEAD
-=======
   output[4] = 0; // Set the string termination byte
->>>>>>> 156697314cddd2ad98465479b04dbcb4eca28b9e
   int outputInt;
   sscanf(output, "%d", &outputInt);
   return outputInt;
