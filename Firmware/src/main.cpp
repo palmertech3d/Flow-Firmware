@@ -133,19 +133,7 @@ void loop() {
 
 
   gcodeHandler.get_gcode();
-  //gcodeCommand aTestGcode = parserHandler.parsegcode2("G28");
-
-  /*
-  if (aTestGcode.letter != -1){
-    usart0_write("Your input:" );
-    usart0_write_char(aTestGcode.letter);
-    usart0_write_int(aTestGcode.command);
-    usart0_write_char(aTestGcode.argChar[0]);
-    usart0_write_char(aTestGcode.argInt[0]);
-  }else{
-    usart0_write_str("Your input was invalid.");
-  }
-  */
+  
 
   _delay_ms(2000);
 

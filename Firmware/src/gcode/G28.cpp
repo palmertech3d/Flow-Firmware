@@ -3,13 +3,9 @@
 #include "gcode.h"
 
 // main G28 function: call this to execute G28
+// Homes the level winder; this function will delay all future action
+// until the winder has been homed
 void gcode::G28(){
-  gcode::home_level_winder();
-}
-
-
-// Homes the level winder; this function will delay all future action until the winder has been homed
-void gcode::home_level_winder(){
   bool levelHomed = 0;
   AccelStepper m_level(1, M_LEVEL_STEP, M_LEVEL_DIR);
   // Get level winder ready to be homed

@@ -1,3 +1,7 @@
+#ifndef GCODEH
+#define GCODEH
+
+#include "parser.h"
 class gcode{
   public:
     // constructor
@@ -8,9 +12,17 @@ class gcode{
     // returns 1 if invalid gcode entered
     int get_gcode();
 
-    // executes the next gcode due to run in the buffer
-    // returns 1 if gcode successfully executed
-    // returns 0 if gcode failed to execute
+
+    // executes the gcode command specified by command
+    // returns 0 if command executed successfully
+    // returns 1 if command executed unsuccessfully
+    int execute_gcode(gcodeCommand command);
+
+
+    // decides what command is next to be executed in the buffer,
+    // then calls execute_gcode to execute it
+    // returns 0 if buffer executed successfully
+    // returns 1 if buffer executed unsuccessfully
     int execute_buffer();
 
 
@@ -18,10 +30,9 @@ class gcode{
     void G28();
 
   private:
-    // G28 Functions
-    void home_level_winder();
-
     // gcode buffer/queue
     int* buffer;
 
 };
+
+#endif // GCODEH

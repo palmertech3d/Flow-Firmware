@@ -8,42 +8,7 @@
 
 parser::parser(){};
 
-int parser::parsegcode(char* input){
-  char* output = (char*)malloc(sizeof(char) * 4);
-
-  if (input[0] == 'G' || input[0] == 'g'){
-    output[0] = '1';
-  }else if (input[0] == 'M' || input[0] == 'm'){
-    output[0] = '2';
-  }else{
-    return 0;
-  }
-  if (input[2] == 0){ // if input is 2 chars long
-    output[1] = '0';
-    output[2] = '0';
-    output[3] = input[1];
-  }else if (input[3] == 0){ // If input is 3 chars long
-    output[1] = '0';
-    output[2] = input[1];
-    output[3] = input[2];
-  }else{ // If input is 4 chars or longer
-    output[1] = input[1];
-    output[2] = input[2];
-    output[3] = input[3];
-  }
-
-  output[4] = 0; // Set the string termination byte
-  int outputInt;
-  sscanf(output, "%d", &outputInt);
-  return outputInt;
-
-}
-
-
-
-
-
-gcodeCommand parser::parsegcode2(char* input){
+gcodeCommand parser::parsegcode(char* input){
   gcodeCommand output; // The gcodeCommand object to return
   unsigned int index = 0; // The index used to iterate through the user's input
 
@@ -68,7 +33,6 @@ gcodeCommand parser::parsegcode2(char* input){
 
   index++; // Move to the second character in input
 
-
   // Get the command number that should occur directly after the letter
   char subString[strlen(input) - index]; // Create a substring
   cutString(input, subString, &index); // Fill the substring
@@ -89,35 +53,60 @@ gcodeCommand parser::parsegcode2(char* input){
   if (input[index] == ' '){
     index++;
   }else if (input[index] == '\0'){
+    // Reset all args if no args are passed
+    output.argChar[0] = 0;
+    output.argInt[0] = 0;
+    output.argChar[1] = 0;
+    output.argInt[1] = 0;
     return output;
   }else{
     output.letter = -1; // Return invalid
+    usart0_write_str("Erroring here");
     return output;
   }
 
-  if (input[index] > 64 && input[index] < 123){ // If input[index] is a letter
-    output.argChar[0] = tolower(input[index]);
-  }else{
-    output.letter = -1; // Return invalid
-    return output;
+  for (int i = 0; i < 2; i++){
+    if (input[index] > 64 && input[index] < 123){ // If input[index] is a letter
+      output.argChar[i] = tolower(input[index]);
+    }else{
+      output.letter = -1; // Return invalid
+      return output;
+    }
+
+    index++;
+
+    cutString(input, subString, &index); // Fill the substring
+    int temp2 = getIntFromString(subString, 4);
+
+    // If an invalid form was found in getIntFromString, return invalid
+    if(output.argInt[i] == -1){
+      output.letter = -1;
+      return output;
+    }
+    output.argInt[i] = temp2; // Get the data from the substring
+
+    // Check for a space or a null byte.
+    // If a space, move to get arguments.
+    // If a null byte, return output.
+    // If anything else, return invalid
+    if (input[index] == ' '){
+      index++;
+    }else if (input[index] == '\0'){
+      if (i == 0){
+        output.argChar[1] = 0;
+        output.argInt[1] = 0;
+      }
+      return output;
+    }else{
+      output.letter = -1; // Return invalid
+      usart0_write_str("Erroring here");
+      return output;
+    }
   }
-
-  index++;
-
-  cutString(input, subString, &index); // Fill the substring
-  int temp2 = getIntFromString(subString, 4);
-
-  // If an invalid form was found in getIntFromString, return invalid
-  if(output.argInt[0] == -1){
-    output.letter = -1;
-    return output;
-  }
-
-  output.argInt[0] = temp2; // Get the data from the substring
   return output;
-
 }
 
+// TODO: Replace this function with a simple implementation of atoi()
 int parser::getIntFromString(char* input, int numPlaces){
   char outputStr[numPlaces + 1];
   int j = 0;
@@ -131,12 +120,10 @@ int parser::getIntFromString(char* input, int numPlaces){
       return -1;
     }
   }
-
   outputStr[j] = '\0';
   int output = atoi(outputStr);
   return output;
 }
-
 
 
 void parser::cutString(char* input, char* output, int* index){
@@ -149,6 +136,7 @@ void parser::cutString(char* input, char* output, int* index){
   }
   output[j] = '\0';
 }
+
 
 bool parser::isNum(char data){
   if(data > 47 && data < 58){return true;}

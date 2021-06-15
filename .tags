@@ -1287,6 +1287,7 @@ FULL4WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^        FULL4WIRE = 4, \/
 FUNCTION	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FUNCTION  = 0, \/\/\/< Use the functional interface, implementing your own driver functions (internal use only)$/;"	e	enum:AccelStepper::__anon1
 FinishUp	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^void PID_ATune::FinishUp()$/;"	f	class:PID_ATune
 G28	.\Firmware\src\gcode\G28.cpp	/^void gcode::G28(){$/;"	f	class:gcode
+GCODEH	.\Firmware\src\gcode\gcode.h	2;"	d
 GET_COM	.\Firmware\src\HAL\megaatmega2560\fastio.h	162;"	d
 GET_COMA	.\Firmware\src\HAL\megaatmega2560\fastio.h	163;"	d
 GET_COMB	.\Firmware\src\HAL\megaatmega2560\fastio.h	164;"	d
@@ -1651,6 +1652,7 @@ PA7_RPORT	.\Firmware\src\HAL\megaatmega2560\fastio_1280.h	622;"	d
 PA7_RPORT	.\Firmware\src\HAL\megaatmega2560\pins.h	574;"	d
 PA7_WPORT	.\Firmware\src\HAL\megaatmega2560\fastio_1280.h	623;"	d
 PA7_WPORT	.\Firmware\src\HAL\megaatmega2560\pins.h	575;"	d
+PARSERH	.\Firmware\src\gcode\parser.h	2;"	d
 PB0	.\Firmware\src\HAL\megaatmega2560\fastio_1280.h	627;"	d
 PB0	.\Firmware\src\HAL\megaatmega2560\pins.h	579;"	d
 PB0_DDR	.\Firmware\src\HAL\megaatmega2560\fastio_1280.h	631;"	d
@@ -3072,7 +3074,8 @@ enable_if	.\Firmware\src\HAL\macros.h	/^    template<typename _Tp>              
 encoder	.\Firmware\lib\Encoder\Encoder.h	/^	Encoder_internal_state_t encoder;$/;"	m	class:Encoder
 enum-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"><\/a>$/;"	a
 execPath	.\Firmware\.gcc-flags.json	/^  "execPath": "C:\/Users\/Cameron Palmer\/.platformio\/packages\/toolchain-atmelavr\/bin\/avr-g++.exe",$/;"	f
-execute_buffer	.\Firmware\src\gcode\gcode.cpp	/^int execute_buffer(){$/;"	f
+execute_buffer	.\Firmware\src\gcode\gcode.cpp	/^int gcode::execute_buffer(){$/;"	f	class:gcode
+execute_gcode	.\Firmware\src\gcode\gcode.cpp	/^int gcode::execute_gcode(gcodeCommand command){$/;"	f	class:gcode
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^uint8_t extDigitalRead(const int8_t pin) {$/;"	f
 extDigitalRead	.\Firmware\src\HAL\megaatmega2560\fastio.h	72;"	d
 extDigitalWrite	.\Firmware\src\HAL\megaatmega2560\fastio.cpp	/^void extDigitalWrite(const int8_t pin, const uint8_t state) {$/;"	f
@@ -3128,7 +3131,6 @@ handleReset	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function hand
 handleZoom	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function handleZoom(evt,direction)$/;"	f
 hide	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^void LiquidScreen::hide(bool hide) {$/;"	f	class:LiquidScreen
 home	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::home()$/;"	f	class:LiquidCrystal
-home_level_winder	.\Firmware\src\gcode\G28.cpp	/^void gcode::home_level_winder(){$/;"	f	class:gcode
 inAuto	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
 include	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "include": "PID_v1",$/;"	f
 indexSectionLabels.0	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\searchdata.js	/^  0: "All",$/;"	p
@@ -3715,8 +3717,7 @@ override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    doub
 override	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    double readKelvin() override;$/;"	m	class:final
 pOn	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	int pOn;$/;"	m	class:PID
 pOnE	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
-parsegcode	.\Firmware\src\gcode\parser.cpp	/^int parser::parsegcode(char* input){$/;"	f	class:parser
-parsegcode2	.\Firmware\src\gcode\parser.cpp	/^gcodeCommand parser::parsegcode2(char* input){$/;"	f	class:parser
+parsegcode	.\Firmware\src\gcode\parser.cpp	/^gcodeCommand parser::parsegcode(char* input){$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.cpp	/^parser::parser(){};$/;"	f	class:parser
 parser	.\Firmware\src\gcode\parser.h	/^class parser{$/;"	c
 parserHandler	.\Firmware\src\main.cpp	/^parser parserHandler;$/;"	v
