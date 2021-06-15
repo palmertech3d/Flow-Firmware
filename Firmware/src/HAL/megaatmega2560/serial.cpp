@@ -29,9 +29,9 @@ void usart0_write(uint8_t* data){
   }
 }
 
-void usart0_write_str(char* data){
+void usart0_write_str(const char* data){
   int i = 0;
-  while (data[i] != 0){
+  while (data[i] != '\0'){
     usart0_write_char(data[i]);
     i++;
   }

@@ -16,7 +16,6 @@ int parser::parsegcode(char* input){
   }else if (input[0] == 'M' || input[0] == 'm'){
     output[0] = '2';
   }else{
-    usart0_write("Not a gcode command.");
     return 0;
   }
   if (input[2] == 0){ // if input is 2 chars long
@@ -40,9 +39,13 @@ int parser::parsegcode(char* input){
 
 }
 
+
+
+
+
 gcodeCommand parser::parsegcode2(char* input){
-  gcodeCommand output;
-  unsigned int index = 0;
+  gcodeCommand output; // The gcodeCommand object to return
+  unsigned int index = 0; // The index used to iterate through the user's input
 
   // First character: Should be an m or a g, case doesn't matter
   switch (input[index]){
@@ -62,79 +65,92 @@ gcodeCommand parser::parsegcode2(char* input){
       output.letter = -1;
       return output;
   }
-  index++;
+
+  index++; // Move to the second character in input
 
 
-  // Next 1-3 characters must be the number for the command
-  // If the next char is not an ASCII number, return invalid
-  if (input[index] > 57 || input[index] < 48){
+  // Get the command number that should occur directly after the letter
+  char subString[strlen(input) - index]; // Create a substring
+  cutString(input, subString, &index); // Fill the substring
+  int temp = getIntFromString(subString, 3);
+  output.command = temp; // Get the data from the substring
+
+
+  // If an invalid form was found in getIntFromString, return invalid
+  if(output.command == -1){
     output.letter = -1;
     return output;
   }
 
-  //usart0_write_char(index);
-  output.command = getIntFromString(input, index, 3);
-  //usart0_write_char(index);
-  _delay_ms(1);
-
+  // Check for a space or a null byte.
+  // If a space, move to get arguments.
+  // If a null byte, return output.
+  // If anything else, return invalid
   if (input[index] == ' '){
     index++;
   }else if (input[index] == '\0'){
     return output;
   }else{
-    output.letter = -1;
+    output.letter = -1; // Return invalid
     return output;
   }
-
 
   if (input[index] > 64 && input[index] < 123){ // If input[index] is a letter
     output.argChar[0] = tolower(input[index]);
   }else{
-    output.letter = -1;
+    output.letter = -1; // Return invalid
     return output;
   }
 
   index++;
 
-  //usart0_write_char(index);
-  output.argInt[0] = getIntFromString(input, index, 4);
-  //usart0_write_char(index);
+  cutString(input, subString, &index); // Fill the substring
+  int temp2 = getIntFromString(subString, 4);
 
+  // If an invalid form was found in getIntFromString, return invalid
+  if(output.argInt[0] == -1){
+    output.letter = -1;
+    return output;
+  }
+
+  output.argInt[0] = temp2; // Get the data from the substring
   return output;
-
-
 
 }
 
-int parser::getIntFromString(char* input, unsigned int &index, int numPlaces){
-  char outputStr[numPlaces];
-  outputStr[0] = input[index]; // Set the first number
-
-  for (int i = 1; i < numPlaces; i++){
-    index++;
-    if (index == strlen(input) || input[index] == ' '){
-      outputStr[index - 1] = '\0';
-      int output = atoi(outputStr);
-      return output;
-    } else if (input[index] > 57 || input[index] < 48){ // If input[index] is not a number 0-9
+int parser::getIntFromString(char* input, int numPlaces){
+  char outputStr[numPlaces + 1];
+  int j = 0;
+  for (int i = 0; i < numPlaces; i++){
+    if (isNum(input[i])){
+      outputStr[j] = input[i];
+      j++;
+    }else if (input[i] == ' ' || input[i] == '\0'){
+      i = numPlaces;
+    }else{
       return -1;
-    } else { // If there's another number
-      outputStr[i] = input[index];
     }
-
   }
-  index++;
+
+  outputStr[j] = '\0';
   int output = atoi(outputStr);
   return output;
 }
 
-char* parser::cutString(char* input, int index){
-  char output[strlen(input) - index];
-  int j = 0;
-  for(int i = index; i < strlen(input); i++){
-    output[j] = input[i];
-    j++;
-  }
 
-  return output;
+
+void parser::cutString(char* input, char* output, int* index){
+  int j = 0;
+
+  while(input[*index] != ' ' && input[*index] != '\0'){
+    output[j] = input[*index];
+    j++;
+    ++*index;
+  }
+  output[j] = '\0';
+}
+
+bool parser::isNum(char data){
+  if(data > 47 && data < 58){return true;}
+  else{return false;}
 }

@@ -131,19 +131,21 @@ void setup() {
 //// LOOP FUNCTION
 void loop() {
 
+
+  gcodeHandler.get_gcode();
+  //gcodeCommand aTestGcode = parserHandler.parsegcode2("G28");
+
   /*
-  //gcodeHandler.get_gcode()
-  gcodeCommand aTestGcode = parserHandler.parsegcode2("G12 T60");
-
-
-  usart0_write("Your input:" );
-  usart0_write_char(aTestGcode.letter);
-  usart0_write_char(aTestGcode.command);
-  usart0_write_char(aTestGcode.argChar[0]);
-  usart0_write_char(aTestGcode.argInt[0]);
+  if (aTestGcode.letter != -1){
+    usart0_write("Your input:" );
+    usart0_write_char(aTestGcode.letter);
+    usart0_write_int(aTestGcode.command);
+    usart0_write_char(aTestGcode.argChar[0]);
+    usart0_write_char(aTestGcode.argInt[0]);
+  }else{
+    usart0_write_str("Your input was invalid.");
+  }
   */
-
-  usart0_write(parserHandler.cutString("Hello world!", 2));
 
   _delay_ms(2000);
 

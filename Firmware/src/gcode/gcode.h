@@ -4,8 +4,8 @@ class gcode{
     gcode();
 
     // gets gcode from usart and put it in the buffer
-    // returns 1 if gcode was put in the buffer
-    // returns 0 if gcode was not put in the buffer
+    // returns 0 if valid gcode entered
+    // returns 1 if invalid gcode entered
     int get_gcode();
 
     // executes the next gcode due to run in the buffer
