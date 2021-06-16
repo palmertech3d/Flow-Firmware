@@ -16,7 +16,7 @@ Homes the level winder.
 Sets the extruder temp to B in celsius. No argument will turn off the hotend.
 
 ### M106 S\<speed\>
-Sets the cooling fan speed to speed S. No argument will turn off the fan.
+Sets the cooling fans' speed to speed S. No argument will turn off the fan.
 
 
 ## Motor List

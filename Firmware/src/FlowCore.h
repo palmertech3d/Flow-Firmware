@@ -1,5 +1,5 @@
 /**
- * Palmer Technologies Flow Extruder Firmware
+ * Palmer Technologies LLC Flow Extruder Firmware
  * Copyright (c) 2021 palmertech3d [https://github.com/palmertech3d/Flow-Firmware]
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,30 +19,18 @@
 
 #define VERSION "1.0" // Prototype firmware version
 
-
 // Included Libraries
 #include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
-#include "HAL/megaatmega2560/megaatmega2560.h"
-#include "HAL/megaatmega2560/serial.h"
-#include "gcode/gcode.h" // gcode library
-#include "gcode/parser.h" // parser library
-
 #include <AccelStepper.h> // For motors
-#include <Encoder.h> // For rotary encoder
 #include <PID_v1.h> // For PID control
 #include <PID_AutoTune_v0.h>
-#include <Thermocouple.h>          // Thermocouple libraries
-#include <MAX6675_Thermocouple.h>  //
-//==================================
+#include <Thermocouple.h>
+#include <MAX6675_Thermocouple.h>
 
-// Function Declarations
-
-void blankFunction(); // Used for attaching to LiquidLines to make them focusable, and thus scrollable
-void returnPIDConstants(); // Displays constants for the PID calculated by the PID AutoTune library
-
-//==================================
-
-
+#include "HAL/megaatmega2560/megaatmega2560.h"
+#include "HAL/megaatmega2560/serial.h"
+#include "gcode/gcode.h"
+#include "gcode/parser.h"
 //// GLOBAL OBJECTS & VARIABLES
 
 
@@ -88,69 +76,3 @@ short winderMotorStatus = 0;
 char *buffer = (char *)malloc(sizeof(char) * 6); // Buffer for serial input
 gcode gcodeHandler;
 parser parserHandler;
-
-//// SETUP FUNCTION
-
-void setup() {
-  // Setting output for fan, heater, and winder limit switch
-  SET_OUTPUT(FAN);
-  SET_OUTPUT(HEATER);
-  SET_INPUT(WIND_LIM_SWITCH);
-  SET_INPUT_PULLUP(WIND_LIM_SWITCH);
-
-
-  // Begin initial device setup
-  //gcodeHandler.G28(); // Home winder
-
-  // Start PID
-  pid.SetMode(AUTOMATIC);
-
-  // PID AutoTune
-  pidAuto.SetControlType(1);
-
-  // Stepper motor setup
-  m_extruder.setMaxSpeed(1000);
-  m_extruder.setSpeed(200);
-
-  m_roller.setMaxSpeed(1000);
-  m_roller.setSpeed(200); // SAMPLE SPEED!!!!
-
-  m_winder.setMaxSpeed(1000);
-  m_winder.setSpeed(50);
-
-  // Serial setup for communication with PC
-  usart0_init(9600);
-  usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
-  usart0_write("Type a gcode command to start.\r\n> ");
-}
-
-
-
-
-//// LOOP FUNCTION
-void loop() {
-
-
-  gcodeHandler.get_gcode();
-
-
-  _delay_ms(2000);
-
-  usart0_write_str("\r\n> ");
-
-
-}
-
-
-
- //// void returnPIDConstants()
-
- void returnPIDConstants(){
-   Serial.print("PID Kp = ");
-   Serial.println(pidAuto.GetKp());
-   Serial.print("PID Ki = ");
-   Serial.println(pidAuto.GetKi());
-   Serial.print("PID Kd = ");
-   Serial.println(pidAuto.GetKd());
-   return;
- }

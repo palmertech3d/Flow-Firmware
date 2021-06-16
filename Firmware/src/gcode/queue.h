@@ -9,12 +9,14 @@ public:
   // Initializes with default max_size of 10
   queue();
 
-  // Alternative constructor
-  // Initializes with custom maxiumum size
-  queue(int max);
+  // Puts a command in the queue
+  // Returns true if queue was not empty and item put,
+  // false if queue was full and item could not be put
+  bool put(gcodeCommand item);
 
   // Puts a command in the queue
-  void put(gcodeCommand item);
+  // If queue is full, overwrites previous data
+  void putForce(gcodeCommand item);
 
   // Gets the next command in the queue
   gcodeCommand get();
@@ -29,16 +31,17 @@ public:
   bool full() const;
 
   // Returns the max capacity of the queue
-  int capacity() const;
+  uint8_t capacity() const;
 
   // Returns the current number of elements in the queue
-  int size() const;
+  uint8_t size() const;
 
 
 private:
-  gcodeCommand* head = 0;
-  gcodeCommand* tail = 0;
-  const int max_size;
+  uint8_t head = 0;
+  uint8_t tail = 0;
+  static const int max_size = 10;
+  gcodeCommand commands[max_size];
   bool full_flag = 0;
 
 };
