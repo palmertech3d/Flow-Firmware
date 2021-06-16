@@ -20,7 +20,7 @@
 #define VERSION "1.0" // Prototype firmware version
 
 // Included Libraries
-#include <Arduino.h> // Standard Arduino libraries. Will be ditched after HAL is completed
+#include <Arduino.h> // Standard Arduino libraries.
 #include <AccelStepper.h> // For motors
 #include <PID_v1.h> // For PID control
 #include <PID_AutoTune_v0.h>
@@ -31,8 +31,9 @@
 #include "HAL/megaatmega2560/serial.h"
 #include "gcode/gcode.h"
 #include "gcode/parser.h"
-//// GLOBAL OBJECTS & VARIABLES
+#include "hardware/heater.h"
 
+//// GLOBAL OBJECTS & VARIABLES
 
 // Stepper objects
 AccelStepper m_extruder(1, M_EXTRUDER_STEP, M_EXTRUDER_DIR);
@@ -40,27 +41,24 @@ AccelStepper m_roller(1, M_ROLLER_STEP, M_ROLLER_DIR);
 AccelStepper m_winder(1, M_WINDER_STEP, M_WINDER_DIR);
 //==================================
 
-
-// Thermocouple Object
-Thermocouple* thermocouple = new MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);
-//==================================
-
-
+/*
 // PID object & variables
-double temperature = -99; // Used to display the temperature to serial
-double newTemp = 0; // A temporary temperature storage place used when reading the thermocouple
-double setTemp = 0;
 double output;
 double Kp = 2.16, Ki =0.08 , Kd = 15.28;
 unsigned long pidTimekeeper = 0;
 PID pid(&temperature, &output, &setTemp, Kp, Ki, Kd, DIRECT);
 //==================================
+*/
 
-
+/*
 // PID AutoTune setup
 PID_ATune pidAuto(&temperature, &output);
 bool stopPidAuto = false; // Set to true when the autotuner finishes
 //==================================
+*/
+
+// Hotend object
+Heater hotend;
 
 
 // Motor variables

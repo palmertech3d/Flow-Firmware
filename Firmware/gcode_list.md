@@ -13,10 +13,10 @@ Stops the motor given by int M. Refer to motor list. If no motor argument is giv
 Homes the level winder.
 
 ### M104 B\<temp\>
-Sets the extruder temp to B in celsius. No argument will turn off the hotend.
+Sets the extruder temp to B in Celsius. No argument will turn off the hotend.
 
-### M106 S\<speed\>
-Sets the cooling fans' speed to speed S. No argument will turn off the fan.
+### M106
+Toggles the cooling fans on/off
 
 
 ## Motor List

@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include "../HAL/megaatmega2560/serial.h"
-//#include "parser.h"
 
 gcode::gcode(){};
 
@@ -56,7 +55,7 @@ int gcode::get_gcode(){
 
 bool gcode::execute_gcode(gcodeCommand command){
   if (command.letter == 'g' && command.command == 28){
-    G28();
+    g28();
     return 1;
   }else if (command.letter == 'g' && command.command == 1 && command.argChar[0] == 'm' && command.argChar[1] == 's'){
     // execute g1(argInt[0], argInt[1]) to turn on motor argInt[0] with speed argInt[1]
@@ -66,10 +65,9 @@ bool gcode::execute_gcode(gcodeCommand command){
     // execute m104(argInt[0]) to turn on hotend with temp argInt[0]
   }else if (command.letter == 'm' && command.command == 104){
     // execute m104() to turn off hotend
-  }else if (command.letter == 'm' && command.command == 106 && command.argChar[0] == 's'){
-    // execute m106(argInt[0]) to turn on the cooling fans with speed argInt[0]
   }else if (command.letter == 'm' && command.command == 106){
-    // execute m106() to turn off the cooling fans
+    // execute m106() to toggle the cooling fans
+    m106();
   }
 
   else{

@@ -1,5 +1,5 @@
-#ifndef QUEUEH
-#define QUEUEH
+#ifndef QUEUE_H
+#define QUEUE_H
 
 #include "parser.h"
 
@@ -46,4 +46,4 @@ private:
 
 };
 
-#endif // QUEUEH
+#endif // QUEUE_H

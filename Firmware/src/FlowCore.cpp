@@ -30,11 +30,10 @@ void setup() {
   SET_INPUT(WIND_LIM_SWITCH);
   SET_INPUT_PULLUP(WIND_LIM_SWITCH);
 
-  // Start PID
-  pid.SetMode(AUTOMATIC);
-
-  // PID AutoTune
-  pidAuto.SetControlType(1);
+  // Configure the hotend
+  hotend.init(50);
+  hotend.set_constants(2.16, 0.08, 15.28);
+  //double Kp = 2.16, Ki =0.08 , Kd = 15.28;
 
   // Stepper motor setup
   m_extruder.setMaxSpeed(1000);
@@ -48,8 +47,8 @@ void setup() {
 
   // Serial setup for communication with PC
   usart0_init(9600);
-  usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
-  usart0_write("Type a gcode command to start.\r\n> ");
+  //usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
+  //usart0_write("Type a gcode command to start.\r\n> ");
 }
 
 
@@ -58,20 +57,14 @@ void setup() {
 
 void loop() {
 
-  usart0_write_int(gcodeHandler.buffer.empty());
-  gcodeHandler.get_gcode();
-  gcodeHandler.get_gcode();
+  //gcodeHandler.get_gcode();
+
+  //gcodeHandler.execute_buffer();
+  hotend.update_heater();
+
   _delay_ms(1000);
 
-  usart0_write_int(gcodeHandler.buffer.size());
-  usart0_write_int(gcodeHandler.buffer.empty());
-  gcodeHandler.execute_buffer();
-  gcodeHandler.execute_buffer();
-
-
-  _delay_ms(5000);
-
-  usart0_write_str("\r\n> ");
+  //usart0_write_str("\r\n> ");
 
 
 }

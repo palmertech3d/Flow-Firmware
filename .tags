@@ -1286,8 +1286,8 @@ FULL3WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FULL3WIRE = 3, \/\/\/< 3
 FULL4WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^        FULL4WIRE = 4, \/\/\/< 4 wire full stepper, 4 motor pins required$/;"	e	enum:AccelStepper::__anon1
 FUNCTION	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	FUNCTION  = 0, \/\/\/< Use the functional interface, implementing your own driver functions (internal use only)$/;"	e	enum:AccelStepper::__anon1
 FinishUp	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^void PID_ATune::FinishUp()$/;"	f	class:PID_ATune
-G28	.\Firmware\src\gcode\G28.cpp	/^void gcode::G28(){$/;"	f	class:gcode
-GCODEH	.\Firmware\src\gcode\gcode.h	2;"	d
+G1_H	.\Firmware\src\gcode\commands\g1.cpp	2;"	d	file:
+GCODE_H	.\Firmware\src\gcode\gcode.h	2;"	d
 GET_COM	.\Firmware\src\HAL\megaatmega2560\fastio.h	162;"	d
 GET_COMA	.\Firmware\src\HAL\megaatmega2560\fastio.h	163;"	d
 GET_COMB	.\Firmware\src\HAL\megaatmega2560\fastio.h	164;"	d
@@ -1304,6 +1304,7 @@ GLYPH	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^  GLYPH = 70,$/;"	m	class:Dat
 GPIO_BASE	.\Firmware\lib\Encoder\utility\direct_pin_read.h	83;"	d
 GPIO_ID	.\Firmware\lib\Encoder\utility\direct_pin_read.h	81;"	d
 GPIO_TYPE	.\Firmware\lib\Encoder\utility\direct_pin_read.h	82;"	d
+GRAPHER_H	.\Firmware\src\hardware\grapher.h	2;"	d
 GetControlType	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.cpp	/^int PID_ATune::GetControlType()$/;"	f	class:PID_ATune
 GetDirection	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^int PID::GetDirection(){ return controllerDirection;}$/;"	f	class:PID
 GetKd	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^double PID::GetKd(){ return  dispKd;}$/;"	f	class:PID
@@ -1320,13 +1321,16 @@ HAL	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.cpp	/^namespace HAL{$/;"	n	
 HAL	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.h	/^namespace HAL{$/;"	n
 HALF3WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	HALF3WIRE = 6, \/\/\/< 3 wire half stepper, such as HDD spindle, 3 motor pins required$/;"	e	enum:AccelStepper::__anon1
 HALF4WIRE	.\Firmware\lib\AccelStepper\AccelStepper.h	/^	HALF4WIRE = 8  \/\/\/< 4 wire half stepper, 4 motor pins required$/;"	e	enum:AccelStepper::__anon1
-HAL_MEGAATMEGA2560	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.h	2;"	d
+HAL_MEGAATMEGA2560_H	.\Firmware\src\HAL\megaatmega2560\megaatmega2560.h	2;"	d
 HAS_ARGS	.\Firmware\src\HAL\macros.h	551;"	d
 HAS_MEMBER_IMPL	.\Firmware\src\HAL\macros.h	350;"	d
 HEATER	.\Firmware\src\HAL\megaatmega2560\user_pins.h	5;"	d
+HEATER_H	.\Firmware\src\hardware\heater.h	2;"	d
 HEXCHR	.\Firmware\src\HAL\macros.h	229;"	d
 HYPOT	.\Firmware\src\HAL\macros.h	300;"	d
 HYPOT2	.\Firmware\src\HAL\macros.h	105;"	d
+Heater	.\Firmware\src\hardware\heater.cpp	/^Heater::Heater(){}$/;"	f	class:Heater
+Heater	.\Firmware\src\hardware\heater.h	/^class Heater{$/;"	c
 IF	.\Firmware\src\HAL\macros.h	556;"	d
 IF_0	.\Firmware\src\HAL\macros.h	557;"	d
 IF_1	.\Firmware\src\HAL\macros.h	558;"	d
@@ -1384,9 +1388,9 @@ IS_POWER_OF_2	.\Firmware\src\HAL\macros.h	112;"	d
 IS_PROBE	.\Firmware\src\HAL\macros.h	536;"	d
 Initialize	.\Firmware\lib\Arduino-PID-Library\PID_v1.cpp	/^void PID::Initialize()$/;"	f	class:PID
 JOIN_N	.\Firmware\src\HAL\macros.h	262;"	d
-Kd	.\Firmware\src\FlowCore.h	/^double Kp = 2.16, Ki =0.08 , Kd = 15.28;$/;"	v
-Ki	.\Firmware\src\FlowCore.h	/^double Kp = 2.16, Ki =0.08 , Kd = 15.28;$/;"	v
-Kp	.\Firmware\src\FlowCore.h	/^double Kp = 2.16, Ki =0.08 , Kd = 15.28;$/;"	v
+Kd	.\Firmware\src\hardware\heater.h	/^  double Kp=2, Ki=5, Kd=1; \/\/ PID constants, default vals are samples$/;"	m	class:Heater
+Ki	.\Firmware\src\hardware\heater.h	/^  double Kp=2, Ki=5, Kd=1; \/\/ PID constants, default vals are samples$/;"	m	class:Heater
+Kp	.\Firmware\src\hardware\heater.h	/^  double Kp=2, Ki=5, Kd=1; \/\/ PID constants, default vals are samples$/;"	m	class:Heater
 Ku	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	double Ku, Pu;$/;"	m	class:PID_ATune
 L	.\Firmware\src\HAL\macros.h	82;"	d
 LCD_1LINE	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.h	41;"	d
@@ -1470,6 +1474,7 @@ LiquidScreen	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^LiquidScreen::Liqu
 LiquidSystem	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^class LiquidSystem {$/;"	c	class:DataType::LiquidLine
 LiquidSystem	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^LiquidSystem::LiquidSystem(LiquidMenu &liquidMenu1, LiquidMenu &liquidMenu2,$/;"	f	class:LiquidSystem
 LiquidSystem	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^LiquidSystem::LiquidSystem(uint8_t startingMenu)$/;"	f	class:LiquidSystem
+M106_H	.\Firmware\src\gcode\commands\m106.cpp	2;"	d	file:
 MANUAL	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	13;"	d
 MANY	.\Firmware\src\HAL\macros.h	212;"	d
 MAP	.\Firmware\src\HAL\macros.h	615;"	d
@@ -2629,7 +2634,7 @@ P_ON_M	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	16;"	d
 Position	.\Firmware\lib\LiquidMenu\src\LiquidMenu.h	/^enum class Position : uint8_t {$/;"	c	class:DataType
 Private	.\Firmware\src\HAL\macros.h	/^  namespace Private {$/;"	n
 Pu	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	double Ku, Pu;$/;"	m	class:PID_ATune
-QUEUEH	.\Firmware\src\gcode\queue.h	2;"	d
+QUEUE_H	.\Firmware\src\gcode\queue.h	2;"	d
 RADIANS	.\Firmware\src\HAL\macros.h	103;"	d
 READ	.\Firmware\src\HAL\megaatmega2560\fastio.h	75;"	d
 RECIPROCAL	.\Firmware\src\HAL\macros.h	284;"	d
@@ -3106,6 +3111,7 @@ full_flag	.\Firmware\src\gcode\queue.h	/^  bool full_flag = 0;$/;"	m	class:queue
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_line_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
 func-members	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\recognize_type_8cpp.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"><\/a>$/;"	a
+g28	.\Firmware\src\gcode\commands\g28.cpp	/^void gcode::g28(){$/;"	f	class:gcode
 gccDefaultCFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCFlags": "-fsyntax-only -std=gnu11 -fno-fat-lto-objects -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
 gccDefaultCppFlags	.\Firmware\.gcc-flags.json	/^  "gccDefaultCppFlags": "-fsyntax-only -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -Os -Wall -ffunction-sections -fdata-sections -flto -mmcu=atmega2560 -DPLATFORMIO=50101 -DARDUINO_AVR_MEGA2560 -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -D__AVR_ATmega2560__",$/;"	f
 gccErrorLimit	.\Firmware\.gcc-flags.json	/^  "gccErrorLimit": 15,$/;"	f
@@ -3116,6 +3122,7 @@ gcode	.\Firmware\src\gcode\gcode.h	/^class gcode{$/;"	c
 gcodeCommand	.\Firmware\src\gcode\parser.h	/^struct gcodeCommand{$/;"	s
 gcodeHandler	.\Firmware\src\FlowCore.h	/^gcode gcodeHandler;$/;"	v
 get	.\Firmware\src\gcode\queue.cpp	/^gcodeCommand queue::get(){$/;"	f	class:queue
+get	.\Firmware\src\hardware\heater.cpp	/^double Heater::get(){$/;"	f	class:Heater
 getEventPoint	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function getEventPoint(evt)$/;"	f
 getIntFromString	.\Firmware\src\gcode\parser.cpp	/^int parser::getIntFromString(char* input, int numPlaces){$/;"	f	class:parser
 getXPos	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function getXPos(item)$/;"	f
@@ -3126,6 +3133,7 @@ get_focusedLine	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^uint8_t LiquidMen
 get_focusedLine	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^uint8_t LiquidScreen::get_focusedLine() const {$/;"	f	class:LiquidScreen
 get_focusedLine	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^uint8_t LiquidSystem::get_focusedLine() const {$/;"	f	class:LiquidSystem
 get_gcode	.\Firmware\src\gcode\gcode.cpp	/^int gcode::get_gcode(){$/;"	f	class:gcode
+get_target	.\Firmware\src\hardware\heater.cpp	/^double Heater::get_target(){$/;"	f	class:Heater
 glyph	.\Firmware\lib\LiquidMenu\src\glyphs.h	/^namespace glyph {$/;"	n
 gtn	.\Firmware\src\HAL\macros.h	/^  inline const char* gtn(T*) {$/;"	f
 handleMouseDown	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function handleMouseDown(evt)$/;"	f
@@ -3139,6 +3147,7 @@ handleZoom	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function handl
 head	.\Firmware\src\gcode\queue.h	/^  uint8_t head = 0;$/;"	m	class:queue
 hide	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^void LiquidScreen::hide(bool hide) {$/;"	f	class:LiquidScreen
 home	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::home()$/;"	f	class:LiquidCrystal
+hotend	.\Firmware\src\FlowCore.h	/^Heater hotend;$/;"	v
 inAuto	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	bool inAuto, pOnE;$/;"	m	class:PID
 include	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "include": "PID_v1",$/;"	f
 indexSectionLabels.0	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\searchdata.js	/^  0: "All",$/;"	p
@@ -3168,6 +3177,7 @@ indexSectionsWithContent.7	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\sea
 init	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::init(uint8_t fourbitmode, uint8_t rs, uint8_t rw, uint8_t enable,$/;"	f	class:LiquidCrystal
 init	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function init(evt)$/;"	f
 init	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^void LiquidMenu::init() const {$/;"	f	class:LiquidMenu
+init	.\Firmware\src\hardware\heater.cpp	/^void Heater::init(double input_temp){$/;"	f	class:Heater
 initMenu	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\menu.js	/^function initMenu(relPath,searchEnabled,serverSide,searchPage,search) {$/;"	f
 initMenu.makeTree	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\menu.js	/^  function makeTree(data,relPath) {$/;"	f
 init_search	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\search.js	/^function init_search()$/;"	f
@@ -3673,6 +3683,7 @@ letter_l	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\classes.html	/^<tr><td rowsp
 levelHomed	.\Firmware\src\FlowCore.h	/^bool levelHomed = false; \/\/ Set to true when level winder has been homed$/;"	v
 levelMotorStatus	.\Firmware\src\FlowCore.h	/^short levelMotorStatus = 0;$/;"	v
 loop	.\Firmware\src\FlowCore.cpp	/^void loop() {$/;"	f
+m106	.\Firmware\src\gcode\commands\m106.cpp	/^void gcode::m106(){$/;"	f	class:gcode
 maxSpeed	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^float   AccelStepper::maxSpeed()$/;"	f	class:AccelStepper
 maxZoom	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^var maxZoom;$/;"	v
 max_size	.\Firmware\src\gcode\queue.h	/^  static const int max_size = 10;$/;"	m	class:queue
@@ -3689,7 +3700,6 @@ name	.\Firmware\lib\Arduino-PID-Library\library.json	/^      "name": "Brett Beau
 name	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "name": "PID",$/;"	f
 name	.\Firmware\lib\Encoder\library.json	/^  "name": "Encoder",$/;"	f
 nested-classes	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\_liquid_menu_8h.html	/^<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"><\/a>$/;"	a
-newTemp	.\Firmware\src\FlowCore.h	/^double newTemp = 0; \/\/ A temporary temperature storage place used when reading the thermocouple$/;"	v
 next_screen	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^void LiquidMenu::next_screen() {$/;"	f	class:LiquidMenu
 next_screen	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^void LiquidSystem::next_screen() {$/;"	f	class:LiquidSystem
 noAutoscroll	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::noAutoscroll(void) {$/;"	f	class:LiquidCrystal
@@ -3715,7 +3725,7 @@ origin	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.h	/^    Thermo
 outMax	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	double outMin, outMax;$/;"	m	class:PID
 outMin	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	double outMin, outMax;$/;"	m	class:PID
 output	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	double *input, *output;$/;"	m	class:PID_ATune
-output	.\Firmware\src\FlowCore.h	/^double output;$/;"	v
+output	.\Firmware\src\hardware\heater.h	/^  double output; \/\/ The value calculated by the PID to write to the heater$/;"	m	class:Heater
 outputStart	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	double outputStart;$/;"	m	class:PID_ATune
 outputSum	.\Firmware\lib\Arduino-PID-Library\PID_v1.h	/^	double outputSum, lastInput;$/;"	m	class:PID
 override	.\Firmware\lib\MAX6675_Thermocouple\src\AverageThermocouple.h	/^    double readCelsius() override;$/;"	m	class:final
@@ -3735,9 +3745,6 @@ peak2	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	unsigned long peak1, p
 peakCount	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	int peakCount;$/;"	m	class:PID_ATune
 peakType	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^	int peakType;$/;"	m	class:PID_ATune
 peaks	.\Firmware\lib\PID_AutoTune_v0\PID_AutoTune_v0.h	/^    double peaks[10];$/;"	m	class:PID_ATune
-pid	.\Firmware\src\FlowCore.h	/^PID pid(&temperature, &output, &setTemp, Kp, Ki, Kd, DIRECT);$/;"	v
-pidAuto	.\Firmware\src\FlowCore.h	/^PID_ATune pidAuto(&temperature, &output);$/;"	v
-pidTimekeeper	.\Firmware\src\FlowCore.h	/^unsigned long pidTimekeeper = 0;$/;"	v
 pin1_bitmask	.\Firmware\lib\Encoder\Encoder.h	/^	IO_REG_TYPE            pin1_bitmask;$/;"	m	struct:__anon3
 pin1_register	.\Firmware\lib\Encoder\Encoder.h	/^	volatile IO_REG_TYPE * pin1_register;$/;"	m	struct:__anon3
 pin2_bitmask	.\Firmware\lib\Encoder\Encoder.h	/^	IO_REG_TYPE            pin2_bitmask;$/;"	m	struct:__anon3
@@ -3869,6 +3876,7 @@ searchData	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\variables_5.js	/^va
 searchData	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\search\variables_6.js	/^var searchData=$/;"	v
 send	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::send(uint8_t value, uint8_t mode) {$/;"	f	class:LiquidCrystal
 serializeXmlNode	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function serializeXmlNode(xmlNode)$/;"	f
+set	.\Firmware\src\hardware\heater.cpp	/^void Heater::set(double input_temp){$/;"	f	class:Heater
 setAcceleration	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::setAcceleration(float acceleration)$/;"	f	class:AccelStepper
 setAttributes	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function setAttributes(element, attributes)$/;"	f
 setCTM	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^function setCTM(element, matrix)$/;"	f
@@ -3885,9 +3893,9 @@ setPinsInverted	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper
 setRowOffsets	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::setRowOffsets(int row0, int row1, int row2, int row3)$/;"	f	class:LiquidCrystal
 setSmoothingFactor	.\Firmware\lib\MAX6675_Thermocouple\src\SmoothThermocouple.cpp	/^inline void SmoothThermocouple::setSmoothingFactor(const int smoothingFactor) {$/;"	f	class:SmoothThermocouple
 setSpeed	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::setSpeed(float speed)$/;"	f	class:AccelStepper
-setTemp	.\Firmware\src\FlowCore.h	/^double setTemp = 0;$/;"	v
 set_asGlyph	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::set_asGlyph(uint8_t number) {$/;"	f	class:LiquidLine
 set_asProgmem	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::set_asProgmem(uint8_t number) {$/;"	f	class:LiquidLine
+set_constants	.\Firmware\src\hardware\heater.cpp	/^void Heater::set_constants(double Kp_set, double Ki_set, double Kd_set){$/;"	f	class:Heater
 set_decimalPlaces	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^void LiquidLine::set_decimalPlaces(uint8_t decimalPlaces)$/;"	f	class:LiquidLine
 set_displayLineCount	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^void LiquidScreen::set_displayLineCount(uint8_t lines) {$/;"	f	class:LiquidScreen
 set_focusPosition	.\Firmware\lib\LiquidMenu\src\LiquidLine.cpp	/^bool LiquidLine::set_focusPosition(Position position, uint8_t column, uint8_t row) {$/;"	f	class:LiquidLine
@@ -3922,7 +3930,6 @@ step4	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::step4(lo
 step6	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::step6(long step)$/;"	f	class:AccelStepper
 step8	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::step8(long step)$/;"	f	class:AccelStepper
 stop	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^void AccelStepper::stop()$/;"	f	class:AccelStepper
-stopPidAuto	.\Firmware\src\FlowCore.h	/^bool stopPidAuto = false; \/\/ Set to true when the autotuner finishes$/;"	v
 stringLen	.\Firmware\src\HAL\macros.h	/^    constexpr unsigned stringLen(const char *str) {$/;"	f	namespace:CompileTimeString
 svgDoc	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^var svgDoc;$/;"	v
 switch_focus	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^void LiquidMenu::switch_focus(bool forward) {$/;"	f	class:LiquidMenu
@@ -3930,8 +3937,10 @@ switch_focus	.\Firmware\lib\LiquidMenu\src\LiquidScreen.cpp	/^void LiquidScreen:
 switch_focus	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^void LiquidSystem::switch_focus(bool forward) {$/;"	f	class:LiquidSystem
 tail	.\Firmware\src\gcode\queue.h	/^  uint8_t tail = 0;$/;"	m	class:queue
 targetPosition	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^long AccelStepper::targetPosition()$/;"	f	class:AccelStepper
-temperature	.\Firmware\src\FlowCore.h	/^double temperature = -99; \/\/ Used to display the temperature to serial$/;"	v
-thermocouple	.\Firmware\src\FlowCore.h	/^Thermocouple* thermocouple = new MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);$/;"	v
+target_temp	.\Firmware\src\hardware\heater.h	/^  double target_temp; \/\/ The target temperature of the hotend$/;"	m	class:Heater
+temp	.\Firmware\src\hardware\heater.h	/^  double temp; \/\/ The current temperature of the hotend$/;"	m	class:Heater
+temp_controller	.\Firmware\src\hardware\heater.h	/^  PID temp_controller = PID(&temp, &output, &target_temp, Kp, Ki, Kd, DIRECT);$/;"	m	class:Heater
+thermometer	.\Firmware\src\hardware\heater.h	/^  MAX6675_Thermocouple thermometer = MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);$/;"	m	class:Heater
 toggleFolder	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\dynsections.js	/^function toggleFolder(id)$/;"	f
 toggleInherit	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\dynsections.js	/^function toggleInherit(id)$/;"	f
 toggleLevel	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\dynsections.js	/^function toggleLevel(level)$/;"	f
@@ -3949,6 +3958,7 @@ update	.\Firmware\lib\Encoder\Encoder.h	/^	static void update(Encoder_internal_s
 update	.\Firmware\lib\LiquidMenu\src\LiquidMenu.cpp	/^void LiquidMenu::update() const {$/;"	f	class:LiquidMenu
 update	.\Firmware\lib\LiquidMenu\src\LiquidSystem.cpp	/^void LiquidSystem::update() const {$/;"	f	class:LiquidSystem
 updateStripes	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\dynsections.js	/^function updateStripes()$/;"	f
+update_heater	.\Firmware\src\hardware\heater.cpp	/^void Heater::update_heater(){$/;"	f	class:Heater
 url	.\Firmware\lib\Arduino-PID-Library\library.json	/^    "url": "https:\/\/github.com\/br3ttb\/Arduino-PID-Library.git"$/;"	f
 url	.\Firmware\lib\Arduino-PID-Library\library.json	/^  "url": "http:\/\/playground.arduino.cc\/Code\/PIDLibrary",$/;"	f
 url	.\Firmware\lib\Encoder\library.json	/^    "url": "https:\/\/github.com\/PaulStoffregen\/Encoder.git"$/;"	f

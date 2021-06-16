@@ -1,5 +1,5 @@
-#ifndef HAL_MEGAATMEGA2560
-#define HAL_MEGAATMEGA2560
+#ifndef HAL_MEGAATMEGA2560_H
+#define HAL_MEGAATMEGA2560_H
 
 #include <util/delay.h>
 #include "fastio.h"
@@ -13,4 +13,4 @@ namespace HAL{
 
 };
 
-#endif // HAL_MEGAATMEGA2560
+#endif // HAL_MEGAATMEGA2560_H

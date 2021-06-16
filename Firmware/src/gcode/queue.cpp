@@ -18,8 +18,15 @@ void queue::putForce(gcodeCommand item){
 }
 
 gcodeCommand queue::get(){
-  gcodeCommand temp = commands[tail];
-  tail++;
+  gcodeCommand temp;
+
+  if(!empty()){
+    temp = commands[tail];
+    tail++;
+  }else{
+    temp.letter = -1;
+  }
+
   return temp;
 }
 

@@ -1,11 +1,11 @@
 // G28 homes the level winder
-#include "../HAL/megaatmega2560/megaatmega2560.h"
-#include "gcode.h"
+#include "../../HAL/megaatmega2560/megaatmega2560.h"
+#include "../gcode.h"
 
 // main G28 function: call this to execute G28
 // Homes the level winder; this function will delay all future action
 // until the winder has been homed
-void gcode::G28(){
+void gcode::g28(){
   bool levelHomed = 0;
   AccelStepper m_level(1, M_LEVEL_STEP, M_LEVEL_DIR);
   // Get level winder ready to be homed

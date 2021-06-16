@@ -1,5 +1,5 @@
-#ifndef GCODEH
-#define GCODEH
+#ifndef GCODE_H
+#define GCODE_H
 
 #include "parser.h"
 #include "queue.h"
@@ -29,14 +29,16 @@ class gcode{
 
 
     // gcode access functions
-    void G28();
+    void g28();
+
+    void m106();
 
     // gcode command buffer
     queue buffer;
-    
+
   private:
 
 
 };
 
-#endif // GCODEH
+#endif // GCODE_H
