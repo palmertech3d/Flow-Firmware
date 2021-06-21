@@ -27,8 +27,12 @@ public:
   // Sets the PID constants for the heater
   void set_constants(double Kp_set, double Ki_set, double Kd_set);
 
+  // Gets the PID constants for the heater and stores them in a double* passed
+  // by reference
+  void get_constants(double* constants_out);
+
   // Experimental: Automatically tunes the PID constants for the heater
-  //void autotune_init();
+  void autotune_init();
 
   // Updates the heater from the calculated PID value
   // Must be called regularly
@@ -41,6 +45,10 @@ private:
   double Kp=2, Ki=5, Kd=1; // PID constants, default vals are samples
   MAX6675_Thermocouple thermometer = MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);
   PID temp_controller = PID(&temp, &output, &target_temp, Kp, Ki, Kd, DIRECT);
+
+  // Autotune
+  PID_ATune pid_auto = PID_ATune(&temp, &output);
+  bool auto_on = false;
 
 };
 

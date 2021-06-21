@@ -2,7 +2,7 @@
 #include "../../HAL/megaatmega2560/megaatmega2560.h"
 #include <Arduino.h>
 
-// M106 turns cooling fans on/off
-void gcode::m106(){
-  TOGGLE(FAN);
+// M503 reports settings to the terminal
+void gcode::m503(){
+  //usart0_write_str()
 }

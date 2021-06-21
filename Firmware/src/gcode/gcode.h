@@ -33,6 +33,8 @@ class gcode{
 
     void m106();
 
+    void m503();
+
     // gcode command buffer
     queue buffer;
 

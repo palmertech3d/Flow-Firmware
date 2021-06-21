@@ -18,6 +18,8 @@ Sets the extruder temp to B in Celsius. No argument will turn off the hotend.
 ### M106
 Toggles the cooling fans on/off
 
+## M503
+Reports current settings
 
 ## Motor List
 - 0 - Extruder motor

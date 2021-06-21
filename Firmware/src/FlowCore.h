@@ -41,21 +41,6 @@ AccelStepper m_roller(1, M_ROLLER_STEP, M_ROLLER_DIR);
 AccelStepper m_winder(1, M_WINDER_STEP, M_WINDER_DIR);
 //==================================
 
-/*
-// PID object & variables
-double output;
-double Kp = 2.16, Ki =0.08 , Kd = 15.28;
-unsigned long pidTimekeeper = 0;
-PID pid(&temperature, &output, &setTemp, Kp, Ki, Kd, DIRECT);
-//==================================
-*/
-
-/*
-// PID AutoTune setup
-PID_ATune pidAuto(&temperature, &output);
-bool stopPidAuto = false; // Set to true when the autotuner finishes
-//==================================
-*/
 
 // Hotend object
 Heater hotend;

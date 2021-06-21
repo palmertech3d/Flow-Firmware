@@ -24,6 +24,8 @@
 /* FIRMWARE ENTRY POINT */
 
 void setup() {
+
+
   // Setting output for fan, heater, and winder limit switch
   SET_OUTPUT(FAN);
   SET_OUTPUT(HEATER);
@@ -31,9 +33,11 @@ void setup() {
   SET_INPUT_PULLUP(WIND_LIM_SWITCH);
 
   // Configure the hotend
-  hotend.init(50);
-  hotend.set_constants(2.16, 0.08, 15.28);
-  //double Kp = 2.16, Ki =0.08 , Kd = 15.28;
+  hotend.init(200);
+  //hotend.set_constants(2.16, 0.08, 15.28);
+  hotend.set_constants(0.25, 0, 11.66211);
+  //hotend.autotune_init();
+
 
   // Stepper motor setup
   m_extruder.setMaxSpeed(1000);
@@ -62,7 +66,7 @@ void loop() {
   //gcodeHandler.execute_buffer();
   hotend.update_heater();
 
-  _delay_ms(1000);
+  _delay_ms(2000);
 
   //usart0_write_str("\r\n> ");
 
