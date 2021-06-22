@@ -29,11 +29,19 @@ class gcode{
 
 
     // gcode access functions
-    void g1();
-    
+    void g1(int motor, int speed);
+
+    void g2(int motor);
+
     void g28();
 
+    void m104(); // Turns off the hotend
+
+    void m104(int temp); // Sets the temp of the hotend
+
     void m106();
+
+    void m303();
 
     void m503();
 

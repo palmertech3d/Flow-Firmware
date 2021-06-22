@@ -1,14 +1,14 @@
-#ifndef G1_H
-#define G1_H
-
 #include "../gcode.h"
 #include "../../HAL/megaatmega2560/megaatmega2560.h"
 #include "../../hardware/motor.h"
 
 // g1 starts the given motor with the given speed
 
-void gcode::g1(){
-
+void gcode::g1(int motor, int speed){
+  Motor motorHandler;
+  if (motor <= WINDER && motor >= EXTRUDER){
+    Serial.println("Starting a motor...");
+    motorHandler.set_speed(motor, speed);
+    motorHandler.start(motor);
+  }
 }
-
-#endif // G1_H

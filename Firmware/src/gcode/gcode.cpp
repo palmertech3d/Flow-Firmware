@@ -18,7 +18,7 @@ int gcode::get_gcode(){
     char temp = Serial.read();
     while(Serial.available() && temp != 13){ // 13 is the "enter" key
         gcodeInChar[i] = temp;
-        usart0_write_char(gcodeInChar[i]); // Feedback for user
+        //usart0_write_char(gcodeInChar[i]); // Feedback for user
         temp = Serial.read();
         i++;
       }
@@ -30,9 +30,9 @@ int gcode::get_gcode(){
   }
 
   gcodeInChar[i] = 0; // Terminate the string
-  usart0_write_str("\r\nYour input:\r\n");
-  usart0_write_str(gcodeInChar);
-  usart0_write_str("\r\n");
+  //usart0_write_str("\r\nYour input:\r\n");
+  //usart0_write_str(gcodeInChar);
+  //usart0_write_str("\r\n");
 
   // parse this input
   gcodeCommand parsedGcode = parserHandler.parsegcode(gcodeInChar);
@@ -43,6 +43,7 @@ int gcode::get_gcode(){
     return 1; // return 1 to indicate invalid gcode entered
   }
 
+  /*
   // display details about the parsed gcode
   usart0_write_str("Your gcode command:\r\n");
   usart0_write_char(parsedGcode.letter);
@@ -53,33 +54,49 @@ int gcode::get_gcode(){
   usart0_write_str("\r\n");
   usart0_write_char(parsedGcode.argChar[1]);
   usart0_write_int(parsedGcode.argInt[1]);
+  */
+
+  Serial.println("OK");
 
   // put the parsed gcode in the buffer
-  buffer.put(parsedGcode);
+  buffer.putForce(parsedGcode);
 
   return 0;
 }
 
 bool gcode::execute_gcode(gcodeCommand command){
+
   if (command.letter == 'g' && command.command == 28){
     g28();
     return 1;
   }else if (command.letter == 'g' && command.command == 1 && command.argChar[0] == 'm' && command.argChar[1] == 's'){
-    // execute g1(argInt[0], argInt[1]) to turn on motor argInt[0] with speed argInt[1]
+    g1(command.argInt[0], command.argInt[1]);
+    return 1;
   }else if (command.letter == 'g' && command.command == 2 && command.argChar[0] == 'm'){
-    // execute g2(argInt[0]) to turn off motor argInt[0]
+    g2(command.argInt[0]);
+    return 1;
   }else if (command.letter == 'm' && command.command == 104 && command.argChar[0] == 'b'){
-    // execute m104(argInt[0]) to turn on hotend with temp argInt[0]
+    m104(command.argInt[0]);
+    return 1;
   }else if (command.letter == 'm' && command.command == 104){
-    // execute m104() to turn off hotend
+    m104();
+    return 1;
   }else if (command.letter == 'm' && command.command == 106){
-    // execute m106() to toggle the cooling fans
     m106();
+    return 1;
+  }else if (command.letter == 'm' && command.command == 303){
+    m303();
+    return 1;
+  }else if (command.letter == 'm' && command.command == 503){
+    m503();
+    return 1;
   }
 
   else{
     return 0; // return false to indicate that no gcode was executed
   }
+
+  return 1;
 }
 
 bool gcode::execute_buffer(){

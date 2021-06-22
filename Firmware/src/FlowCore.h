@@ -23,12 +23,11 @@
 #include <Arduino.h> // Standard Arduino libraries.
 #include <AccelStepper.h> // For motors
 #include <PID_v1.h> // For PID control
-#include <PID_AutoTune_v0.h>
-#include <Thermocouple.h>
-#include <MAX6675_Thermocouple.h>
+#include <PID_AutoTune_v0.h> // For PID autotuning
+#include <Thermocouple.h> // For the thermocouple
+#include <MAX6675_Thermocouple.h> // Also for the thermocouple
 #define USE_TIMER_2     1
-#define USE_TIMER_3     1
-#include "TimerInterrupt.h"
+#include "TimerInterrupt.h" // For interrupts
 
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
@@ -37,8 +36,6 @@
 #include "hardware/heater.h"
 #include "hardware/motor.h"
 
-// Hotend object
-Heater hotend;
 
 // Gcode objects
 gcode gcodeHandler;
@@ -47,9 +44,5 @@ parser parserHandler;
 // Motor object
 Motor motorHandler;
 
-// All checkups are done within this function. Executes every two seconds.
-void idle(){
-  gcodeHandler.get_gcode();
-  gcodeHandler.execute_buffer();
-  hotend.update();
-}
+// All checkups are done within this function.
+void idle();

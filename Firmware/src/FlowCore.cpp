@@ -20,6 +20,12 @@
 
 #include "FlowCore.h"
 
+void idle(){
+  gcodeHandler.get_gcode();
+  gcodeHandler.execute_buffer();
+  Heater::update();
+}
+
 
 /* FIRMWARE ENTRY POINT */
 
@@ -32,30 +38,18 @@ void setup() {
   SET_INPUT_PULLUP(WIND_LIM_SWITCH);
 
   // Configure the hotend
-  hotend.init(50);
-  //hotend.set_constants(2.16, 0.08, 15.28);
-  hotend.set_constants(0.25, 0, 11.66211);
-  //hotend.autotune_init();
-
-  // Start the motors
-  motorHandler.start(EXTRUDER);
-  //motorHandler.start(ROLLERS);
-  //motorHandler.start(WINDER);
-
+  Heater::init(0);
+  //hotend.set_constants(2.16, 0.08, 15.28); Old constants
+  Heater::set_constants(0.25, 0, 11.66211);
 
   // Init timer ITimer1
   ITimer2.init();
   #define TIMER2_INTERVAL_MS 1
   ITimer2.attachInterruptInterval(TIMER2_INTERVAL_MS, Motor::run);
-  //ITimer3.init();
-  #define TIMER3_INTERVAL_MS 2000
-  //ITimer3.attachInterruptInterval(TIMER3_INTERVAL_MS, idle);
 
   Serial.begin(9600);
-  // Serial setup for communication with PC
-  //usart0_init(9600);
-  //usart0_write("Flow Extruder MK1 running firmware version 1.0.\r\n");
-  //usart0_write("Type a gcode command to start.\r\n> ");
+  Serial.print("Flow Extruder MK1 running firmware version "); Serial.println(VERSION);
+  Serial.println("Type a gcode command.");
 }
 
 

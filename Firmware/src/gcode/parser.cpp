@@ -1,4 +1,5 @@
 #include "parser.h"
+#include <Arduino.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -61,7 +62,6 @@ gcodeCommand parser::parsegcode(char* input){
     return output;
   }else{
     output.letter = -1; // Return invalid
-    usart0_write_str("Erroring here");
     return output;
   }
 
@@ -99,7 +99,6 @@ gcodeCommand parser::parsegcode(char* input){
       return output;
     }else{
       output.letter = -1; // Return invalid
-      usart0_write_str("Erroring here");
       return output;
     }
   }

@@ -63,16 +63,16 @@ void Motor::stop(int motor_num){
 void Motor::set_speed(int motor_num, float motor_speed){
   switch (motor_num){
     case EXTRUDER:
-      m_extruder.setSpeed(motor_speed);
+      m_extruder.setMaxSpeed(motor_speed);
       break;
     case ROLLERS:
-      m_roller.setSpeed(motor_speed);
+      m_roller.setMaxSpeed(motor_speed);
       break;
     case LEVEL:
-      m_level.setSpeed(motor_speed);
+      m_level.setMaxSpeed(motor_speed);
       break;
     case WINDER:
-      m_winder.setSpeed(motor_speed);
+      m_winder.setMaxSpeed(motor_speed);
       break;
   }
 }

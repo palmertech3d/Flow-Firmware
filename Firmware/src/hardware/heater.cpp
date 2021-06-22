@@ -2,6 +2,20 @@
 #include <stdlib.h>
 #include <Arduino.h>
 
+// Initialize static variables for Heater class
+double Heater::temp = 0;
+double Heater::target_temp = 0;
+double Heater::output = 0;
+double Heater::Kp=2, Heater::Ki=5, Heater::Kd=1; // PID constants, default vals are samples
+MAX6675_Thermocouple Heater::thermometer = MAX6675_Thermocouple(THERMO_SCK, THERMO_CS, THERMO_SO);
+PID Heater::temp_controller = PID(&Heater::temp, &Heater::output, &Heater::target_temp, Heater::Kp, Heater::Ki, Heater::Kd, DIRECT);
+PID_ATune Heater::pid_auto = PID_ATune(&Heater::temp, &Heater::output);
+bool Heater::auto_on = false;
+
+
+
+
+
 // Default constructor
 Heater::Heater(){}
 
@@ -47,37 +61,35 @@ void Heater::autotune_init(){
 
 }
 
-void Heater::update(){
-  temp = thermometer.readCelsius();
+bool Heater::autotune_on(){
+  return auto_on;
+}
 
-  // Writing out current temperature to USART
-  char* tempChar;
-  itoa((uint8_t)temp, tempChar, 10); // 10 is for base 10
-  usart0_write_str(tempChar);
-  usart0_write_str("\r\n");
+void Heater::update(){
+
+  double temporary = thermometer.readCelsius();
+
+  if ((int)temporary != (int)temp){
+    Serial.print("Hotend: "); Serial.print((int)temp); Serial.println("C");
+  }
+
+  temp = temporary;
 
   temp_controller.Compute();
   analogWrite(HEATER, output);
 
-  int tune_result = 0;
-
   if(auto_on){
-    tune_result = pid_auto.Runtime();
+    int tune_result = pid_auto.Runtime();
     if (tune_result != 0){
       auto_on = false;
+
       // return PID constants
       Kp = pid_auto.GetKp();
       Ki = pid_auto.GetKi();
       Kd = pid_auto.GetKd();
-      usart0_write_str("PID Autotuning complete. Constants stored in heater.");
+      Serial.println("Autotuning complete. Constants stored in heater.");
+      Serial.println("Use m503 to view constants.");
 
-      Serial.begin(9600);
-      Serial.print("Kp: ");
-      Serial.print(Kp);
-      Serial.print("Ki: ");
-      Serial.print(Ki);
-      Serial.print("Kd: ");
-      Serial.print(Kd);
     }
   }
 }
