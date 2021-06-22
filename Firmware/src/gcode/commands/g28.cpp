@@ -1,6 +1,7 @@
 // G28 homes the level winder
 #include "../../HAL/megaatmega2560/megaatmega2560.h"
 #include "../gcode.h"
+#include <AccelStepper.h>
 
 // main G28 function: call this to execute G28
 // Homes the level winder; this function will delay all future action

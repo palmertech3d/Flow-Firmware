@@ -4,7 +4,7 @@ The Flow Firmware is designed around a custom flavor of gcode.
 ## Commands
 
 ### G1 M\<motor\> S\<speed\>
-Starts the motor given by int M at speed S. Refer to motor list. If level winder motor is started, speed is not necessary. If no motor argument is given, the command is rejected.
+Starts the motor given by M at speed S. Refer to motor list. If level winder motor selected, speed is not necessary. If no motor argument is given, the command is rejected.
 
 ### G2 M\<motor\>
 Stops the motor given by int M. Refer to motor list. If no motor argument is given, the command is rejected.

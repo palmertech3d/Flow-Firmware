@@ -1,5 +1,6 @@
 #include "gcode.h"
 
+#include <Arduino.h>
 #include <stdlib.h>
 #include "../HAL/megaatmega2560/serial.h"
 
@@ -12,17 +13,23 @@ int gcode::get_gcode(){
   char* gcodeInChar = (char *)malloc(sizeof(char) * 20); // 20 corresponds to the
                                                          // max # of chars a
                                                          // gcode command can be
-
-  char temp = usart0_receive();
   int i = 0;
-  while(temp != 13){ // 13 is the "enter" key
-    gcodeInChar[i] = temp;
-    usart0_write_char(gcodeInChar[i]); // Feedback for user
-    temp = usart0_receive();
-    i++;
+  if (Serial.available()){
+    char temp = Serial.read();
+    while(Serial.available() && temp != 13){ // 13 is the "enter" key
+        gcodeInChar[i] = temp;
+        usart0_write_char(gcodeInChar[i]); // Feedback for user
+        temp = Serial.read();
+        i++;
+      }
   }
 
-  gcodeInChar[i] = 0;
+  if (i == 0){
+    //Serial.print("Returned 1");
+    return 1;
+  }
+
+  gcodeInChar[i] = 0; // Terminate the string
   usart0_write_str("\r\nYour input:\r\n");
   usart0_write_str(gcodeInChar);
   usart0_write_str("\r\n");

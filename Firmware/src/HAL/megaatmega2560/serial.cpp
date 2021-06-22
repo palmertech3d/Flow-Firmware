@@ -39,6 +39,11 @@ void usart0_write_str(const char* data){
 
 uint8_t usart0_receive()
 {
-    while(!((UCSR0A) & (1<<RXC0)));                   // wait while data is being received
-    return UDR0;                                   // return 8-bit data
+    while(!((UCSR0A) & (1<<RXC0)));    // wait while data is being received
+
+
+  //UCSR0A &= !(1<<RXC0);
+    uint8_t data = UDR0;
+    UDR0 &= 0;
+    return data;                                // return 8-bit data
 }

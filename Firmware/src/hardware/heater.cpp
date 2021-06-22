@@ -47,7 +47,7 @@ void Heater::autotune_init(){
 
 }
 
-void Heater::update_heater(){
+void Heater::update(){
   temp = thermometer.readCelsius();
 
   // Writing out current temperature to USART

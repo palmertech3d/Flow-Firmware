@@ -29,6 +29,8 @@ class gcode{
 
 
     // gcode access functions
+    void g1();
+    
     void g28();
 
     void m106();

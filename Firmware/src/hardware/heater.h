@@ -36,7 +36,7 @@ public:
 
   // Updates the heater from the calculated PID value
   // Must be called regularly
-  void update_heater();
+  void update();
 
 private:
   double temp; // The current temperature of the hotend

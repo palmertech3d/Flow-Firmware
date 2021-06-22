@@ -26,36 +26,30 @@
 #include <PID_AutoTune_v0.h>
 #include <Thermocouple.h>
 #include <MAX6675_Thermocouple.h>
+#define USE_TIMER_2     1
+#define USE_TIMER_3     1
+#include "TimerInterrupt.h"
 
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
 #include "gcode/gcode.h"
 #include "gcode/parser.h"
 #include "hardware/heater.h"
-
-//// GLOBAL OBJECTS & VARIABLES
-
-// Stepper objects
-AccelStepper m_extruder(1, M_EXTRUDER_STEP, M_EXTRUDER_DIR);
-AccelStepper m_roller(1, M_ROLLER_STEP, M_ROLLER_DIR);
-AccelStepper m_winder(1, M_WINDER_STEP, M_WINDER_DIR);
-//==================================
-
+#include "hardware/motor.h"
 
 // Hotend object
 Heater hotend;
 
-
-// Motor variables
-bool levelHomed = false; // Set to true when level winder has been homed
-
-short extruderMotorStatus = 0; // The speed of the stepper motors in rpm
-short rollerMotorStatus = 0;
-short levelMotorStatus = 0;
-short winderMotorStatus = 0;
-
-//==================================
-
-char *buffer = (char *)malloc(sizeof(char) * 6); // Buffer for serial input
+// Gcode objects
 gcode gcodeHandler;
 parser parserHandler;
+
+// Motor object
+Motor motorHandler;
+
+// All checkups are done within this function. Executes every two seconds.
+void idle(){
+  gcodeHandler.get_gcode();
+  gcodeHandler.execute_buffer();
+  hotend.update();
+}
