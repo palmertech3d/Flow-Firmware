@@ -5,6 +5,6 @@
 
 // m303 activates PID auto tune for the hotend
 void gcode::m303(){
-  Serial.println("Starting autotune for hotend...");
+  Serial.println(F("Starting autotune for hotend..."));
   Heater::autotune_init();
 }

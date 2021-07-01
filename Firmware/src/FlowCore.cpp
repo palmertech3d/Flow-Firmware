@@ -21,6 +21,7 @@
 #include "FlowCore.h"
 
 void idle(){
+  //Serial.print(F("Free memory: ")); Serial.println(freeMemory()); // Print amount of free memory remaining
   gcodeHandler.get_gcode();
   gcodeHandler.execute_buffer();
   Heater::update();
@@ -40,16 +41,16 @@ void setup() {
   // Configure the hotend
   Heater::init(0);
   //hotend.set_constants(2.16, 0.08, 15.28); Old constants
-  Heater::set_constants(0.25, 0, 11.66211);
+  Heater::set_constants(10, 0.5, 5);
 
-  // Init timer ITimer1
+  // Init timer ITimer2
   ITimer2.init();
   #define TIMER2_INTERVAL_MS 1
   ITimer2.attachInterruptInterval(TIMER2_INTERVAL_MS, Motor::run);
 
   Serial.begin(9600);
-  Serial.print("Flow Extruder MK1 running firmware version "); Serial.println(VERSION);
-  Serial.println("Type a gcode command.");
+  Serial.print(F("Flow Extruder MK1 running firmware version ")); Serial.println(VERSION);
+  Serial.println(F("Type a gcode command."));
 }
 
 

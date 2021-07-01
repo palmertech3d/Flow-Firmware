@@ -7,7 +7,7 @@
 void gcode::g1(int motor, int speed){
   Motor motorHandler;
   if (motor <= WINDER && motor >= EXTRUDER){
-    Serial.println("Starting a motor...");
+    Serial.println(F("Starting a motor..."));
     motorHandler.set_speed(motor, speed);
     motorHandler.start(motor);
   }

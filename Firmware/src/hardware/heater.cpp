@@ -13,9 +13,6 @@ PID_ATune Heater::pid_auto = PID_ATune(&Heater::temp, &Heater::output);
 bool Heater::auto_on = false;
 
 
-
-
-
 // Default constructor
 Heater::Heater(){}
 
@@ -46,6 +43,7 @@ void Heater::set_constants(double Kp_set, double Ki_set, double Kd_set){
   Kp = Kp_set;
   Ki = Ki_set;
   Kd = Kd_set;
+  temp_controller.SetTunings(Kp, Ki, Kd);
 }
 
 void Heater::get_constants(double* constants_out){
@@ -70,7 +68,7 @@ void Heater::update(){
   double temporary = thermometer.readCelsius();
 
   if ((int)temporary != (int)temp){
-    Serial.print("Hotend: "); Serial.print((int)temp); Serial.println("C");
+    Serial.print(F("Hotend: ")); Serial.print((int)temp); Serial.println(F("C"));
   }
 
   temp = temporary;
@@ -87,8 +85,9 @@ void Heater::update(){
       Kp = pid_auto.GetKp();
       Ki = pid_auto.GetKi();
       Kd = pid_auto.GetKd();
-      Serial.println("Autotuning complete. Constants stored in heater.");
-      Serial.println("Use m503 to view constants.");
+      temp_controller.SetTunings(Kp, Ki, Kd);
+      Serial.println(F("Autotuning complete. Constants stored in heater."));
+      Serial.println(F("Use m503 to view constants."));
 
     }
   }

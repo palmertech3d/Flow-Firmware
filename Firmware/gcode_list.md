@@ -3,6 +3,8 @@ The Flow Firmware is designed around a custom flavor of gcode.
 
 ## Commands
 
+REMINDER: When sending gcode commands, a carriage return (enter, ASCII 13) MUST be sent in order for the firmware to execute the command.
+
 ### G1 M\<motor\> S\<speed\>
 Starts the motor given by M at speed S. Refer to motor list. If level winder motor selected, speed is not necessary. If no motor argument is given, the command is rejected. Speeds can only be given as integer values.
 

@@ -4,6 +4,6 @@
 
 // M106 turns cooling fans on/off
 void gcode::m106(){
-  Serial.println("Toggling cooling fans");
+  Serial.println(F("Toggling cooling fans"));
   TOGGLE(FAN);
 }

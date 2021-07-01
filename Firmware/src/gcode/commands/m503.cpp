@@ -5,19 +5,19 @@
 
 // M503 reports settings to the terminal
 void gcode::m503(){
-  Serial.println("Current settings for Flow Extruder:");
-  Serial.print("Current hotend temp: "); Serial.println((int)Heater::get());
-  Serial.print("Target hotend temp: "); Serial.println((int)Heater::get_target());
+  Serial.println(F("Current settings for Flow Extruder:"));
+  Serial.print(F("Current hotend temp: ")); Serial.println((int)Heater::get());
+  Serial.print(F("Target hotend temp: ")); Serial.println((int)Heater::get_target());
   double constants[3];
   Heater::get_constants(constants);
-  Serial.println("Hotend PID constants: ");
-  Serial.print("\tKp: "); Serial.println(constants[0]);
-  Serial.print("\tKi: "); Serial.println(constants[1]);
-  Serial.print("\tKd: "); Serial.println(constants[2]);
-  Serial.print("Autotune active?: ");
+  Serial.println(F("Hotend PID constants: "));
+  Serial.print(F("\tKp: ")); Serial.println(constants[0]);
+  Serial.print(F("\tKi: ")); Serial.println(constants[1]);
+  Serial.print(F("\tKd: ")); Serial.println(constants[2]);
+  Serial.print(F("Autotune active?: "));
   if(Heater::autotune_on()){
-    Serial.println("Yes");
+    Serial.println(F("Yes"));
   }else{
-    Serial.println("No");
+    Serial.println(F("No"));
   }
 }

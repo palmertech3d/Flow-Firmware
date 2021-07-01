@@ -28,6 +28,8 @@
 #include <MAX6675_Thermocouple.h> // Also for the thermocouple
 #define USE_TIMER_2     1
 #include "TimerInterrupt.h" // For interrupts
+#include <MemoryFree.h>
+
 
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
