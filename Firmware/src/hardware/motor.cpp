@@ -10,7 +10,7 @@ Motor::Motor(){
   m_extruder.setAcceleration(100.0);
   //m_extruder.setSpeed(100.0);
 
-  m_roller.setMaxSpeed(25);
+  m_roller.setMaxSpeed(100);
   m_roller.setAcceleration(100.0);
   //m_roller.setSpeed(100.0);
 
@@ -18,7 +18,7 @@ Motor::Motor(){
   m_level.setAcceleration(100.0);
   //m_level.setSpeed(100.0);
 
-  m_winder.setMaxSpeed(25);
+  m_winder.setMaxSpeed(100);
   m_winder.setAcceleration(100.0);
   //m_winder.setSpeed(100.0);
 
@@ -27,17 +27,16 @@ Motor::Motor(){
 void Motor::start(int motor_num){
   switch (motor_num){
     case EXTRUDER:
-      m_extruder.moveTo(-1000000);
+      //m_extruder.moveTo(-1000000);
       break;
     case ROLLERS:
-      m_roller.moveTo(1000000);
+      //m_roller.moveTo(1000000);
       break;
     case LEVEL:
       // run the level winder
-      //m_level.moveTo(1000000);
       break;
     case WINDER:
-      m_winder.moveTo(1000000);
+      //m_winder.moveTo(1000000);
       break;
   }
 
@@ -46,16 +45,16 @@ void Motor::start(int motor_num){
 void Motor::stop(int motor_num){
   switch(motor_num){
     case EXTRUDER:
-      m_extruder.stop();
+      m_extruder.setSpeed(0);
       break;
     case ROLLERS:
-      m_roller.stop();
+      m_roller.setSpeed(0);
       break;
     case LEVEL:
       m_level.stop();
       break;
     case WINDER:
-      m_winder.stop();
+      m_winder.setSpeed(0);
       break;
   }
 }
@@ -63,16 +62,16 @@ void Motor::stop(int motor_num){
 void Motor::set_speed(int motor_num, float motor_speed){
   switch (motor_num){
     case EXTRUDER:
-      m_extruder.setMaxSpeed(motor_speed);
+      m_extruder.setSpeed(-1*motor_speed);
       break;
     case ROLLERS:
-      m_roller.setMaxSpeed(motor_speed);
+      m_roller.setSpeed(motor_speed);
       break;
     case LEVEL:
       m_level.setMaxSpeed(motor_speed);
       break;
     case WINDER:
-      m_winder.setMaxSpeed(motor_speed);
+      m_winder.setSpeed(motor_speed);
       break;
   }
 }
@@ -93,8 +92,8 @@ float Motor::get_speed(int motor_num){
 }
 
 void Motor::run(){
-  m_extruder.run();
-  m_roller.run();
+  m_extruder.runSpeed();
+  m_roller.runSpeed();
   m_level.run();
-  m_winder.run();
+  m_winder.runSpeed();
 }
