@@ -27,6 +27,7 @@ void idle(){
   Heater::update();
 }
 
+// TODO: Move this to its own file
 unsigned long sendData(unsigned long address, unsigned long datagram)
 {
   //TMC5130 takes 40 bit data: 8 address and 32 data
@@ -44,11 +45,6 @@ unsigned long sendData(unsigned long address, unsigned long datagram)
   i_datagram <<= 8;
   i_datagram |= SPI.transfer((datagram) & 0xff);
   digitalWrite(EXTRUDER_CS, HIGH);
-
-  //Serial.print("Received: ");
-  //Serial.println(i_datagram,HEX);
-  //Serial.print(" from register: ");
-  //Serial.println(address,HEX);
 
   return i_datagram;
 }
@@ -76,6 +72,7 @@ void setup() {
 
   Serial.begin(9600);
 
+  // TODO: Move this driver init section to a function in its own file
   // TMC5160 driver init
   SPI.setBitOrder(MSBFIRST);
   SPI.setClockDivider(SPI_CLOCK_DIV8);

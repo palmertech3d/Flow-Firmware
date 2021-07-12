@@ -10,9 +10,8 @@ int gcode::get_gcode(){
 
   // first, poll serial for inputs
   parser parserHandler;
-  static char* gcodeInChar = (char *)malloc(sizeof(char) * 20); // 20 corresponds to the
-                                                         // max # of chars a
-                                                         // gcode command can be
+  char gcodeInChar[20]; // 20 corresponds to the max # of chars a gcode command can be
+
   int i = 0;
   if (Serial.available()){
     char temp = Serial.read();
@@ -27,7 +26,7 @@ int gcode::get_gcode(){
     return 1;
   }
 
-  gcodeInChar[i] = 0; // Terminate the string
+  gcodeInChar[i] = '\0'; // Terminate the string
 
   // parse this input
   gcodeCommand parsedGcode = parserHandler.parsegcode(gcodeInChar);

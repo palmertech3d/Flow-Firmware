@@ -3064,7 +3064,7 @@ TIMER2_COMPA_vect	.\Firmware\lib\TimerInterrupt-1.5.0\src_h\TimerInterrupt.h	138
 TIMER2_INSTANTIATED	.\Firmware\lib\TimerInterrupt-1.5.0\src\TimerInterrupt.h	524;"	d
 TIMER2_INSTANTIATED	.\Firmware\lib\TimerInterrupt-1.5.0\src_cpp\TimerInterrupt.h	524;"	d
 TIMER2_INSTANTIATED	.\Firmware\lib\TimerInterrupt-1.5.0\src_h\TimerInterrupt.h	524;"	d
-TIMER2_INTERVAL_MS	.\Firmware\src\FlowCore.cpp	74;"	d	file:
+TIMER2_INTERVAL_MS	.\Firmware\src\FlowCore.cpp	70;"	d	file:
 TIMER3_INSTANTIATED	.\Firmware\lib\TimerInterrupt-1.5.0\src\TimerInterrupt.h	571;"	d
 TIMER3_INSTANTIATED	.\Firmware\lib\TimerInterrupt-1.5.0\src_cpp\TimerInterrupt.h	571;"	d
 TIMER3_INSTANTIATED	.\Firmware\lib\TimerInterrupt-1.5.0\src_h\TimerInterrupt.h	571;"	d
@@ -3656,7 +3656,7 @@ currentPosition	.\Firmware\lib\AccelStepper\AccelStepper.cpp	/^long AccelStepper
 cursor	.\Firmware\lib\LiquidCrystal\src\LiquidCrystal.cpp	/^void LiquidCrystal::cursor() {$/;"	f	class:LiquidCrystal
 cursorGrab	.\Firmware\lib\LiquidMenu\doc\Doxygen\html\svgpan.js	/^var cursorGrab = ' url("data:image\/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAlQTFRFAAAA\/\/\/\/\/\/\/\/c3ilYwAAAAN0Uk5T\/\/8A18oNQQAAAD1JREFUeNp0zlEKACAIA9Bt9z90bZBZkQj29qFBEuBOzQHSnWTTyckEfqUuZgFvslH4ch3qLCO\/Kr8cAgwATw4Ax6XRCcoAAAAASUVORK5CYII="), move';$/;"	v
 customFocus	.\Firmware\lib\LiquidMenu\src\glyphs.h	/^uint8_t customFocus[8] = {$/;"	m	namespace:glyph
-cutString	.\Firmware\src\gcode\parser.cpp	/^void parser::cutString(char* input, char* output, int* index){$/;"	f	class:parser
+cutString	.\Firmware\src\gcode\parser.cpp	/^void parser::cutString(char* input, char* output, unsigned int* index){$/;"	f	class:parser
 dc_sg	.\Firmware\lib\TMC5160_Arduino-master\src\TMC5160_registers.h	/^    BitField<16,  8> dc_sg; \/\/ Max. PWM on time for step loss detection using dcStep stallGuard2 in dcStep mode.$/;"	m	union:TMC5160_Reg::DCCTRL_Register
 dc_time	.\Firmware\lib\TMC5160_Arduino-master\src\TMC5160_registers.h	/^    BitField< 0, 10> dc_time; \/\/ Upper PWM on time limit for commutation$/;"	m	union:TMC5160_Reg::DCCTRL_Register
 dedge	.\Firmware\lib\TMC5160_Arduino-master\src\TMC5160_registers.h	/^    BitField<29>    dedge; \/\/ Enable double edge step pulses$/;"	m	union:TMC5160_Reg::CHOPCONF_Register

@@ -29,8 +29,9 @@ class parser{
 
     // Cuts a string at the passed index, returning the string from the index
     // to a space or a null byte
-    void cutString(char* input, char* output, int* index);
+    void cutString(char* input, char* output, unsigned int* index);
 
+    // TODO: Replace this function with a simple implementation of atoi()
     int getIntFromString(char* input, int numPlaces);
 
     // Takes in a char, returns true if it is a num, false if not.

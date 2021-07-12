@@ -13,17 +13,23 @@ gcodeCommand parser::parsegcode(char* input){
   gcodeCommand output; // The gcodeCommand object to return
   unsigned int index = 0; // The index used to iterate through the user's input
 
+  // Initialize output with default values
+  output.letter = 0;
+  output.command = 0;
+  output.argChar[0] = 0;
+  output.argInt[0] = 0;
+  output.argChar[1] = 0;
+  output.argInt[1] = 0;
+  output.argChar[2] = 0;
+  output.argInt[2] = 0;
+
   // First character: Should be an m or a g, case doesn't matter
   switch (input[index]){
     case 'G':
-      output.letter = 'g';
-      break;
     case 'g':
       output.letter = 'g';
       break;
     case 'M':
-      output.letter = 'm';
-      break;
     case 'm':
       output.letter = 'm';
       break;
@@ -54,11 +60,6 @@ gcodeCommand parser::parsegcode(char* input){
   if (input[index] == ' '){
     index++;
   }else if (input[index] == '\0'){
-    // Reset all args if no args are passed
-    output.argChar[0] = 0;
-    output.argInt[0] = 0;
-    output.argChar[1] = 0;
-    output.argInt[1] = 0;
     return output;
   }else{
     output.letter = -1; // Return invalid
@@ -125,7 +126,7 @@ int parser::getIntFromString(char* input, int numPlaces){
 }
 
 
-void parser::cutString(char* input, char* output, int* index){
+void parser::cutString(char* input, char* output, unsigned int* index){
   int j = 0;
 
   while(input[*index] != ' ' && input[*index] != '\0'){

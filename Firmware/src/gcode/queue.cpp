@@ -35,7 +35,6 @@ gcodeCommand queue::get(){
     temp = commands[tail];
     tail++;
   }else{
-    //Serial.println("Thinks empty");
     temp.letter = -1;
   }
 
