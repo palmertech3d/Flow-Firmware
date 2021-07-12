@@ -45,10 +45,10 @@ unsigned long sendData(unsigned long address, unsigned long datagram)
   i_datagram |= SPI.transfer((datagram) & 0xff);
   digitalWrite(EXTRUDER_CS, HIGH);
 
-  Serial.print("Received: ");
-  Serial.println(i_datagram,HEX);
-  Serial.print(" from register: ");
-  Serial.println(address,HEX);
+  //Serial.print("Received: ");
+  //Serial.println(i_datagram,HEX);
+  //Serial.print(" from register: ");
+  //Serial.println(address,HEX);
 
   return i_datagram;
 }
@@ -82,20 +82,9 @@ void setup() {
   SPI.setDataMode(SPI_MODE3);
   SPI.begin();
 
-  /*
-   sendData(0x89,0x00010606);      // SHORTCONF
-   sendData(0x8A,0x00080400);      // DRV_CONF
-   sendData(0x90,0x00080303);      // IHOLD_IRUN
-   sendData(0x91,0x0000000A);      // TPOWERDOWN
-   sendData(0xAB,0x00000001);      // VSTOP
-   sendData(0xBA,0x00000001);      // ENC_CONST
-   sendData(0xEC,0x15410153);      // CHOPCONF
-   sendData(0xF0,0xC40C001E);      // PWMCONF
-  */
-
   sendData(0xEC, 0x80100C3); // CHOPCONF
   sendData(0xED, 0x3F0000); // COOLCONF
-  sendData(0x90, 0x61F0A); // IHOLD_IRUN
+  sendData(0x90, 0x6190A); // IHOLD_IRUN
   sendData(0x91, 0xA); // TPOWERDOWN
   sendData(0x80, 0x4); // GCONF
   sendData(0x93, 0x1F4); // TPWM_THRS

@@ -2,6 +2,7 @@
 #include "../../HAL/megaatmega2560/megaatmega2560.h"
 #include <Arduino.h>
 #include "../../hardware/heater.h"
+#include "../../hardware/motor.h"
 
 // M503 reports settings to the terminal
 void gcode::m503(){
@@ -20,4 +21,14 @@ void gcode::m503(){
   }else{
     Serial.println(F("No"));
   }
+  Motor motorHandler;
+  Serial.println(F("Motor speeds (steps/sec):"));
+  Serial.print(F("Extruder: "));
+  Serial.println(motorHandler.get_speed(EXTRUDER));
+  Serial.print(F("Rollers: "));
+  Serial.println(motorHandler.get_speed(ROLLERS));
+  Serial.print(F("Level Winder: "));
+  Serial.println(motorHandler.get_speed(LEVEL));
+  Serial.print(F("Winder: "));
+  Serial.println(motorHandler.get_speed(WINDER));
 }

@@ -13,10 +13,10 @@ void gcode::g28(){
   AccelStepper m_level(1, M_LEVEL_STEP, M_LEVEL_DIR);
   // Get level winder ready to be homed
   m_level.setCurrentPosition(0);
-  m_level.moveTo(5000); // Get the level winder ready to move fast towards the limit switch
-  m_level.setMaxSpeed(1000);
-  m_level.setSpeed(500);
-  m_level.setAcceleration(1000);
+  m_level.moveTo(-100000); // Get the level winder ready to move fast towards the limit switch
+  m_level.setMaxSpeed(5000);
+  m_level.setSpeed(5000);
+  m_level.setAcceleration(2000);
 
   while(!levelHomed){
     m_level.run(); // Move the level winder towards the limit switch
@@ -24,12 +24,12 @@ void gcode::g28(){
     if(digitalRead(WIND_LIM_SWITCH) == LOW){
       levelHomed = 1; // Let us know that the level has been homed
       m_level.setCurrentPosition(0); // Set our starting pos to 0
-      m_level.moveTo(-1500); // Move the level winder out from the limit switch
+      m_level.moveTo(10000); // Move the level winder out from the limit switch
 
     }
   }
 
-  while(m_level.currentPosition() != -1500){
+  while(m_level.currentPosition() != 10000){
     m_level.run();
     }
 }

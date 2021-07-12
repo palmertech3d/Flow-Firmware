@@ -10,7 +10,7 @@ Motor::Motor(){
   m_extruder.setAcceleration(100.0);
   //m_extruder.setSpeed(100.0);
 
-  m_roller.setMaxSpeed(100);
+  m_roller.setMaxSpeed(1000);
   m_roller.setAcceleration(100.0);
   //m_roller.setSpeed(100.0);
 
@@ -65,7 +65,7 @@ void Motor::set_speed(int motor_num, float motor_speed){
       m_extruder.setSpeed(-1*motor_speed);
       break;
     case ROLLERS:
-      m_roller.setSpeed(motor_speed);
+      m_roller.setSpeed(-1*motor_speed);
       break;
     case LEVEL:
       m_level.setMaxSpeed(motor_speed);

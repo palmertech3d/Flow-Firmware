@@ -82,10 +82,7 @@ void Heater::update(){
       auto_on = false;
 
       // return PID constants
-      Kp = pid_auto.GetKp();
-      Ki = pid_auto.GetKi();
-      Kd = pid_auto.GetKd();
-      temp_controller.SetTunings(Kp, Ki, Kd);
+      set_constants(pid_auto.GetKd(), pid_auto.GetKi(), pid_auto.GetKd());
       Serial.println(F("Autotuning complete. Constants stored in heater."));
       Serial.println(F("Use m503 to view constants."));
 
