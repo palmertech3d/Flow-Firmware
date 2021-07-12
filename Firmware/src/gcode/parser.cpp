@@ -66,8 +66,9 @@ gcodeCommand parser::parsegcode(char* input){
     return output;
   }
 
+  // Move to get command parameters
   for (int i = 0; i < 2; i++){
-    if (input[index] > 64 && input[index] < 123){ // If input[index] is a letter
+    if ((input[index] >= 'A' && input[index] <= 'Z') || (input[index] >= 'a' && input[index] <= 'z')){ // If input[index] is a letter
       output.argChar[i] = tolower(input[index]);
     }else{
       output.letter = -1; // Return invalid
@@ -93,10 +94,6 @@ gcodeCommand parser::parsegcode(char* input){
     if (input[index] == ' '){
       index++;
     }else if (input[index] == '\0'){
-      if (i == 0){
-        output.argChar[1] = 0;
-        output.argInt[1] = 0;
-      }
       return output;
     }else{
       output.letter = -1; // Return invalid
@@ -139,5 +136,5 @@ void parser::cutString(char* input, char* output, unsigned int* index){
 
 
 bool parser::isNum(char data){
-  return  (data > 47 && data < 58);
+  return  (data >= '0' && data <= '9');
 }
