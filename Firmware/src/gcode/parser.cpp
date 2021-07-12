@@ -138,6 +138,5 @@ void parser::cutString(char* input, char* output, int* index){
 
 
 bool parser::isNum(char data){
-  if(data > 47 && data < 58){return true;}
-  else{return false;}
+  return  (data > 47 && data < 58);
 }
