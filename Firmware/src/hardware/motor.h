@@ -29,6 +29,9 @@ public:
   // Runs the motors
   static void run();
 
+  // Homes the level winder
+  void home_level_winder();
+
   static AccelStepper m_extruder;
   static AccelStepper m_roller;
   static AccelStepper m_level;

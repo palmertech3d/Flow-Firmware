@@ -28,9 +28,7 @@
 #include <MAX6675_Thermocouple.h> // Also for the thermocouple
 #define USE_TIMER_2     1
 #include "TimerInterrupt.h" // For interrupts
-#include <MemoryFree.h>
-#include <SPI.h>
-#include <TMC5160.h>
+
 
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
@@ -38,7 +36,7 @@
 #include "gcode/parser.h"
 #include "hardware/heater.h"
 #include "hardware/motor.h"
-
+#include "hardware/tmc5160.h"
 
 // Gcode objects
 gcode gcodeHandler;

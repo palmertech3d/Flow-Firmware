@@ -14,8 +14,8 @@ Motor::Motor(){
   m_roller.setAcceleration(100.0);
   //m_roller.setSpeed(100.0);
 
-  m_level.setMaxSpeed(200.0);
-  m_level.setAcceleration(100.0);
+  //m_level.setMaxSpeed(200.0);
+  //m_level.setAcceleration(100.0);
   //m_level.setSpeed(100.0);
 
   m_winder.setMaxSpeed(100);
@@ -96,4 +96,24 @@ void Motor::run(){
   m_roller.runSpeed();
   m_level.run();
   m_winder.runSpeed();
+}
+
+void Motor::home_level_winder(){
+  bool levelHomed = 0;
+
+  // Get level winder ready to be homed
+  m_level.setCurrentPosition(0);
+  m_level.moveTo(-100000);
+  m_level.setMaxSpeed(10000);
+  m_level.setSpeed(10000);
+  m_level.setAcceleration(5000);
+
+  while(!levelHomed){
+    if(digitalRead(WIND_LIM_SWITCH) == LOW){
+      levelHomed = 1; // Let us know that the level has been homed
+      m_level.setCurrentPosition(0); // Set our starting pos to 0
+      m_level.moveTo(19500); // Move the level winder out from the limit switch
+
+    }
+  }
 }
