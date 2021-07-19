@@ -32,10 +32,19 @@ public:
   // Homes the level winder
   void home_level_winder();
 
+  // Set the bounds for the winder
+  void set_winder_bounds(int left, int right);
+
   static AccelStepper m_extruder;
   static AccelStepper m_roller;
   static AccelStepper m_level;
   static AccelStepper m_winder;
+
+private:
+  static long winder_bound_left;
+  static long winder_bound_right;
+  static bool level_homed;
+  static bool level_running;
 
 };
 
