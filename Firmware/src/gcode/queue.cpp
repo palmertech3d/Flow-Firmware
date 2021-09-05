@@ -4,7 +4,7 @@
 queue::queue(){
 }
 
-bool queue::put(gcodeCommand item){
+bool queue::put(GcodeCommand_t item){
   if (full()) {
     return 0;
   } else {
@@ -17,7 +17,7 @@ bool queue::put(gcodeCommand item){
   }
 } // queue::put
 
-void queue::putForce(gcodeCommand item){
+void queue::putForce(GcodeCommand_t item){
   if (head == max_size) {
     head = 0;
   }
@@ -25,8 +25,8 @@ void queue::putForce(gcodeCommand item){
   head++;
 } // queue::putForce
 
-gcodeCommand queue::get(){
-  gcodeCommand temp;
+GcodeCommand_t queue::get(){
+  GcodeCommand_t temp;
 
   if (!empty()) {
     if (tail == max_size) {
@@ -35,7 +35,7 @@ gcodeCommand queue::get(){
     temp = commands[tail];
     tail++;
   } else {
-    temp.letter = -1;
+    temp.letter = GCODE_LETTER_ERR;
   }
 
   return temp;

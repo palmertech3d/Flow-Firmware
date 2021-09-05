@@ -20,8 +20,8 @@
 #include "FlowCore.h"
 
 void idle(){
-  gcodeHandler.get_gcode();
-  gcodeHandler.execute_buffer();
+  gcodeHandler.getGcode();
+  gcodeHandler.executeBuffer();
   Heater::update();
 } // idle
 

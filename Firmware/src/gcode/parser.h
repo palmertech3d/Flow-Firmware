@@ -1,14 +1,21 @@
-#ifndef PARSERH
-#define PARSERH
+#ifndef PARSER_H
+#define PARSER_H
 
 #include <stdio.h>
+#include "config_defaults.h"
+
+typedef int16_t GcodeArg_t;
+#define GCODE_ARG_VALUE_ERR -1
+#define GCODE_ARG_CHAR_ERR -1
+#define GCODE_LETTER_ERR -1
+#define GCODE_COMMAND_ERR -1
 
 // A struct to hold a gcode command
-struct gcodeCommand {
+struct GcodeCommand_t {
   char letter; // G or an M
-  int command; // Number of the gcode command
-  char argChar[3]; // Letters for up to three arguments
-  int argInt[3]; // Values for up to three arguments
+  uint16_t command; // Number of the gcode command
+  char arg_char[GCODE_MAX_ARGS]; // Letters for arguments
+  GcodeArg_t arg_value[GCODE_MAX_ARGS]; // Values for arguments
 };
 
 class parser {
@@ -18,11 +25,11 @@ public:
 parser();
 
 // Takes in a char* for an inputted string.
-// Returns a gcodeCommand object corresponding
+// Returns a GcodeCommand_t object corresponding
 // to the gcode command parsed.
-// Returns a gcodeCommand object with property
-// char letter = -1 if inputed string is invalid.
-gcodeCommand parsegcode(char *);
+// Returns a GcodeCommand_t object with property
+// char letter = GCODE_LETTER_ERR if inputed string is invalid.
+GcodeCommand_t parsegcode(char *);
 
 private:
 
@@ -37,4 +44,4 @@ int getIntFromString(char *input, int numPlaces);
 bool isNum(char data);
 }; // class parser
 
-#endif // PARSERH
+#endif // PARSER_H

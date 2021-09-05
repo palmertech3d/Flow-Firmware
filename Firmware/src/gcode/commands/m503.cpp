@@ -5,7 +5,7 @@
 #include "../../hardware/motor.h"
 
 // M503 reports settings to the terminal
-void gcode::m503(){
+void gcode::m503(GcodeCommand_t cmd){
   Serial.println(F("Current settings for Flow Extruder:"));
   Serial.print(F("Current hotend temp: ")); Serial.println((int)Heater::get());
   Serial.print(F("Target hotend temp: ")); Serial.println((int)Heater::get_target());

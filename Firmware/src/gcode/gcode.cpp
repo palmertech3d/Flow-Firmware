@@ -8,34 +8,33 @@
 gcode::gcode(){
 };
 
-int gcode::get_gcode(){
+GcodeError_t gcode::getGcode() {
   // first, poll serial for inputs
   parser parserHandler;
   char gcodeInChar[GCODE_QUEUE_SIZE_CHARS];
 
-  int i = 0;
+  uint8_t i = 0;
   if (Serial.available()) {
     char temp = Serial.read();
-    while (Serial.available() && temp != 13) { // 13 is the "enter" key
+    while (Serial.available() && temp != '\n' && temp != '\r' && i < GCODE_QUEUE_SIZE_CHARS) {
       gcodeInChar[i] = temp;
       temp = Serial.read();
       i++;
     }
   }
 
-  if (i == 0) {
-    return 1;
-  }
+  if (i == 0) return ERR_NO_DATA;
+  if (i >= GCODE_QUEUE_SIZE_CHARS) return ERR_TOO_LONG;
 
   gcodeInChar[i] = '\0'; // Terminate the string
 
   // parse this input
-  gcodeCommand parsedGcode = parserHandler.parsegcode(gcodeInChar);
+  GcodeCommand_t parsedGcode = parserHandler.parsegcode(gcodeInChar);
 
   // verify the parsed gcode
-  if (parsedGcode.letter == -1) {
+  if (parsedGcode.letter == GCODE_LETTER_ERR) {
     Serial.println(F("Invalid gcode entered."));
-    return 1; // return 1 to indicate invalid gcode entered
+    return ERR_GCODE_INVALID; // return 1 to indicate invalid gcode entered
   }
 
   Serial.println(F("OK"));
@@ -43,41 +42,69 @@ int gcode::get_gcode(){
   // put the parsed gcode in the buffer
   buffer.putForce(parsedGcode);
 
-  return 0;
-} // gcode::get_gcode
+  return ERR_SUCCESS;
+} // gcode::getGcode
 
-bool gcode::execute_gcode(gcodeCommand command){
-  if (command.letter == 'g' && command.command == 28) {
-    g28();
-    return 1;
-  } else if (command.letter == 'g' && command.command == 1 && command.argChar[0] == 'm' && command.argChar[1] == 's') {
-    g1(command.argInt[0], command.argInt[1]);
-    return 1;
-  } else if (command.letter == 'g' && command.command == 2 && command.argChar[0] == 'm') {
-    g2(command.argInt[0]);
-    return 1;
-  } else if (command.letter == 'm' && command.command == 104 && command.argChar[0] == 'b') {
-    m104(command.argInt[0]);
-    return 1;
-  } else if (command.letter == 'm' && command.command == 104) {
-    m104();
-    return 1;
-  } else if (command.letter == 'm' && command.command == 106) {
-    m106();
-    return 1;
-  } else if (command.letter == 'm' && command.command == 303) {
-    m303();
-    return 1;
-  } else if (command.letter == 'm' && command.command == 503) {
-    m503();
-    return 1;
+GcodeError_t gcode::executeGcode(GcodeCommand_t cmd) {
+  if (cmd.letter == 'g') {
+    switch (cmd.command) {
+    case 1: g1(cmd); break;
+    case 2: g2(cmd); break;
+    case 28: g28(cmd); break;
+    default: return ERR_NO_SUCH_NUMBER;
+    } // switch
+  } else if (cmd.letter == 'm') {
+    switch (cmd.command) {
+    case 104: m104(cmd); break;
+    case 106: m106(cmd); break;
+    case 303: m303(cmd); break;
+    case 503: m503(cmd); break;
+    default: return ERR_NO_SUCH_NUMBER;
+    } // switch
   } else {
-    return 0; // return false to indicate that no gcode was executed
+    return ERR_NO_SUCH_LETTER;
   }
 
-  return 1;
-} // gcode::execute_gcode
+  // if (command.letter == 'g' && command.command == 28) {
+  //   g28();
+  //   return 1;
+  // } else if (command.letter == 'g' && command.command == 1 && command.arg_char[0] == 'm' && command.arg_char[1] == 's') {
+  //   g1(command.arg_value[0], command.arg_value[1]);
+  //   return 1;
+  // } else if (command.letter == 'g' && command.command == 2 && command.arg_char[0] == 'm') {
+  //   g2(command.arg_value[0]);
+  //   return 1;
+  // } else if (command.letter == 'm' && command.command == 104 && command.arg_char[0] == 'b') {
+  //   m104(command.arg_value[0]);
+  //   return 1;
+  // } else if (command.letter == 'm' && command.command == 104) {
+  //   m104();
+  //   return 1;
+  // } else if (command.letter == 'm' && command.command == 106) {
+  //   m106();
+  //   return 1;
+  // } else if (command.letter == 'm' && command.command == 303) {
+  //   m303();
+  //   return 1;
+  // } else if (command.letter == 'm' && command.command == 503) {
+  //   m503();
+  //   return 1;
+  // } else {
+  //   return 0; // return false to indicate that no gcode was executed
+  // }
 
-bool gcode::execute_buffer(){
-  return execute_gcode(buffer.get());
-} // gcode::execute_buffer
+  return ERR_SUCCESS;
+} // gcode::executeGcode
+
+GcodeError_t gcode::executeBuffer(){
+  return executeGcode(buffer.get());
+} // gcode::executeBuffer
+
+GcodeArg_t gcodeParseValueFor(char letter, GcodeCommand_t cmd) {
+  for (uint8_t i = 0; i < GCODE_MAX_ARGS; i++) {
+    if (cmd.arg_char[i] == letter) {
+      return cmd.arg_value[i];
+    }
+  }
+  return GCODE_ARG_VALUE_ERR;
+} // getCurrentArgument

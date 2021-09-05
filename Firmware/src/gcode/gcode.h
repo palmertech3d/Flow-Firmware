@@ -3,6 +3,16 @@
 
 #include "parser.h"
 #include "queue.h"
+#include "config_defaults.h"
+
+typedef enum GcodeError_enum {
+  ERR_SUCCESS,
+  ERR_GCODE_INVALID,
+  ERR_TOO_LONG,
+  ERR_NO_SUCH_LETTER,
+  ERR_NO_SUCH_NUMBER,
+  ERR_NO_DATA
+} GcodeError_t;
 
 class gcode {
 public:
@@ -11,44 +21,39 @@ public:
 gcode();
 
 // gets gcode from usart and put it in the buffer
-// returns 0 if valid gcode entered
-// returns 1 if invalid gcode entered
-int get_gcode();
+GcodeError_t getGcode();
 
 // executes the gcode command specified by command
-// returns true if command executed successfully
-// returns false if command executed unsuccessfully
-bool execute_gcode(gcodeCommand command);
+GcodeError_t executeGcode(GcodeCommand_t cmd);
 
 // decides what command is next to be executed in the buffer,
-// then calls execute_gcode to execute it
-// returns true if buffer executed successfully
-// returns false if buffer executed unsuccessfully
-bool execute_buffer();
+// then calls executeGcode to execute it
+GcodeError_t executeBuffer();
 
 // gcode access functions
-void g1(int motor, int speed);
+void g1(GcodeCommand_t cmd);
 
-void g2(int motor);
+void g2(GcodeCommand_t cmd);
 
-void g28();
+void g28(GcodeCommand_t cmd);
 
-void m104(); // Turns off the hotend
+void m104(GcodeCommand_t cmd);
 
-void m104(int temp); // Sets the temp of the hotend
+void m106(GcodeCommand_t cmd);
 
-void m106();
+void m303(GcodeCommand_t cmd);
 
-void m303();
-
-void m503();
+void m503(GcodeCommand_t cmd);
 
 // gcode command buffer
 queue buffer;
 
 private:
-}; // class gcode
+// GcodeCommand_t active_command;
+}
 
-// class gcode
+;
+
+GcodeArg_t gcodeParseValueFor(char letter, GcodeCommand_t cmd);
 
 #endif // GCODE_H

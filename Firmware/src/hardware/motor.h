@@ -18,6 +18,10 @@ Motor();
 // Starts the motor with the corresponding key
 void start(int motor_num);
 
+bool isValidMotor(int16_t motor) {
+  return (motor == EXTRUDER || motor == ROLLERS || motor == WINDER || motor == LEVEL);
+} // isValidMotor
+
 // Stops the motor with the corresponding key
 void stop(int motor_num);
 
@@ -47,5 +51,7 @@ static long winder_bound_right;
 static bool level_homed;
 static bool level_running;
 }; // class Motor
+
+// class Motor
 
 #endif // MOTOR_H

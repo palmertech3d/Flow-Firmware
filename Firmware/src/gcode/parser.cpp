@@ -10,19 +10,19 @@
 parser::parser(){
 };
 
-gcodeCommand parser::parsegcode(char *input){
-  gcodeCommand output; // The gcodeCommand object to return
+GcodeCommand_t parser::parsegcode(char *input){
+  GcodeCommand_t output; // The GcodeCommand_t object to return
   unsigned int index = 0; // The index used to iterate through the user's input
 
   // Initialize output with default values
   output.letter = 0;
   output.command = 0;
-  output.argChar[0] = 0;
-  output.argInt[0] = 0;
-  output.argChar[1] = 0;
-  output.argInt[1] = 0;
-  output.argChar[2] = 0;
-  output.argInt[2] = 0;
+  output.arg_char[0] = 0;
+  output.arg_value[0] = 0;
+  output.arg_char[1] = 0;
+  output.arg_value[1] = 0;
+  output.arg_char[2] = 0;
+  output.arg_value[2] = 0;
 
   // First character: Should be an m or a g, case doesn't matter
   switch (input[index]) {
@@ -35,7 +35,7 @@ gcodeCommand parser::parsegcode(char *input){
     output.letter = 'm';
     break;
   default:
-    output.letter = -1;
+    output.letter = GCODE_LETTER_ERR;
     return output;
   } // switch
 
@@ -48,8 +48,8 @@ gcodeCommand parser::parsegcode(char *input){
   output.command = temp; // Get the data from the substring
 
   // If an invalid form was found in getIntFromString, return invalid
-  if (output.command == -1) {
-    output.letter = -1;
+  if (output.command == GCODE_COMMAND_ERR) {
+    output.letter = GCODE_LETTER_ERR;
     return output;
   }
 
@@ -62,30 +62,30 @@ gcodeCommand parser::parsegcode(char *input){
   } else if (input[index] == '\0') {
     return output;
   } else {
-    output.letter = -1; // Return invalid
+    output.letter = GCODE_LETTER_ERR; // Return invalid
     return output;
   }
 
   // Move to get command parameters
   for (int i = 0; i < 2; i++) {
     if ((input[index] >= 'A' && input[index] <= 'Z') || (input[index] >= 'a' && input[index] <= 'z')) { // If input[index] is a letter
-      output.argChar[i] = tolower(input[index]);
+      output.arg_char[i] = tolower(input[index]);
     } else {
-      output.letter = -1; // Return invalid
+      output.letter = GCODE_LETTER_ERR; // Return invalid
       return output;
     }
 
     index++;
 
     cutString(input, subString, &index); // Fill the substring
-    int temp2 = getIntFromString(subString, 4);
+    GcodeArg_t temp2 = getIntFromString(subString, 4);
 
     // If an invalid form was found in getIntFromString, return invalid
-    if (output.argInt[i] == -1) {
-      output.letter = -1;
+    if (output.arg_value[i] == GCODE_ARG_VALUE_ERR) {
+      output.letter = GCODE_ARG_CHAR_ERR;
       return output;
     }
-    output.argInt[i] = temp2; // Get the data from the substring
+    output.arg_value[i] = temp2; // Get the data from the substring
 
     // Check for a space or a null byte.
     // If a space, move to get arguments.
@@ -96,7 +96,7 @@ gcodeCommand parser::parsegcode(char *input){
     } else if (input[index] == '\0') {
       return output;
     } else {
-      output.letter = -1; // Return invalid
+      output.letter = GCODE_LETTER_ERR; // Return invalid
       return output;
     }
   }
@@ -114,7 +114,7 @@ int parser::getIntFromString(char *input, int numPlaces){
     } else if (input[i] == ' ' || input[i] == '\0') {
       i = numPlaces;
     } else {
-      return -1;
+      return GCODE_COMMAND_ERR;
     }
   }
   outputStr[j] = '\0';

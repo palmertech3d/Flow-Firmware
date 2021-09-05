@@ -2,6 +2,7 @@
 #define QUEUE_H
 
 #include "parser.h"
+#include "config_defaults.h"
 
 class queue {
 public:
@@ -13,14 +14,14 @@ queue();
 // Puts a command in the queue
 // Returns true if queue was not empty and item put,
 // false if queue was full and item could not be put
-bool put(gcodeCommand item);
+bool put(GcodeCommand_t item);
 
 // Puts a command in the queue
 // If queue is full, overwrites previous data
-void putForce(gcodeCommand item);
+void putForce(GcodeCommand_t item);
 
 // Gets the next command in the queue
-gcodeCommand get();
+GcodeCommand_t get();
 
 // Resets the queue to the empty state
 void reset();
@@ -41,7 +42,7 @@ private:
 uint8_t head = 0;
 uint8_t tail = 0;
 static const int max_size = 10;
-gcodeCommand commands[max_size];
+GcodeCommand_t commands[max_size];
 bool full_flag = 0;
 }; // class queue
 
