@@ -1,4 +1,5 @@
 #include "heater.h"
+#include "config_defaults.h"
 #include <stdlib.h>
 #include <Arduino.h>
 
@@ -6,7 +7,7 @@
 double Heater::temp = 0;
 double Heater::target_temp = 0;
 double Heater::output = 0;
-double Heater::Kp = 2, Heater::Ki = 5, Heater::Kd = 1; // PID constants, default vals are samples
+double Heater::Kp = PID_HTR1_P, Heater::Ki = PID_HTR1_I, Heater::Kd = PID_HTR1_D; // PID constants, default vals are samples
 MAX6675_Thermocouple Heater::thermometer = MAX6675_Thermocouple(PIN_THERMO_SCK, PIN_THERMO_CS, PIN_THERMO_SO);
 PID Heater::temp_controller = PID(&Heater::temp, &Heater::output, &Heater::target_temp, Heater::Kp, Heater::Ki, Heater::Kd, DIRECT);
 PID_ATune Heater::pid_auto = PID_ATune(&Heater::temp, &Heater::output);

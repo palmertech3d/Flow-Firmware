@@ -1,4 +1,5 @@
 #include "gcode.h"
+#include "config_defaults.h"
 
 #include <Arduino.h>
 #include <stdlib.h>
@@ -10,7 +11,7 @@ gcode::gcode(){
 int gcode::get_gcode(){
   // first, poll serial for inputs
   parser parserHandler;
-  char gcodeInChar[20]; // 20 corresponds to the max # of chars a gcode command can be
+  char gcodeInChar[GCODE_QUEUE_SIZE_CHARS];
 
   int i = 0;
   if (Serial.available()) {
