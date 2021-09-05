@@ -5,8 +5,8 @@
 // g2 stops the given motor
 void gcode::g2(int motor){
   Motor motorHandler;
-  if (motor <= WINDER && motor >= EXTRUDER){
+  if (motor <= WINDER && motor >= EXTRUDER) {
     Serial.println(F("Stopping a motor..."));
     motorHandler.stop(motor);
   }
-}
+} // gcode::g2

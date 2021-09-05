@@ -6,10 +6,9 @@
 void gcode::m104(){
   Serial.println(F("Turning off the hotend..."));
   Heater::set(0);
-}
-
+} // gcode::m104
 
 void gcode::m104(int temp){
   Serial.print(F("Setting hotend temp to ")); Serial.print(temp); Serial.println(F(" C"));
   Heater::set((double)temp);
-}
+} // gcode::m104

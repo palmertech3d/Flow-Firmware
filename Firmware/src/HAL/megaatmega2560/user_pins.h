@@ -1,27 +1,26 @@
-// Modify this file to your particular extruder pinout. All pin numbers
-// are digital GPIOs.
+// Modify this file to your particular extruder pinout.
 
-#define FAN 3
-#define HEATER 4
+#define PIN_FAN 3
+#define PIN_HEATER 4
 
-#define THERMO_SCK 5
-#define THERMO_CS 6   // Thermocouple constants
-#define THERMO_SO 7
+#define PIN_THERMO_SCK 5
+#define PIN_THERMO_CS 6
+#define PIN_THERMO_SO 7
 
-#define EXTRUDER_CS 8
+#define PIN_EXTRUDER_CS 8
 
-#define ONBOARD_LED 13
+#define PIN_ONBOARD_LED 13
 
-#define WIND_LIM_SWITCH 17 // Winder limit switch: Active LOW
+#define PIN_LIM_SWITCH_WINDER 17
 
-#define M_EXTRUDER_STEP 22
-#define M_EXTRUDER_DIR 23
+#define PIN_M_EXTRUDER_STEP 22
+#define PIN_M_EXTRUDER_DIR 23
 
-#define M_ROLLER_STEP 24
-#define M_ROLLER_DIR 25
+#define PIN_M_ROLLER_STEP 24
+#define PIN_M_ROLLER_DIR 25
 
-#define M_LEVEL_STEP 26              //Motor Constants
-#define M_LEVEL_DIR 27
+#define PIN_M_LEVEL_STEP 26
+#define PIN_M_LEVEL_DIR 27
 
-#define M_WINDER_STEP 28
-#define M_WINDER_DIR 29
+#define PIN_M_WINDER_STEP 28
+#define PIN_M_WINDER_DIR 29

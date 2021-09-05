@@ -7,54 +7,52 @@
 #include <Thermocouple.h>
 #include <MAX6675_Thermocouple.h>
 
-class Heater{
+class Heater {
 public:
-  // Default constructor
-  Heater();
 
-  // Initializes the heater with a target temp
-  static void init(double input_temp);
+// Default constructor
+Heater();
 
-  // Sets the temperature of the heater
-  static void set(double input_temp);
+// Initializes the heater with a target temp
+static void init(double input_temp);
 
-  // Gets the current temperature of the heater
-  static double get();
+// Sets the temperature of the heater
+static void set(double input_temp);
 
-  // Gets the target temperature of the heater
-  static double get_target();
+// Gets the current temperature of the heater
+static double get();
 
-  // Sets the PID constants for the heater
-  static void set_constants(double Kp_set, double Ki_set, double Kd_set);
+// Gets the target temperature of the heater
+static double get_target();
 
-  // Gets the PID constants for the heater and stores them in a double* passed
-  // by reference
-  static void get_constants(double* constants_out);
+// Sets the PID constants for the heater
+static void set_constants(double Kp_set, double Ki_set, double Kd_set);
 
-  // Experimental: Automatically tunes the PID constants for the heater
-  static void autotune_init();
+// Gets the PID constants for the heater and stores them in a double* passed
+// by reference
+static void get_constants(double *constants_out);
 
-  // Returns true if autotune is active, false if not
-  static bool autotune_on();
+// Experimental: Automatically tunes the PID constants for the heater
+static void autotune_init();
 
-  // Updates the heater from the calculated PID value
-  // Must be called regularly
-  static void update();
+// Returns true if autotune is active, false if not
+static bool autotune_on();
+
+// Updates the heater from the calculated PID value
+// Must be called regularly
+static void update();
 
 private:
-  static double temp; // The current temperature of the hotend
-  static double target_temp; // The target temperature of the hotend
-  static double output; // The value calculated by the PID to write to the heater
-  static double Kp,Ki,Kd;
-  static MAX6675_Thermocouple thermometer;
-  static PID temp_controller;
+static double temp;   // The current temperature of the hotend
+static double target_temp;   // The target temperature of the hotend
+static double output;   // The value calculated by the PID to write to the heater
+static double Kp, Ki, Kd;
+static MAX6675_Thermocouple thermometer;
+static PID temp_controller;
 
-  // Autotune
-  static PID_ATune pid_auto;
-  static bool auto_on;
-
-};
-
-
+// Autotune
+static PID_ATune pid_auto;
+static bool auto_on;
+}; // class Heater
 
 #endif // HEATER_H

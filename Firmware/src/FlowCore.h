@@ -29,7 +29,6 @@
 #define USE_TIMER_2     1
 #include "TimerInterrupt.h" // For interrupts
 
-
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
 #include "gcode/gcode.h"

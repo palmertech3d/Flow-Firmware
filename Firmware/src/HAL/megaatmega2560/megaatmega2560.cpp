@@ -3,11 +3,11 @@ namespace HAL{
 
   void blinkLED(){
     //#define ENABLE 13
-    SET_OUTPUT(ONBOARD_LED); // Set pin DIO13 to output mode
+    SET_OUTPUT(PIN_ONBOARD_LED); // Set pin DIO13 to output mode
 
-    TOGGLE(ONBOARD_LED); // Toggle pin DIO13
+    TOGGLE(PIN_ONBOARD_LED); // Toggle pin DIO13
     _delay_ms(500);
-    TOGGLE(ONBOARD_LED); // Toggle pin DIO13
+    TOGGLE(PIN_ONBOARD_LED); // Toggle pin DIO13
     _delay_ms(500);
 
   }

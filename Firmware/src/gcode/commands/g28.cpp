@@ -11,5 +11,4 @@ void gcode::g28(){
   Serial.println(F("Homing the level winder..."));
   Motor motorHandler;
   motorHandler.home_level_winder();
-
-}
+} // gcode::g28

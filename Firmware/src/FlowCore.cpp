@@ -17,25 +17,22 @@
  *
  */
 
-
 #include "FlowCore.h"
 
 void idle(){
   gcodeHandler.get_gcode();
   gcodeHandler.execute_buffer();
   Heater::update();
-}
-
+} // idle
 
 /* FIRMWARE ENTRY POINT */
 void setup() {
-
   // Setting output for fan, heater, and winder limit switch
-  SET_OUTPUT(FAN);
-  SET_OUTPUT(HEATER);
-  SET_INPUT(WIND_LIM_SWITCH);
-  SET_INPUT_PULLUP(WIND_LIM_SWITCH);
-  SET_OUTPUT(EXTRUDER_CS);
+  SET_OUTPUT(PIN_FAN);
+  SET_OUTPUT(PIN_HEATER);
+  SET_INPUT(PIN_LIM_SWITCH_WINDER);
+  SET_INPUT_PULLUP(PIN_LIM_SWITCH_WINDER);
+  SET_OUTPUT(PIN_EXTRUDER_CS);
 
   // Configure the hotend
   Heater::init(0);
@@ -49,15 +46,14 @@ void setup() {
   // Init the tmc5160 driver for the extruder motor
   TMC5160::init();
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   Serial.print(F("Flow Extruder MK1 running firmware version ")); Serial.println(VERSION);
   Serial.println(F("Type a gcode command."));
-}
-
+} // setup
 
 /* THE MAIN LOOP */
 void loop() {
   idle();
   _delay_ms(250);
-}
+} // loop

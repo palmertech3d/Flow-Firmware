@@ -7,4 +7,4 @@
 void gcode::m303(){
   Serial.println(F("Starting autotune for hotend..."));
   Heater::autotune_init();
-}
+} // gcode::m303

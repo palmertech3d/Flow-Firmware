@@ -4,25 +4,25 @@
 #include <stdlib.h>
 #include "../HAL/megaatmega2560/serial.h"
 
-gcode::gcode(){};
+gcode::gcode(){
+};
 
 int gcode::get_gcode(){
-
   // first, poll serial for inputs
   parser parserHandler;
   char gcodeInChar[20]; // 20 corresponds to the max # of chars a gcode command can be
 
   int i = 0;
-  if (Serial.available()){
+  if (Serial.available()) {
     char temp = Serial.read();
-    while(Serial.available() && temp != 13){ // 13 is the "enter" key
-        gcodeInChar[i] = temp;
-        temp = Serial.read();
-        i++;
-      }
+    while (Serial.available() && temp != 13) { // 13 is the "enter" key
+      gcodeInChar[i] = temp;
+      temp = Serial.read();
+      i++;
+    }
   }
 
-  if (i == 0){
+  if (i == 0) {
     return 1;
   }
 
@@ -32,54 +32,51 @@ int gcode::get_gcode(){
   gcodeCommand parsedGcode = parserHandler.parsegcode(gcodeInChar);
 
   // verify the parsed gcode
-  if (parsedGcode.letter == -1){
+  if (parsedGcode.letter == -1) {
     Serial.println(F("Invalid gcode entered."));
     return 1; // return 1 to indicate invalid gcode entered
   }
 
-  Serial.println("OK");
+  Serial.println(F("OK"));
 
   // put the parsed gcode in the buffer
   buffer.putForce(parsedGcode);
 
   return 0;
-}
+} // gcode::get_gcode
 
 bool gcode::execute_gcode(gcodeCommand command){
-
-  if (command.letter == 'g' && command.command == 28){
+  if (command.letter == 'g' && command.command == 28) {
     g28();
     return 1;
-  }else if (command.letter == 'g' && command.command == 1 && command.argChar[0] == 'm' && command.argChar[1] == 's'){
+  } else if (command.letter == 'g' && command.command == 1 && command.argChar[0] == 'm' && command.argChar[1] == 's') {
     g1(command.argInt[0], command.argInt[1]);
     return 1;
-  }else if (command.letter == 'g' && command.command == 2 && command.argChar[0] == 'm'){
+  } else if (command.letter == 'g' && command.command == 2 && command.argChar[0] == 'm') {
     g2(command.argInt[0]);
     return 1;
-  }else if (command.letter == 'm' && command.command == 104 && command.argChar[0] == 'b'){
+  } else if (command.letter == 'm' && command.command == 104 && command.argChar[0] == 'b') {
     m104(command.argInt[0]);
     return 1;
-  }else if (command.letter == 'm' && command.command == 104){
+  } else if (command.letter == 'm' && command.command == 104) {
     m104();
     return 1;
-  }else if (command.letter == 'm' && command.command == 106){
+  } else if (command.letter == 'm' && command.command == 106) {
     m106();
     return 1;
-  }else if (command.letter == 'm' && command.command == 303){
+  } else if (command.letter == 'm' && command.command == 303) {
     m303();
     return 1;
-  }else if (command.letter == 'm' && command.command == 503){
+  } else if (command.letter == 'm' && command.command == 503) {
     m503();
     return 1;
-  }
-
-  else{
+  } else {
     return 0; // return false to indicate that no gcode was executed
   }
 
   return 1;
-}
+} // gcode::execute_gcode
 
 bool gcode::execute_buffer(){
   return execute_gcode(buffer.get());
-}
+} // gcode::execute_buffer

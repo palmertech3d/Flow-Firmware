@@ -16,9 +16,9 @@ void gcode::m503(){
   Serial.print(F("\tKi: ")); Serial.println(constants[1]);
   Serial.print(F("\tKd: ")); Serial.println(constants[2]);
   Serial.print(F("Autotune active?: "));
-  if(Heater::autotune_on()){
+  if (Heater::autotune_on()) {
     Serial.println(F("Yes"));
-  }else{
+  } else {
     Serial.println(F("No"));
   }
   Motor motorHandler;
@@ -31,4 +31,4 @@ void gcode::m503(){
   Serial.println(motorHandler.get_speed(LEVEL));
   Serial.print(F("Winder: "));
   Serial.println(motorHandler.get_speed(WINDER));
-}
+} // gcode::m503
