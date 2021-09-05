@@ -40,8 +40,7 @@ void setup() {
 
   // Init timer ITimer2 for stepper interrupts
   ITimer2.init();
-  #define TIMER2_INTERVAL_MS 1
-  ITimer2.attachInterruptInterval(TIMER2_INTERVAL_MS, Motor::run);
+  ITimer2.attachInterruptInterval(1, Motor::run); // 1 ms
 
   // Init the tmc5160 driver for the extruder motor
   TMC5160::init();

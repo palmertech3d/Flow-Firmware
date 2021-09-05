@@ -17,7 +17,7 @@
  *
  */
 
-#define VERSION "1.0" // Prototype firmware version
+#define VERSION "0.1.0" // Prototype firmware version
 
 // Included Libraries
 #include <Arduino.h> // Standard Arduino libraries.

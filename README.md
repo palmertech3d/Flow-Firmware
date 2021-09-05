@@ -19,7 +19,7 @@ Repository for code for the Flow extruder.
 - Control various parameters with PID (and autotunable) control loops.
 - Safety features, like temperature and motor current are monitored.
 - Motor speeds should be configurable using real-world units
-- Configurations like extrusion rate, temperatures, diameter should be configured with a single command
+- Parameters like extrusion rate, temperatures, diameter should be set with a single command
 - Constant reporting of certain parameters to whatever is controlling the machine
 - Parameters can change mid-extrusion
 - Configuration can be stored in EEPROM
