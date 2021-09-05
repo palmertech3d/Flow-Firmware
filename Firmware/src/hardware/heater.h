@@ -26,7 +26,7 @@ static double get();
 static double get_target();
 
 // Sets the PID constants for the heater
-static void set_constants(double Kp_set, double Ki_set, double Kd_set);
+static void setConstants(double Kp_set, double Ki_set, double Kd_set);
 
 // Gets the PID constants for the heater and stores them in a double* passed
 // by reference

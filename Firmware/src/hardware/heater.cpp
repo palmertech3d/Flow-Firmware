@@ -40,12 +40,12 @@ double Heater::get_target(){
 } // Heater::get_target
 
 // Sets the PID constants for the heater
-void Heater::set_constants(double Kp_set, double Ki_set, double Kd_set){
+void Heater::setConstants(double Kp_set, double Ki_set, double Kd_set){
   Kp = Kp_set;
   Ki = Ki_set;
   Kd = Kd_set;
   temp_controller.SetTunings(Kp, Ki, Kd);
-} // Heater::set_constants
+} // Heater::setConstants
 
 void Heater::get_constants(double *constants_out){
   constants_out[0] = Kp;
@@ -81,7 +81,7 @@ void Heater::update(){
       auto_on = false;
 
       // return PID constants
-      set_constants(pid_auto.GetKd(), pid_auto.GetKi(), pid_auto.GetKd());
+      setConstants(pid_auto.GetKd(), pid_auto.GetKi(), pid_auto.GetKd());
       Serial.println(F("Autotuning complete. Constants stored in heater."));
       Serial.println(F("Use m503 to view constants."));
     }

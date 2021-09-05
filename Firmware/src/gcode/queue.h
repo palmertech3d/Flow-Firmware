@@ -4,12 +4,12 @@
 #include "parser.h"
 #include "config_defaults.h"
 
-class queue {
+class GcodeQueue {
 public:
 
 // Default constructor
 // Initializes with default max_size of 10
-queue();
+GcodeQueue();
 
 // Puts a command in the queue
 // Returns true if queue was not empty and item put,
@@ -41,9 +41,9 @@ uint8_t size() const;
 private:
 uint8_t head = 0;
 uint8_t tail = 0;
-static const int max_size = 10;
+static const uint8_t max_size = 10;
 GcodeCommand_t commands[max_size];
 bool full_flag = 0;
-}; // class queue
+}; // class GcodeQueue
 
 #endif // QUEUE_H

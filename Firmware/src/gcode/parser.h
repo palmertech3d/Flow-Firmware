@@ -18,11 +18,11 @@ struct GcodeCommand_t {
   GcodeArg_t arg_value[GCODE_MAX_ARGS]; // Values for arguments
 };
 
-class parser {
+class GcodeParser {
 public:
 
 // Default constructor
-parser();
+GcodeParser();
 
 // Takes in a char* for an inputted string.
 // Returns a GcodeCommand_t object corresponding
@@ -42,6 +42,6 @@ int getIntFromString(char *input, int numPlaces);
 
 // Takes in a char, returns true if it is a num, false if not.
 bool isNum(char data);
-}; // class parser
+}; // class GcodeParser
 
 #endif // PARSER_H

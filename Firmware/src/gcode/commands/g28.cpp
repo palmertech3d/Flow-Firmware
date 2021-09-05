@@ -7,8 +7,8 @@
 // main G28 function: call this to execute G28
 // Homes the level winder; this function will delay all future action
 // until the winder has been homed
-void gcode::g28(GcodeCommand_t cmd){
+void GcodeExecuter::g28(GcodeCommand_t cmd){
   Serial.println(F("Homing the level winder..."));
-  Motor motorHandler;
-  motorHandler.home_level_winder();
-} // gcode::g28
+  Motor motor_handler;
+  motor_handler.home_level_winder();
+} // GcodeExecuter::g28

@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 // m303 activates PID auto tune for the hotend
-void gcode::m303(GcodeCommand_t cmd){
+void GcodeExecuter::m303(GcodeCommand_t cmd){
   Serial.println(F("Starting autotune for hotend..."));
   Heater::autotune_init();
-} // gcode::m303
+} // GcodeExecuter::m303

@@ -7,10 +7,10 @@
 #include "../HAL/megaatmega2560/serial.h"
 #include "HAL/megaatmega2560/megaatmega2560.h"
 
-parser::parser(){
+GcodeParser::GcodeParser(){
 };
 
-GcodeCommand_t parser::parsegcode(char *input){
+GcodeCommand_t GcodeParser::parsegcode(char *input){
   GcodeCommand_t output; // The GcodeCommand_t object to return
   unsigned int index = 0; // The index used to iterate through the user's input
 
@@ -101,10 +101,10 @@ GcodeCommand_t parser::parsegcode(char *input){
     }
   }
   return output;
-} // parser::parsegcode
+} // GcodeParser::parsegcode
 
 // TODO: Replace this function with a simple implementation of atoi()
-int parser::getIntFromString(char *input, int numPlaces){
+int GcodeParser::getIntFromString(char *input, int numPlaces){
   char outputStr[numPlaces + 1];
   int j = 0;
   for (int i = 0; i < numPlaces; i++) {
@@ -120,9 +120,9 @@ int parser::getIntFromString(char *input, int numPlaces){
   outputStr[j] = '\0';
   int output = atoi(outputStr);
   return output;
-} // parser::getIntFromString
+} // GcodeParser::getIntFromString
 
-void parser::cutString(char *input, char *output, unsigned int *index){
+void GcodeParser::cutString(char *input, char *output, unsigned int *index){
   int j = 0;
 
   while (input[*index] != ' ' && input[*index] != '\0') {
@@ -131,8 +131,8 @@ void parser::cutString(char *input, char *output, unsigned int *index){
     ++*index;
   }
   output[j] = '\0';
-} // parser::cutString
+} // GcodeParser::cutString
 
-bool parser::isNum(char data){
+bool GcodeParser::isNum(char data){
   return  (data >= '0' && data <= '9');
-} // parser::isNum
+} // GcodeParser::isNum

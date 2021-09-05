@@ -1,10 +1,10 @@
 #include "queue.h"
 #include <Arduino.h>
 
-queue::queue(){
+GcodeQueue::GcodeQueue(){
 }
 
-bool queue::put(GcodeCommand_t item){
+bool GcodeQueue::put(GcodeCommand_t item){
   if (full()) {
     return 0;
   } else {
@@ -15,50 +15,50 @@ bool queue::put(GcodeCommand_t item){
     head++;
     return 1;
   }
-} // queue::put
+} // GcodeQueue::put
 
-void queue::putForce(GcodeCommand_t item){
+void GcodeQueue::putForce(GcodeCommand_t item){
   if (head == max_size) {
     head = 0;
   }
   commands[head] = item;
   head++;
-} // queue::putForce
+} // GcodeQueue::putForce
 
-GcodeCommand_t queue::get(){
-  GcodeCommand_t temp;
+GcodeCommand_t GcodeQueue::get(){
+  GcodeCommand_t temp_cmd;
 
   if (!empty()) {
     if (tail == max_size) {
       tail = 0;
     }
-    temp = commands[tail];
+    temp_cmd = commands[tail];
     tail++;
   } else {
-    temp.letter = GCODE_LETTER_ERR;
+    temp_cmd.letter = GCODE_LETTER_ERR;
   }
 
-  return temp;
-} // queue::get
+  return temp_cmd;
+} // GcodeQueue::get
 
-void queue::reset(){
+void GcodeQueue::reset(){
   tail = 0;
   head = 0;
   full_flag = 0;
-} // queue::reset
+} // GcodeQueue::reset
 
-bool queue::empty() const {
+bool GcodeQueue::empty() const {
   return (tail == head && !full_flag);
-} // queue::empty
+} // GcodeQueue::empty
 
-bool queue::full() const {
+bool GcodeQueue::full() const {
   return full_flag;
-} // queue::full
+} // GcodeQueue::full
 
-uint8_t queue::capacity() const {
+uint8_t GcodeQueue::capacity() const {
   return max_size;
-} // queue::capacity
+} // GcodeQueue::capacity
 
-uint8_t queue::size() const {
+uint8_t GcodeQueue::size() const {
   return head - tail;
-} // queue::size
+} // GcodeQueue::size

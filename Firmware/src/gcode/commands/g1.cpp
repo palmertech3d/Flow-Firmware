@@ -3,15 +3,15 @@
 #include "../../hardware/motor.h"
 
 /// Starts the given motor with the given speed
-void gcode::g1(GcodeCommand_t cmd){
-  Motor motorHandler; // TODO: Should this be creating this every time?
+void GcodeExecuter::g1(GcodeCommand_t cmd){
+  Motor motor_handler; // TODO: Should this be creating this every time?
   GcodeArg_t motor = gcodeParseValueFor('m', cmd);
   GcodeArg_t speed = gcodeParseValueFor('s', cmd);
-  if (motorHandler.isValidMotor(motor)) {
+  if (motor_handler.isValidMotor(motor)) {
     Serial.println(F("Starting a motor..."));
-    motorHandler.set_speed(motor, speed);
-    motorHandler.start(motor);
+    motor_handler.set_speed(motor, speed);
+    motor_handler.start(motor);
   } else {
     Serial.println(F("Invalid motor number entered."));
   }
-} // gcode::g1
+} // GcodeExecuter::g1

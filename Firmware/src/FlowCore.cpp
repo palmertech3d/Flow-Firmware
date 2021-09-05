@@ -20,8 +20,8 @@
 #include "FlowCore.h"
 
 void idle(){
-  gcodeHandler.getGcode();
-  gcodeHandler.executeBuffer();
+  gcode_handler.getGcode();
+  gcode_handler.executeBuffer();
   Heater::update();
 } // idle
 
@@ -36,7 +36,7 @@ void setup() {
 
   // Configure the hotend
   Heater::init(0);
-  Heater::set_constants(10, 0.5, 5);
+  Heater::setConstants(10, 0.5, 5);
 
   // Init timer ITimer2 for stepper interrupts
   ITimer2.init();
@@ -45,7 +45,7 @@ void setup() {
   // Init the tmc5160 driver for the extruder motor
   TMC5160::init();
 
-  Serial.begin(115200);
+  Serial.begin(SERIAL_BAUD_RATE);
 
   Serial.print(F("Flow Extruder MK1 running firmware version ")); Serial.println(VERSION);
   Serial.println(F("Type a gcode command."));

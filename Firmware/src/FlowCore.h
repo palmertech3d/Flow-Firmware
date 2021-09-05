@@ -26,9 +26,11 @@
 #include <PID_AutoTune_v0.h> // For PID autotuning
 #include <Thermocouple.h> // For the thermocouple
 #include <MAX6675_Thermocouple.h> // Also for the thermocouple
+
 #define USE_TIMER_2     1
 #include "TimerInterrupt.h" // For interrupts
 
+#include "config_defaults.h"
 #include "HAL/megaatmega2560/megaatmega2560.h"
 #include "HAL/megaatmega2560/serial.h"
 #include "gcode/gcode.h"
@@ -37,12 +39,13 @@
 #include "hardware/motor.h"
 #include "hardware/tmc5160.h"
 
+
 // Gcode objects
-gcode gcodeHandler;
-parser parserHandler;
+GcodeExecuter gcode_handler;
+GcodeParser parser_handler;
 
 // Motor objects
-Motor motorHandler;
+Motor motor_handler;
 
 // All checkups are done within this function.
 void idle();

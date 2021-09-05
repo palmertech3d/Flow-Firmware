@@ -5,7 +5,7 @@
 #include "../../hardware/motor.h"
 
 // M503 reports settings to the terminal
-void gcode::m503(GcodeCommand_t cmd){
+void GcodeExecuter::m503(GcodeCommand_t cmd){
   Serial.println(F("Current settings for Flow Extruder:"));
   Serial.print(F("Current hotend temp: ")); Serial.println((int)Heater::get());
   Serial.print(F("Target hotend temp: ")); Serial.println((int)Heater::get_target());
@@ -21,14 +21,14 @@ void gcode::m503(GcodeCommand_t cmd){
   } else {
     Serial.println(F("No"));
   }
-  Motor motorHandler;
+  Motor motor_handler;
   Serial.println(F("Motor speeds (steps/sec):"));
   Serial.print(F("Extruder: "));
-  Serial.println(motorHandler.get_speed(EXTRUDER));
+  Serial.println(motor_handler.get_speed(EXTRUDER));
   Serial.print(F("Rollers: "));
-  Serial.println(motorHandler.get_speed(ROLLERS));
+  Serial.println(motor_handler.get_speed(ROLLERS));
   Serial.print(F("Level Winder: "));
-  Serial.println(motorHandler.get_speed(LEVEL));
+  Serial.println(motor_handler.get_speed(LEVEL));
   Serial.print(F("Winder: "));
-  Serial.println(motorHandler.get_speed(WINDER));
-} // gcode::m503
+  Serial.println(motor_handler.get_speed(WINDER));
+} // GcodeExecuter::m503

@@ -3,11 +3,11 @@
 #include "../../hardware/motor.h"
 
 /// Stops the given motor
-void gcode::g2(GcodeCommand_t cmd){
+void GcodeExecuter::g2(GcodeCommand_t cmd){
   GcodeArg_t motor = gcodeParseValueFor('m', cmd);
-  Motor motorHandler;
-  if (motorHandler.isValidMotor(motor)) {
+  Motor motor_handler;
+  if (motor_handler.isValidMotor(motor)) {
     Serial.println(F("Stopping a motor..."));
-    motorHandler.stop(motor);
+    motor_handler.stop(motor);
   }
-} // gcode::g2
+} // GcodeExecuter::g2
