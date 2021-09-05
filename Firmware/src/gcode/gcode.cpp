@@ -65,34 +65,6 @@ GcodeError_t gcode::executeGcode(GcodeCommand_t cmd) {
     return ERR_NO_SUCH_LETTER;
   }
 
-  // if (command.letter == 'g' && command.command == 28) {
-  //   g28();
-  //   return 1;
-  // } else if (command.letter == 'g' && command.command == 1 && command.arg_char[0] == 'm' && command.arg_char[1] == 's') {
-  //   g1(command.arg_value[0], command.arg_value[1]);
-  //   return 1;
-  // } else if (command.letter == 'g' && command.command == 2 && command.arg_char[0] == 'm') {
-  //   g2(command.arg_value[0]);
-  //   return 1;
-  // } else if (command.letter == 'm' && command.command == 104 && command.arg_char[0] == 'b') {
-  //   m104(command.arg_value[0]);
-  //   return 1;
-  // } else if (command.letter == 'm' && command.command == 104) {
-  //   m104();
-  //   return 1;
-  // } else if (command.letter == 'm' && command.command == 106) {
-  //   m106();
-  //   return 1;
-  // } else if (command.letter == 'm' && command.command == 303) {
-  //   m303();
-  //   return 1;
-  // } else if (command.letter == 'm' && command.command == 503) {
-  //   m503();
-  //   return 1;
-  // } else {
-  //   return 0; // return false to indicate that no gcode was executed
-  // }
-
   return ERR_SUCCESS;
 } // gcode::executeGcode
 
