@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 15:39 Sep 05 2021
+ * @Last modified time: 24:33 Sep 09 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -44,5 +44,11 @@
 #define GCODE_QUEUE_SIZE_CHARS 32
 #define GCODE_MAX_ARGS 3
 #define SERIAL_BAUD_RATE 115200
+
+// LOGGING ////////////////////////////////////////////////////////////////////
+// #define ENABLE_VERBOSE_LOGGING
+#define ENABLE_DEBUG_LOGGING
+#define ENABLE_INFO_LOGGING
+#define ENABLE_WARN_LOGGING
 
 #endif /* ifndef CONFIG_DEFAULTS_H */
