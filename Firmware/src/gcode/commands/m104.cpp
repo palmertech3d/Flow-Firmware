@@ -3,7 +3,8 @@
 #include "../../hardware/heater.h"
 
 void GcodeExecuter::m104(GcodeCommand_t cmd){
-  GcodeArg_t temp = gcodeParseValueFor('s', cmd);
-  Serial.print(F("Setting hotend temp to ")); Serial.print(temp); Serial.println(F(" C"));
-  Heater::set((double)temp);
+  GcodeArg_t temperature = gcodeParseValueFor('s', cmd);
+  if(temperature == GCODE_ARG_VALUE_ERR) temperature = 0;
+  Serial.print(F("Setting hotend temperature to ")); Serial.print(temperature); Serial.println(F(" C"));
+  Heater::set((double)temperature);
 } // GcodeExecuter::m104

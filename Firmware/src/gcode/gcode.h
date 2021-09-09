@@ -54,6 +54,20 @@ private:
 
 ;
 
+/**
+ * Returns the value of a given letter, or GCODE_ARG_VALUE_ERR if no value was
+ * sent or an invalid number was entered or the arguemnt does not exist.
+ */
 GcodeArg_t gcodeParseValueFor(char letter, GcodeCommand_t cmd);
+
+/**
+ * Returns true when any argument was given for a certain letter, even blank values.
+ */
+bool gcodeArgWasGivenFor(char letter, GcodeCommand_t cmd);
+
+/**
+ * Returns true when no args were given.
+ */
+bool gcodeNoArgsGiven(GcodeCommand_t cmd);
 
 #endif // GCODE_H

@@ -80,3 +80,16 @@ GcodeArg_t gcodeParseValueFor(char letter, GcodeCommand_t cmd) {
   }
   return GCODE_ARG_VALUE_ERR;
 } // getCurrentArgument
+
+bool gcodeArgWasGivenFor(char letter, GcodeCommand_t cmd) {
+  for (uint8_t i = 0; i < GCODE_MAX_ARGS; i++) {
+    if (cmd.arg_char[i] == letter) {
+      return true;
+    }
+  }
+  return false;
+} // gcodeArgWasGivenFor
+
+bool gcodeNoArgsGiven(GcodeCommand_t cmd) {
+  return (cmd.arg_char[0] == 0);
+} // noArgsGiven

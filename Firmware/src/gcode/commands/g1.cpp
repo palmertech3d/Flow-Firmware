@@ -7,8 +7,10 @@ void GcodeExecuter::g1(GcodeCommand_t cmd){
   Motor motor_handler; // TODO: Should this be creating this every time?
   GcodeArg_t motor = gcodeParseValueFor('m', cmd);
   GcodeArg_t speed = gcodeParseValueFor('s', cmd);
+  if(motor == GCODE_ARG_VALUE_ERR) motor = -1; // Set to invalid motor number
+  if(speed == GCODE_ARG_VALUE_ERR) speed = 0;
   if (motor_handler.isValidMotor(motor)) {
-    Serial.println(F("Starting a motor..."));
+    Serial.println(F("Setting motor speed"));
     motor_handler.set_speed(motor, speed);
     motor_handler.start(motor);
   } else {
