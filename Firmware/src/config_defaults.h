@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 21:16 Sep 09 2021
+ * @Last modified time: 22:07 Sep 09 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -51,6 +51,6 @@
 #define ENABLE_INFO_LOGGING
 #define ENABLE_WARN_LOGGING
 
-#define UNIT_LEVEL_TESTING
+// #define UNIT_LEVEL_TESTING
 
 #endif /* ifndef CONFIG_DEFAULTS_H */

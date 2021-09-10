@@ -51,7 +51,7 @@ void setup() {
   INFO_LOG(F("Type a gcode command.\n"));
 
   #ifdef UNIT_LEVEL_TESTING
-  runUnitTests();
+  runUnitTestsThenLoop();
   #endif
 } // setup
 

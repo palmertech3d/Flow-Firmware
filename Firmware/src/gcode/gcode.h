@@ -73,7 +73,8 @@ bool gcodeNoArgsGiven(GcodeCommand_t cmd);
 
 #ifdef UNIT_LEVEL_TESTING
 #include "test/unit-testing.h"
+
 TestResult_t TEST_gcode();
-#endif
+#endif // ifdef UNIT_LEVEL_TESTING
 
 #endif // GCODE_H

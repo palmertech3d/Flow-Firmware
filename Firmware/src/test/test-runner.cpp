@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:35 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 21:52 Sep 09 2021
+ * @Last modified time: 22:08 Sep 09 2021
  */
 
 #include "test-runner.h"
@@ -17,9 +17,13 @@ void resultAccumulatorAdd(TestResult_t new_values, TestResult_t *accumulator) {
   accumulator->failed += new_values.failed;
 } // resultAccumulatorAdd
 
-void runUnitTests() {
+void runUnitTestsThenLoop() {
   TestResult_t accumulator;
+
+  // TEST FUNCTIONS ///////////////////////////////////////////////////////////
   resultAccumulatorAdd(TEST_gcode(), &accumulator);
+
+  // RESULTS OUTPUT ///////////////////////////////////////////////////////////
   INFO_LOG(F("################################################################################\n"));
   INFO_LOG(F("TEST RESULTS:\n"));
   INFO_LOG(F("\tTOTAL: ")); INFO_LOG(accumulator.total); INFO_LOG(F("\n"));
