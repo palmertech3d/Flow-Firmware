@@ -18,7 +18,6 @@
  */
 
 #include "FlowCore.h"
-#include "logger.h"
 
 void idle(){
   gcode_handler.getGcode();
@@ -48,18 +47,8 @@ void setup() {
 
   Serial.begin(SERIAL_BAUD_RATE);
 
-  Serial.print(F("Flow Extruder MK1 running firmware version ")); Serial.println(VERSION);
-  Serial.println(F("Type a gcode command."));
-
-  // #ifdef ENABLE_WARN_LOGGING
-  // Serial.print("hello");
-  // #endif
-
-  VERBOSE_LOG("I'm verbose\n");
-  DEBUG_LOG("I'm debug\n");
-  INFO_LOG("I'm info\n");
-  WARN_LOG("I'm a warning\n");
-  WARN_LOG("I'm an error\n");
+  INFO_LOG(F("Flow Extruder MK1 running firmware version " VERSION " \n"));
+  INFO_LOG(F("Type a gcode command.\n"));
 } // setup
 
 /* THE MAIN LOOP */

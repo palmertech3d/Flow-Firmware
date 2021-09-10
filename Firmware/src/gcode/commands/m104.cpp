@@ -5,6 +5,6 @@
 void GcodeExecuter::m104(GcodeCommand_t cmd){
   GcodeArg_t temperature = gcodeParseValueFor('s', cmd);
   if(temperature == GCODE_ARG_VALUE_ERR) temperature = 0;
-  Serial.print(F("Setting hotend temperature to ")); Serial.print(temperature); Serial.println(F(" C"));
+  INFO_LOG(F("Setting hotend temperature to ")); INFO_LOG(temperature); INFO_LOG(F(" C\n"));
   Heater::set((double)temperature);
 } // GcodeExecuter::m104

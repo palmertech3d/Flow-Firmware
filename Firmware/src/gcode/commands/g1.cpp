@@ -10,10 +10,10 @@ void GcodeExecuter::g1(GcodeCommand_t cmd){
   if(motor == GCODE_ARG_VALUE_ERR) motor = -1; // Set to invalid motor number
   if(speed == GCODE_ARG_VALUE_ERR) speed = 0;
   if (motor_handler.isValidMotor(motor)) {
-    Serial.println(F("Setting motor speed"));
+    INFO_LOG(F("Setting motor speed\n"));
     motor_handler.set_speed(motor, speed);
     motor_handler.start(motor);
   } else {
-    Serial.println(F("Invalid motor number entered."));
+    INFO_LOG(F("Invalid motor number entered.\n"));
   }
 } // GcodeExecuter::g1

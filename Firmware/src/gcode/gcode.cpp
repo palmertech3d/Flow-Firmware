@@ -32,12 +32,12 @@ GcodeError_t GcodeExecuter::getGcode() {
   GcodeCommand_t parsedGcode = parser_handler.parsegcode(gcodeInChar);
 
   // verify the parsed gcode
-  if (parsedGcode.letter == GCODE_LETTER_ERR) {
-    Serial.println(F("Invalid gcode entered."));
+  if (parsedGcode.letter == GCODE_LETTER_ERR || parsedGcode.command == GCODE_COMMAND_ERR) {
+    WARN_LOG("Invalid gcode entered.");
     return GCODE_ERR_GCODE_INVALID; // return 1 to indicate invalid gcode entered
   }
 
-  Serial.println(F("OK"));
+  INFO_LOG(F("ok\n"));
 
   // put the parsed gcode in the buffer
   buffer.putForce(parsedGcode);

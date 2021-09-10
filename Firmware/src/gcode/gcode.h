@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "queue.h"
 #include "config_defaults.h"
+#include "logger.h"
 
 typedef enum GcodeError_enum {
   GCODE_ERR_SUCCESS,

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "config_defaults.h"
+#include "logger.h"
 
 typedef int16_t GcodeArg_t;
 #define GCODE_ARG_VALUE_ERR -1

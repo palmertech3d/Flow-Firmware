@@ -11,10 +11,10 @@ void GcodeExecuter::g28(GcodeCommand_t cmd) {
     home_winder = gcodeArgWasGivenFor('w', cmd);
   }
   if (home_winder || home_all) {
-    Serial.println(F("Homing the level winder..."));
+    INFO_LOG(F("Homing the level winder...\n"));
     Motor motor_handler;
     motor_handler.home_level_winder();
   } else {
-    Serial.println(F("No valid axes chosen to home."));
+    WARN_LOG("No valid axes chosen to home.\n");
   }
 } // GcodeExecuter::g28
