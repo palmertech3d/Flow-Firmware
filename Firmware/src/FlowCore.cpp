@@ -54,5 +54,5 @@ void setup() {
 /* THE MAIN LOOP */
 void loop() {
   idle();
-  _delay_ms(250);
+  // _delay_ms(250);
 } // loop
