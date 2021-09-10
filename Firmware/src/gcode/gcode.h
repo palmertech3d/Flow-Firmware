@@ -31,6 +31,13 @@ GcodeError_t executeGcode(GcodeCommand_t cmd);
 // then calls executeGcode to execute it
 GcodeError_t executeBuffer();
 
+/**
+ * Tries to dump the gcode command into the buffer.
+ * NOTE: If this fails, it will return GCODE_ERR_GCODE_INVALID and print an
+ *       error to the console. If it succeeds, it will return GCODE_ERR_SUCCESS.
+ */
+GcodeError_t tryToAddGcodeToBuffer(GcodeCommand_t gcode);
+
 // gcode access functions
 void g1(GcodeCommand_t cmd);
 

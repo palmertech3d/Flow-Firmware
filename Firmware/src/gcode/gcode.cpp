@@ -45,6 +45,15 @@ GcodeError_t GcodeExecuter::getGcode() {
   return GCODE_ERR_SUCCESS;
 } // GcodeExecuter::getGcode
 
+GcodeError_t GcodeExecuter::tryToAddGcodeToBuffer(GcodeCommand_t gcode) {
+  if (gcode.letter == GCODE_LETTER_ERR || gcode.command == GCODE_COMMAND_ERR) {
+    ERROR_LOG("Failed to add gcode to buffer from hardcoded gcode.");
+    return GCODE_ERR_GCODE_INVALID;
+  }
+  buffer.putForce(gcode);
+  return GCODE_ERR_SUCCESS;
+} // tryToAddGcodeToBuffer
+
 GcodeError_t GcodeExecuter::executeGcode(GcodeCommand_t cmd) {
   if (cmd.letter == 'g') {
     switch (cmd.command) {
@@ -72,6 +81,9 @@ GcodeError_t GcodeExecuter::executeBuffer(){
   return executeGcode(buffer.get());
 } // GcodeExecuter::executeBuffer
 
+
+// Functions for use without GCODE handler ////////////////////////////////////
+
 GcodeArg_t gcodeParseValueFor(char letter, GcodeCommand_t cmd) {
   for (uint8_t i = 0; i < GCODE_MAX_ARGS; i++) {
     if (cmd.arg_char[i] == letter) {
@@ -93,6 +105,8 @@ bool gcodeArgWasGivenFor(char letter, GcodeCommand_t cmd) {
 bool gcodeNoArgsGiven(GcodeCommand_t cmd) {
   return (cmd.arg_char[0] == 0);
 } // noArgsGiven
+
+// TEST FUNCTIONS /////////////////////////////////////////////////////////////
 
 #ifdef UNIT_LEVEL_TESTING
 

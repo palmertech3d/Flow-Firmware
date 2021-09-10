@@ -14,7 +14,7 @@ typedef int16_t GcodeArg_t;
 // A struct to hold a gcode command
 struct GcodeCommand_t {
   char letter; // G or an M
-  uint16_t command; // Number of the gcode command
+  int16_t command; // Number of the gcode command
   char arg_char[GCODE_MAX_ARGS]; // Letters for arguments
   GcodeArg_t arg_value[GCODE_MAX_ARGS]; // Values for arguments
 };
