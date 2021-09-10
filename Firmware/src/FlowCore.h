@@ -39,6 +39,9 @@
 #include "hardware/motor.h"
 #include "hardware/tmc5160.h"
 
+#ifdef UNIT_LEVEL_TESTING
+#include "test/test-runner.h"
+#endif
 
 // Gcode objects
 GcodeExecuter gcode_handler;

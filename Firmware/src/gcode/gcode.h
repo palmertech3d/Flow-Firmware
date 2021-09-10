@@ -71,4 +71,9 @@ bool gcodeArgWasGivenFor(char letter, GcodeCommand_t cmd);
  */
 bool gcodeNoArgsGiven(GcodeCommand_t cmd);
 
+#ifdef UNIT_LEVEL_TESTING
+#include "test/unit-testing.h"
+TestResult_t TEST_gcode();
+#endif
+
 #endif // GCODE_H

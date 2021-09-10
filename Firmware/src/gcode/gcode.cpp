@@ -15,10 +15,10 @@ GcodeError_t GcodeExecuter::getGcode() {
 
   uint8_t i = 0;
   if (Serial.available()) {
-    char temp = Serial.read();
-    while (Serial.available() && temp != '\n' && temp != '\r' && i < GCODE_QUEUE_SIZE_CHARS) {
-      gcodeInChar[i] = temp;
-      temp = Serial.read();
+    char recv = Serial.read();
+    while (Serial.available() && recv != '\n' && recv != '\r' && i < GCODE_QUEUE_SIZE_CHARS) {
+      gcodeInChar[i] = recv;
+      recv = Serial.read();
       i++;
     }
   }
@@ -93,3 +93,28 @@ bool gcodeArgWasGivenFor(char letter, GcodeCommand_t cmd) {
 bool gcodeNoArgsGiven(GcodeCommand_t cmd) {
   return (cmd.arg_char[0] == 0);
 } // noArgsGiven
+
+#ifdef UNIT_LEVEL_TESTING
+
+TestResult_t TEST_gcode() {
+  TestResult_t accumulator;
+  GcodeCommand_t cmd;
+  TEST_ASSERT_EQUAL(gcodeNoArgsGiven(cmd), true, accumulator);
+  cmd.arg_char[0] = 'a';
+  cmd.arg_char[1] = 'b';
+  cmd.arg_char[2] = 'z';
+  TEST_ASSERT_EQUAL(gcodeArgWasGivenFor('a', cmd), true, accumulator);
+  TEST_ASSERT_EQUAL(gcodeArgWasGivenFor('b', cmd), true, accumulator);
+  TEST_ASSERT_EQUAL(gcodeArgWasGivenFor('z', cmd), true, accumulator);
+  TEST_ASSERT_EQUAL(gcodeArgWasGivenFor('c', cmd), false, accumulator);
+  cmd.arg_value[0] = 0;
+  cmd.arg_value[1] = 255;
+  // Don't know what it should be, but this (below) should represent the max expected value for a GCODE command.
+  cmd.arg_value[2] = 1024;
+  TEST_ASSERT_EQUAL(gcodeParseValueFor('c', cmd), GCODE_ARG_VALUE_ERR, accumulator);
+  TEST_ASSERT_EQUAL(gcodeParseValueFor('a', cmd), 0, accumulator);
+  TEST_ASSERT_EQUAL(gcodeParseValueFor('b', cmd), 255, accumulator);
+  TEST_ASSERT_EQUAL(gcodeParseValueFor('z', cmd), 1024, accumulator);
+  return accumulator;
+} // TEST_gcode
+#endif // ifdef UNIT_LEVEL_TESTING

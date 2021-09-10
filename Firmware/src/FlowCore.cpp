@@ -49,6 +49,10 @@ void setup() {
 
   INFO_LOG(F("Flow Extruder MK1 running firmware version " VERSION " \n"));
   INFO_LOG(F("Type a gcode command.\n"));
+
+  #ifdef UNIT_LEVEL_TESTING
+  runUnitTests();
+  #endif
 } // setup
 
 /* THE MAIN LOOP */
