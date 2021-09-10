@@ -27,6 +27,7 @@ void idle(){
 
 /* FIRMWARE ENTRY POINT */
 void setup() {
+  Serial.begin(SERIAL_BAUD_RATE);
   // Setting output for fan, heater, and winder limit switch
   SET_OUTPUT(PIN_FAN);
   SET_OUTPUT(PIN_HEATER);
@@ -45,7 +46,6 @@ void setup() {
   // Init the tmc5160 driver for the extruder motor
   TMC5160::init();
 
-  Serial.begin(SERIAL_BAUD_RATE);
 
   INFO_LOG(F("Flow Extruder MK1 running firmware version " VERSION " \n"));
   INFO_LOG(F("Type a gcode command.\n"));
