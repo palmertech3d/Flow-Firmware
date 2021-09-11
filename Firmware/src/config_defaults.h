@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 16:57 Sep 11 2021
+ * @Last modified time: 17:03 Sep 11 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -10,20 +10,19 @@
 
 // MAIN HEATER /////////////////////////////////////////////////////////////////
 
-#define PID_HTR1_P 2
-#define PID_HTR1_I 5
-#define PID_HTR1_D 1
+#define PID_HTR0_P 2
+#define PID_HTR0_I 5
+#define PID_HTR0_D 1
 
-// TODO: HTR max/min temps
-#define HTR1_MAX_TEMP 220
-#define HTR1_MIN_TEMP 0
-
-// TODO: HTR thermal runaway
+// HTR thermal runaway
 #define HTR0_TR_MAX_TIME_OUT_OF_HYST_MS 2000
 #define HTR0_TR_MAX_TIME_OUT_OF_MIN_RAMP_MS 2000
 #define HTR0_TR_TEMP_HYSTERESIS_C 5
 #define HTR0_TR_MIN_RAMPUP_DEGC_PER_SAMPLE 1
 #define HTR0_TR_RAMPUP_SAMPLE_DELAY_MS 5000
+// HTR max/min temps
+#define HTR0_MAX_TEMP 220
+#define HTR0_MIN_TEMP 0
 
 // MOTORS /////////////////////////////////////////////////////////////////////
 

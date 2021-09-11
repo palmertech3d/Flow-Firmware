@@ -7,7 +7,7 @@
 double Heater::temperature = 0;
 double Heater::target_temp = 0;
 double Heater::output = 0;
-double Heater::Kp = PID_HTR1_P, Heater::Ki = PID_HTR1_I, Heater::Kd = PID_HTR1_D; // PID constants, default vals are samples
+double Heater::Kp = PID_HTR0_P, Heater::Ki = PID_HTR0_I, Heater::Kd = PID_HTR0_D; // PID constants, default vals are samples
 MAX6675_Thermocouple Heater::thermometer = MAX6675_Thermocouple(PIN_THERMO_SCK, PIN_THERMO_CS, PIN_THERMO_SO);
 PID Heater::temp_controller = PID(&Heater::temperature, &Heater::output, &Heater::target_temp, Heater::Kp, Heater::Ki, Heater::Kd, DIRECT);
 PID_ATune Heater::pid_auto = PID_ATune(&Heater::temperature, &Heater::output);
@@ -32,8 +32,8 @@ void Heater::init(double input_temp){
   tr_config.set_point_hysteresis_deg_c = HTR0_TR_TEMP_HYSTERESIS_C;
   tr_config.set_min_rampup_deg_c_per_sample = HTR0_TR_MIN_RAMPUP_DEGC_PER_SAMPLE;
   tr_config.rampup_sample_period_ms = HTR0_TR_RAMPUP_SAMPLE_DELAY_MS;
-  tr_config.min_temp = HTR1_MIN_TEMP;
-  tr_config.max_temp = HTR1_MAX_TEMP;
+  tr_config.min_temp = HTR0_MIN_TEMP;
+  tr_config.max_temp = HTR0_MAX_TEMP;
 } // Heater::init
 
 // Sets the temperature of the heater
