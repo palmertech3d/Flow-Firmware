@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 22:07 Sep 09 2021
+ * @Last modified time: 16:45 Sep 11 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -19,7 +19,10 @@
 #define HTR1_MIN_TEMP 0
 
 // TODO: HTR thermal runaway
-#define HTR1_THERMAL_RUNAWAY 1
+#define HTR0_TR_MAX_TIME_OUT_OF_HYST_MS 2000
+#define HTR0_TR_MAX_TIME_OUT_OF_MIN_RAMP_MS 2000
+#define HTR0_TR_TEMP_HYSTERESIS_C 5
+#define HTR0_TR_MIN_RAMPUP_DEGC_PER_S 1
 
 // MOTORS /////////////////////////////////////////////////////////////////////
 
