@@ -36,7 +36,7 @@ void setup() {
   SET_OUTPUT(PIN_EXTRUDER_CS);
 
   // Configure the hotend
-  Heater::init(0);
+  Heater::init();
   Heater::setConstants(10, 0.5, 5);
 
   // Init timer ITimer2 for stepper interrupts

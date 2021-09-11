@@ -21,8 +21,8 @@ Heater::Heater(){
 }
 
 // Initializes the heater with a target temperature
-void Heater::init(double input_temp){
-  target_temp = input_temp;
+void Heater::init(){
+  Heater::set(0);
   temperature = thermometer.readCelsius();
   temp_controller.SetMode(AUTOMATIC);
 
