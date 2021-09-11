@@ -33,11 +33,11 @@ GcodeError_t GcodeExecuter::getGcode() {
 
   // verify the parsed gcode
   if (parsedGcode.letter == GCODE_LETTER_ERR || parsedGcode.command == GCODE_COMMAND_ERR) {
-    WARN_LOG("Invalid gcode entered.");
+    LOG_WARN("Invalid gcode entered.");
     return GCODE_ERR_GCODE_INVALID; // return 1 to indicate invalid gcode entered
   }
 
-  INFO_LOG(F("ok\n"));
+  LOG_INFO(F("ok\n"));
 
   // put the parsed gcode in the buffer
   buffer.putForce(parsedGcode);
@@ -47,7 +47,7 @@ GcodeError_t GcodeExecuter::getGcode() {
 
 GcodeError_t GcodeExecuter::tryToAddGcodeToBuffer(GcodeCommand_t gcode) {
   if (gcode.letter == GCODE_LETTER_ERR || gcode.command == GCODE_COMMAND_ERR) {
-    ERROR_LOG("Failed to add gcode to buffer from hardcoded gcode.");
+    LOG_ERROR("Failed to add gcode to buffer from hardcoded gcode.");
     return GCODE_ERR_GCODE_INVALID;
   }
   buffer.putForce(gcode);

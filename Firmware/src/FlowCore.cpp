@@ -47,8 +47,8 @@ void setup() {
   TMC5160::init();
 
 
-  INFO_LOG(F("Flow Extruder MK1 running firmware version " VERSION " \n"));
-  INFO_LOG(F("Type a gcode command.\n"));
+  LOG_INFO(F("Flow Extruder MK1 running firmware version " VERSION " \n"));
+  LOG_INFO(F("Type a gcode command.\n"));
 
   #ifdef UNIT_LEVEL_TESTING
   runUnitTestsThenLoop();

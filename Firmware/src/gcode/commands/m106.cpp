@@ -4,6 +4,6 @@
 
 // M106 turns cooling fans on/off
 void GcodeExecuter::m106(GcodeCommand_t cmd){
-  INFO_LOG(F("Toggling cooling fans"));
+  LOG_INFO(F("Toggling cooling fans"));
   TOGGLE(PIN_FAN);
 } // GcodeExecuter::m106

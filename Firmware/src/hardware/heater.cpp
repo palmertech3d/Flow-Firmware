@@ -83,17 +83,17 @@ void Heater::runPidAutotuneUpdate() {
 
       // return PID constants
       setConstants(pid_auto.GetKp(), pid_auto.GetKi(), pid_auto.GetKd());
-      INFO_LOG(F("Autotuning complete. Constants stored in heater:\n"));
-      INFO_LOG(F("\tKp: ")); INFO_LOG(pid_auto.GetKp()); INFO_LOG(F("\n"));
-      INFO_LOG(F("\tKi: ")); INFO_LOG(pid_auto.GetKi()); INFO_LOG(F("\n"));
-      INFO_LOG(F("\tKd: ")); INFO_LOG(pid_auto.GetKd()); INFO_LOG(F("\n"));
+      LOG_INFO(F("Autotuning complete. Constants stored in heater:\n"));
+      LOG_INFO(F("\tKp: ")); LOG_INFO(pid_auto.GetKp()); LOG_INFO(F("\n"));
+      LOG_INFO(F("\tKi: ")); LOG_INFO(pid_auto.GetKi()); LOG_INFO(F("\n"));
+      LOG_INFO(F("\tKd: ")); LOG_INFO(pid_auto.GetKd()); LOG_INFO(F("\n"));
     }
   }
 } // Heater::runPidAutotuneUpdate
 
 void Heater::handleHeaterError(const __FlashStringHelper *error_name) {
-  WARN_LOG("HEATER ERROR THROWN\n");
-  INFO_LOG(F("Error desciption: ")); INFO_LOG(error_name); INFO_LOG(F("\n"));
+  LOG_WARN("HEATER ERROR THROWN\n");
+  LOG_INFO(F("Error desciption: ")); LOG_INFO(error_name); LOG_INFO(F("\n"));
   Heater::set(0);
   auto_on = false;
 } // Heater::handleHeaterError
@@ -318,7 +318,7 @@ TestResult_t Heater::TEST_runaway() {
 
   // Confirm min/max errors
   state.state_type = TR::INACTIVE;
-  INFO_LOG(F("Running thermal runaway test; RUNAWAY ERRORS ARE NORMAL AND EXPECTED.\n"));
+  LOG_INFO(F("Running thermal runaway test; RUNAWAY ERRORS ARE NORMAL AND EXPECTED.\n"));
   stepThermalRunawayFsm(&config, &state, /* current temp*/ 15, /* target temp*/ 0);
   TEST_ASSERT_EQUAL(state.state_type, TR::INACTIVE, accumulator);
   stepThermalRunawayFsm(&config, &state, /* current temp*/ -15, /* target temp*/ 100);
@@ -343,7 +343,7 @@ TestResult_t Heater::TEST_runaway() {
   delay(config.ramp_up_max_watchdog_ms + 1); // Wait for watchdog timeout
   stepThermalRunawayFsm(&config, &state, /* current temp*/ 100 - HYST - 1, /* target temp*/ 100);
   TEST_ASSERT_EQUAL(state.state_type, TR::RUNAWAY, accumulator); // Sanity check state again
-  INFO_LOG(F("Running thermal runaway test; RUNAWAY ERRORS ARE NORMAL AND EXPECTED.\n"));
+  LOG_INFO(F("Running thermal runaway test; RUNAWAY ERRORS ARE NORMAL AND EXPECTED.\n"));
   // Allow RUNAWAY state actions to happen
   stepThermalRunawayFsm(&config, &state, /* current temp*/ 100 - HYST - 1, /* target temp*/ 100);
   TEST_ASSERT_EQUAL(Heater::get_target(), 0, accumulator); // Target set to 0

@@ -27,17 +27,17 @@ void runUnitTestsThenLoop() {
   resultAccumulatorAdd(Heater::TEST_runaway(), &accumulator);
 
   // RESULTS OUTPUT ///////////////////////////////////////////////////////////
-  INFO_LOG(F("################################################################################\n"));
-  INFO_LOG(F("TEST RESULTS:\n"));
-  INFO_LOG(F("\tTOTAL: ")); INFO_LOG(accumulator.total); INFO_LOG(F("\n"));
-  INFO_LOG(F("\tFAILED: ")); INFO_LOG(accumulator.failed); INFO_LOG(F("\n"));
-  INFO_LOG(F("\tPASSED: ")); INFO_LOG(accumulator.total - accumulator.failed); INFO_LOG(F("\n"));
+  LOG_INFO(F("################################################################################\n"));
+  LOG_INFO(F("TEST RESULTS:\n"));
+  LOG_INFO(F("\tTOTAL: ")); LOG_INFO(accumulator.total); LOG_INFO(F("\n"));
+  LOG_INFO(F("\tFAILED: ")); LOG_INFO(accumulator.failed); LOG_INFO(F("\n"));
+  LOG_INFO(F("\tPASSED: ")); LOG_INFO(accumulator.total - accumulator.failed); LOG_INFO(F("\n"));
   if (accumulator.failed == 0) {
-    INFO_LOG(F("All tests passed :)\n"));
+    LOG_INFO(F("All tests passed :)\n"));
   } else {
-    INFO_LOG(F("Some tests failed :'(\n"));
+    LOG_INFO(F("Some tests failed :'(\n"));
   }
-  INFO_LOG(F("Testing complete; entering infinite loop."));
+  LOG_INFO(F("Testing complete; entering infinite loop."));
   while (1);
 } // runUnitTests
 
