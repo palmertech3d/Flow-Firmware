@@ -30,7 +30,8 @@ void Heater::init(double input_temp){
   tr_config.ramp_up_max_watchdog_ms = HTR0_TR_MAX_TIME_OUT_OF_MIN_RAMP_MS;
   tr_config.set_point_max_watchdog_ms = HTR0_TR_MAX_TIME_OUT_OF_HYST_MS;
   tr_config.set_point_hysteresis_deg_c = HTR0_TR_TEMP_HYSTERESIS_C;
-  tr_config.set_min_rampup_deg_c_per_s = HTR0_TR_MIN_RAMPUP_DEGC_PER_S;
+  tr_config.set_min_rampup_deg_c_per_sample = HTR0_TR_MIN_RAMPUP_DEGC_PER_SAMPLE;
+  tr_config.rampup_sample_period_ms = HTR0_TR_RAMPUP_SAMPLE_DELAY_MS;
   tr_config.min_temp = HTR1_MIN_TEMP;
   tr_config.max_temp = HTR1_MAX_TEMP;
 } // Heater::init
@@ -99,7 +100,7 @@ void Heater::handleHeaterError(const __FlashStringHelper *error_name) {
 
 void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state, int16_t current_temperature, int16_t target) {
   #define _TEMP_INSIDE_HYSTERESIS() (current_temperature >= target - config->set_point_hysteresis_deg_c && current_temperature <= target + config->set_point_hysteresis_deg_c)
-  #define _TEMP_INSIDE_RAMPUP() (current_temperature - state->rampup_last_temperature >= config->set_min_rampup_deg_c_per_s)
+  #define _TEMP_INSIDE_RAMPUP() (current_temperature - state->rampup_last_temperature >= config->set_min_rampup_deg_c_per_sample)
 
   if (target == 0) {
     state->rampup_last_temperature = 0;
@@ -125,7 +126,7 @@ void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state,
       }
       // Update values
       state->rampup_last_temperature = current_temperature;
-      state->rampup_timer_ms = millis() + 1000;
+      state->rampup_timer_ms = millis() + config->rampup_sample_period_ms;
     }
     if (_TEMP_INSIDE_HYSTERESIS()) {
       state->state_type = TR::AT_TEMP;
@@ -139,7 +140,7 @@ void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state,
       }
       // Update values
       state->rampup_last_temperature = current_temperature;
-      state->rampup_timer_ms = millis() + 1000;
+      state->rampup_timer_ms = millis() + config->rampup_sample_period_ms;
     }
     if (millis() - state->watchdog_ms >= config->ramp_up_max_watchdog_ms) {
       state->state_type = TR::RUNAWAY;
@@ -215,11 +216,12 @@ TestResult_t Heater::TEST_runaway() {
   TR::TrState_t state;
 
   // Test values to be validated
-  #define HYST 3
-  config.ramp_up_max_watchdog_ms = 5000;
-  config.set_point_max_watchdog_ms = 2000; // Must be 100ms apart from above WD
+  #define HYST 3 // Used later for off-by-one testing
+  config.ramp_up_max_watchdog_ms = 500;
+  config.set_point_max_watchdog_ms = 200; // Must be 100ms apart from above WD
   config.set_point_hysteresis_deg_c = HYST;
-  config.set_min_rampup_deg_c_per_s = 10;
+  config.set_min_rampup_deg_c_per_sample = 10;
+  config.rampup_sample_period_ms = 10;
   config.min_temp = 0;
   config.max_temp = 200;
 

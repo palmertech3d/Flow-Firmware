@@ -24,7 +24,8 @@ typedef struct TrConfig_struct {
   uint16_t ramp_up_max_watchdog_ms;
   uint16_t set_point_max_watchdog_ms;
   uint8_t set_point_hysteresis_deg_c;
-  uint8_t set_min_rampup_deg_c_per_s;
+  uint8_t set_min_rampup_deg_c_per_sample;
+  uint16_t rampup_sample_period_ms;
   uint8_t min_temp;
   uint8_t max_temp;
 } TrConfig_t;
