@@ -44,7 +44,7 @@ public:
 Heater();
 
 // Initializes the heater with a target temperature
-static void init(double input_temp);
+static void init();
 
 // Sets the temperature of the heater
 static void set(double input_temp);
