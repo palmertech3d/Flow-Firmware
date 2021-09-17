@@ -1,5 +1,6 @@
 #include "heater.h"
 #include "config_defaults.h"
+#include "logger.h"
 #include <stdlib.h>
 #include <Arduino.h>
 
@@ -114,11 +115,11 @@ void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state,
     if (target > 0) {
       state->state_type = TR::RAMPUP;
       state->rampup_last_temperature = current_temperature;
-      state->rampup_timer_ms = millis() + 1000;
+      state->rampup_timer_ms = millis() + config->rampup_sample_period_ms;
     }
     break;
   case TR::RAMPUP: // Heater is powered and heating up initially
-    // Check rampup temperature every second
+    // Check rampup temperature periodically
     if (state->rampup_timer_ms <= millis()) {
       if (!_TEMP_INSIDE_RAMPUP()) {
         state->watchdog_ms = millis(); // Start watchdog
@@ -180,6 +181,8 @@ void Heater::update() {
   if ((int)new_temperature != (int)temperature) {
     // Prints out temperature changes
     Serial.print(F("Hotend: ")); Serial.print((int)temperature); Serial.println(F("C"));
+    LOG_DEBUG(F("Output: ")); LOG_DEBUG(output); LOG_DEBUG('\n');
+    LOG_DEBUG(F("Direct: ")); LOG_DEBUG(thermometer.readCelsius()); LOG_DEBUG('\n');
   }
 
   temperature = new_temperature;
