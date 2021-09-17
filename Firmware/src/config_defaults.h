@@ -15,14 +15,14 @@
 #define PID_HTR0_D 1
 
 // HTR thermal runaway
-#define HTR0_TR_MAX_TIME_OUT_OF_HYST_MS 2000
-#define HTR0_TR_MAX_TIME_OUT_OF_MIN_RAMP_MS 2000
-#define HTR0_TR_TEMP_HYSTERESIS_C 5
+#define HTR0_TR_MAX_TIME_OUT_OF_HYST_MS 60000
+#define HTR0_TR_MAX_TIME_OUT_OF_MIN_RAMP_MS 5000
+#define HTR0_TR_TEMP_HYSTERESIS_C 10
 #define HTR0_TR_MIN_RAMPUP_DEGC_PER_SAMPLE 1
-#define HTR0_TR_RAMPUP_SAMPLE_DELAY_MS 5000
+#define HTR0_TR_RAMPUP_SAMPLE_DELAY_MS 20000
 // HTR max/min temps
 #define HTR0_MAX_TEMP 220
-#define HTR0_MIN_TEMP 0
+#define HTR0_MIN_TEMP 5
 
 // MOTORS /////////////////////////////////////////////////////////////////////
 
