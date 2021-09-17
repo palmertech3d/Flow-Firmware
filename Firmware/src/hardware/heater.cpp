@@ -166,9 +166,17 @@ void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state,
   } // switch
 } // Heater::stepThermalRunawayFsm
 
-void Heater::update(){
-  double new_temperature = thermometer.readCelsius();
-
+static uint32_t next_check_time = 0;
+void Heater::update() {
+  double new_temperature;
+  if (millis() >= next_check_time) {
+    // Must poll sensor slowly; do not know if this is a library or hardware issue though.
+    new_temperature = thermometer.readCelsius();
+    next_check_time = millis() + 500;
+  }
+  if(new_temperature == 0) { // Sensor was not polled
+     new_temperature = temperature;
+  }
   if ((int)new_temperature != (int)temperature) {
     // Prints out temperature changes
     Serial.print(F("Hotend: ")); Serial.print((int)temperature); Serial.println(F("C"));
