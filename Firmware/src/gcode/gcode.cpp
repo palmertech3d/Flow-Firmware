@@ -8,32 +8,47 @@
 GcodeExecuter::GcodeExecuter(){
 };
 
+static char gcodeInChar[GCODE_QUEUE_SIZE_CHARS];
+static uint8_t gcode_buffer_idx = 0;
+
 GcodeError_t GcodeExecuter::getGcode() {
   // first, poll serial for inputs
   GcodeParser parser_handler;
-  char gcodeInChar[GCODE_QUEUE_SIZE_CHARS];
-
-  uint8_t i = 0;
+  char recv = -1;
   if (Serial.available()) {
-    char recv = Serial.read();
-    while (Serial.available() && recv != '\n' && recv != '\r' && i < GCODE_QUEUE_SIZE_CHARS) {
-      gcodeInChar[i] = recv;
+    // Serial.println("available");
+    delay(1);
+    recv = Serial.read();
+    while (Serial.available() && recv != '\n' && recv != '\r' && gcode_buffer_idx < GCODE_QUEUE_SIZE_CHARS) {
+      gcodeInChar[gcode_buffer_idx] = recv;
       recv = Serial.read();
-      i++;
+      gcode_buffer_idx++;
     }
   }
 
-  if (i == 0) return GCODE_ERR_NO_DATA;
-  if (i >= GCODE_QUEUE_SIZE_CHARS) return GCODE_ERR_TOO_LONG;
+  if (gcode_buffer_idx == 0) return GCODE_ERR_NO_DATA;
+  if (gcode_buffer_idx >= GCODE_QUEUE_SIZE_CHARS) return GCODE_ERR_TOO_LONG;
 
-  gcodeInChar[i] = '\0'; // Terminate the string
+  if(recv != '\n' && recv != '\r') {
+    // Line did not end; return doing nothing, hoping that more data will
+    // soon be available
+      return GCODE_ERR_SUCCESS; // Pretend it succeeded for now
+  }
+  // If we got here, the line ended without any errors
+  gcodeInChar[gcode_buffer_idx] = '\0'; // Terminate the string
+  gcode_buffer_idx = 0; // Reset the index for the next loop since everything completed
+
+  Serial.println(gcodeInChar);
 
   // parse this input
   GcodeCommand_t parsedGcode = parser_handler.parsegcode(gcodeInChar);
 
+  gcodeInChar[0] = 0; // Finish resetting inputs
+
   // verify the parsed gcode
   if (parsedGcode.letter == GCODE_LETTER_ERR || parsedGcode.command == GCODE_COMMAND_ERR) {
-    LOG_WARN("Invalid gcode entered.");
+    LOG_WARN("Invalid gcode entered.\n");
+    LOG_DEBUG(F("GCODE Read from buffer: ")); LOG_DEBUG(gcodeInChar); LOG_DEBUG('\n');
     return GCODE_ERR_GCODE_INVALID; // return 1 to indicate invalid gcode entered
   }
 
