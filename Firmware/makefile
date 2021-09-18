@@ -3,6 +3,9 @@
 # @Last modified by:   Nick Steele
 # @Last modified time: 23:29 Sep 08 2021
 
+HARWARE_ENV = megaatmega2560
+TEST_ENV = test
+
 build:
 	pio run
 
@@ -12,6 +15,6 @@ up:
 	pio run -t upload
 
 test: FORCE
-	@echo 'testing not yet implemented (sorry)'
+	pio run  -e $(TEST_ENV) -t upload
 
 FORCE:
