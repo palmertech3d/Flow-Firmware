@@ -54,6 +54,6 @@
 #define ENABLE_INFO_LOGGING
 #define ENABLE_WARN_LOGGING
 
-// #define UNIT_LEVEL_TESTING
+// #define UNIT_LEVEL_TESTING // Don't use this! Run `make test` instead
 
 #endif /* ifndef CONFIG_DEFAULTS_H */
