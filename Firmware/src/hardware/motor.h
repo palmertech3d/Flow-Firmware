@@ -9,7 +9,7 @@
 
 // Motor macros
 #define EXTRUDER 0
-#define ROLLERS 1
+#define PULLERS 1
 #define LEVEL 2
 #define WINDER 3
 
@@ -23,7 +23,7 @@ Motor();
 void start(int motor_num);
 
 bool isValidMotor(int16_t motor) {
-  return (motor == EXTRUDER || motor == ROLLERS || motor == WINDER || motor == LEVEL);
+  return (motor == EXTRUDER || motor == PULLERS || motor == WINDER || motor == LEVEL);
 } // isValidMotor
 
 // Stops the motor with the corresponding key
@@ -60,6 +60,11 @@ TestResult_t TEST_preventColdExtrusion();
 #endif // ifdef UNIT_LEVEL_TESTING
 
 private:
+
+static float realUnitsToMotorTicks(int motor_num, float speed);
+
+static float motorTicksToRealUnits(int motor_num, float tick_rate);
+
 static long winder_bound_left;
 static long winder_bound_right;
 static bool level_homed;

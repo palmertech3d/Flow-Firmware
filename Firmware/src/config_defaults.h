@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 14:11 Oct 01 2021
+ * @Last modified time: 16:31 Oct 01 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -29,20 +29,28 @@
 // MOTORS /////////////////////////////////////////////////////////////////////
 
 // TODO: Motor speed units
-#define M_EXTRUDER_MAX_SPEED_MILLIRAD_S 1000
-#define M_PULLER_MAX_SPEED_MM_S 5
-#define M_LEVEL_MAX_SPEED_MM_S 5
-#define M_WINDER_MAX_SPEED_MILLIRAD_S 5
+// #define M_EXTRUDER_MAX_SPEED_MILLIRPM_S 1000
+// #define M_PULLER_MAX_SPEED_UM_S 5
+// #define M_LEVEL_MAX_SPEED_MM_S 5
+// #define M_WINDER_MAX_SPEED_MILLIRPM_S 5
+//
+// #define M_EXTRUDER_MAX_ACCELERATION_MILLIRPM_SS 500
+// #define M_PULLER_MAX_ACCELERATION_UM_SS 10
+// #define M_LEVEL_MAX_ACCELERATION_MM_SS 10
+// #define M_WINDER_MAX_ACCELERATION_MILLIRPM_SS 10
 
-#define M_EXTRUDER_MAX_ACCELERATION_MILLIRAD_SS 500
-#define M_PULLER_MAX_ACCELERATION_MM_SS 10
-#define M_LEVEL_MAX_ACCELERATION_MM_SS 10
-#define M_WINDER_MAX_ACCELERATION_MILLIRAD_SS 10
+// 100 steps = 2
+#define M_EXTRUDER_STEPS_PER_MILLIRPM 51.679
+// 60 steps = 14.040 mm/s
+#define M_PULLER_STEPS_PER_MM 0.234
+#define M_LEVEL_STEPS_PER_MM 130.0
+// 18 steps: 1.5 RPM
+#define M_WINDER_STEPS_PER_MILLIRPM 27.184
 
-#define M_EXTRUDER_STEPS_PER_MILLIRAD 100
-#define M_PULLER_STEPS_PER_MM_S 100
-#define M_LEVEL_STEPS_PER_MM_S 100
-#define M_WINDER_STEPS_PER_MILLIRAD_S 100
+#define M_EXTRUDER_INVERT
+#define M_PULLER_INVERT
+// #define M_LEVEL_INVERT
+// #define M_WINDER_INVERT
 
 // GCODE //////////////////////////////////////////////////////////////////////
 

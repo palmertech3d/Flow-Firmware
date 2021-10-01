@@ -9,6 +9,10 @@ long Motor::winder_bound_right = 14250;
 bool Motor::level_homed = 0;
 bool Motor::level_running = 0;
 
+void throwBadMotorNumber(){
+  LOG_ERROR("BAD MOTOR NUMBER\n");
+} // throwBadMotorNumber
+
 Motor::Motor(){
   m_extruder.setMaxSpeed(300);
   m_extruder.setAcceleration(100.0);
@@ -32,7 +36,7 @@ void Motor::start(int motor_num){
   case EXTRUDER:
     // m_extruder.moveTo(-1000000);
     break;
-  case ROLLERS:
+  case PULLERS:
     // m_roller.moveTo(1000000);
     break;
   case LEVEL:
@@ -50,7 +54,7 @@ void Motor::stop(int motor_num){
   case EXTRUDER:
     m_extruder.setSpeed(0);
     break;
-  case ROLLERS:
+  case PULLERS:
     m_roller.setSpeed(0);
     break;
   case LEVEL:
@@ -62,20 +66,83 @@ void Motor::stop(int motor_num){
   } // switch
 } // Motor::stop
 
-void Motor::set_speed(int motor_num, float motor_speed){
+float Motor::realUnitsToMotorTicks(int motor_num, float speed) {
   switch (motor_num) {
   case EXTRUDER:
-    m_extruder.setSpeed(-1 * motor_speed);
+    return M_EXTRUDER_STEPS_PER_MILLIRPM * speed;
     break;
-  case ROLLERS:
-    m_roller.setSpeed(-1 * motor_speed);
+  case PULLERS:
+    return M_PULLER_STEPS_PER_MM * speed;
     break;
   case LEVEL:
-    m_level.setMaxSpeed(motor_speed);
-    m_level.setAcceleration(motor_speed / 2);
+    return M_LEVEL_STEPS_PER_MM * speed;
     break;
   case WINDER:
-    m_winder.setSpeed(motor_speed);
+    return M_WINDER_STEPS_PER_MILLIRPM * speed;
+    break;
+  default:
+    throwBadMotorNumber();
+    break;
+  } // switch
+} // Motor::speedForMotor
+
+float Motor::motorTicksToRealUnits(int motor_num, float tick_rate) {
+  switch (motor_num) {
+  case EXTRUDER:
+    return tick_rate / M_EXTRUDER_STEPS_PER_MILLIRPM;
+    break;
+  case PULLERS:
+    return tick_rate / M_PULLER_STEPS_PER_MM;
+    break;
+  case LEVEL:
+    return tick_rate / M_LEVEL_STEPS_PER_MM;
+    break;
+  case WINDER:
+    return tick_rate / M_WINDER_STEPS_PER_MILLIRPM;
+    break;
+  default:
+    throwBadMotorNumber();
+    break;
+  } // switch
+} // Motor::speedForMotor
+
+void Motor::set_speed(int motor_num, float motor_speed){
+  static float speed_converted;
+  speed_converted = realUnitsToMotorTicks(motor_num, motor_speed);
+
+  switch (motor_num) {
+  case EXTRUDER:
+    #ifdef M_EXTRUDER_INVERT
+    m_extruder.setSpeed(-speed_converted);
+    #else // ifdef M_EXTRUDER_INVERT
+    m_extruder.setSpeed(speed_converted);
+    #endif // ifdef M_EXTRUDER_INVERT
+    break;
+  case PULLERS:
+    #ifdef M_PULLER_INVERT
+    m_roller.setSpeed(-speed_converted);
+    #else // ifdef M_PULLER_INVERT
+    m_roller.setSpeed(speed_converted);
+    #endif // ifdef M_PULLER_INVERT
+    break;
+  case LEVEL:
+    #ifdef M_LEVEL_INVERT
+    m_level.setMaxSpeed(-speed_converted);
+    m_level.setAcceleration(-speed_converted / 2);
+    #else // ifdef M_LEVEL_INVERT
+    m_level.setMaxSpeed(speed_converted);
+    m_level.setAcceleration(speed_converted / 2);
+    #endif // ifdef M_LEVEL_INVERT
+    break;
+  case WINDER:
+    #ifdef M_WINDER_INVERT
+    m_winder.setSpeed(-speed_converted);
+    #else // ifdef M_WINDER_INVERT
+    m_winder.setSpeed(speed_converted);
+    #endif // ifdef M_WINDER_INVERT
+    break;
+  default:
+    throwBadMotorNumber();
     break;
   } // switch
 } // Motor::set_speed
@@ -83,14 +150,15 @@ void Motor::set_speed(int motor_num, float motor_speed){
 float Motor::get_speed(int motor_num){
   switch (motor_num) {
   case EXTRUDER:
-    return m_extruder.speed();
-  case ROLLERS:
-    return m_roller.speed();
+    return motorTicksToRealUnits(EXTRUDER, m_extruder.speed());
+  case PULLERS:
+    return motorTicksToRealUnits(PULLERS, m_roller.speed());
   case LEVEL:
-    return m_level.speed();
+    return motorTicksToRealUnits(LEVEL, m_level.speed());
   case WINDER:
-    return m_winder.speed();
+    return motorTicksToRealUnits(WINDER, m_winder.speed());
   default:
+    throwBadMotorNumber();
     return -1;
   } // switch
 } // Motor::get_speed

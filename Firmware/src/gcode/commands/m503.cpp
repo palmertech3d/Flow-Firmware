@@ -26,7 +26,7 @@ void GcodeExecuter::m503(GcodeCommand_t cmd){
   Serial.print(F("Extruder: "));
   Serial.println(motor_handler.get_speed(EXTRUDER));
   Serial.print(F("Rollers: "));
-  Serial.println(motor_handler.get_speed(ROLLERS));
+  Serial.println(motor_handler.get_speed(PULLERS));
   Serial.print(F("Level Winder: "));
   Serial.println(motor_handler.get_speed(LEVEL));
   Serial.print(F("Winder: "));
