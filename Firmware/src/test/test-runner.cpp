@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:35 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 13:23 Sep 11 2021
+ * @Last modified time: 14:46 Oct 01 2021
  */
 
 #include "test-runner.h"
@@ -12,6 +12,7 @@
 #include <Arduino.h>
 #include "gcode/gcode.h"
 #include "hardware/heater.h"
+#include "hardware/motor.h"
 
 void resultAccumulatorAdd(TestResult_t new_values, TestResult_t *accumulator) {
   accumulator->total += new_values.total;
@@ -25,6 +26,8 @@ void runUnitTestsThenLoop() {
   resultAccumulatorAdd(TEST_gcode(), &accumulator);
   resultAccumulatorAdd(Heater::TEST_heater(), &accumulator);
   resultAccumulatorAdd(Heater::TEST_runaway(), &accumulator);
+  Motor motor_handler;
+  resultAccumulatorAdd(motor_handler.TEST_preventColdExtrusion(), &accumulator);
 
   // RESULTS OUTPUT ///////////////////////////////////////////////////////////
   LOG_INFO(F("################################################################################\n"));

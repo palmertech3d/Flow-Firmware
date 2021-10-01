@@ -23,6 +23,7 @@ void idle(){
   gcode_handler.getGcode();
   gcode_handler.executeBuffer();
   Heater::update();
+  motor_handler.idle();
 } // idle
 
 /* FIRMWARE ENTRY POINT */

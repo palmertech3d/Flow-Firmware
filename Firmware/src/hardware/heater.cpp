@@ -167,7 +167,16 @@ void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state,
   } // switch
 } // Heater::stepThermalRunawayFsm
 
+void Heater::updateFlagsFromTemperature(int16_t temperature) {
+  if (temperature < MIN_EXTRUSION_TEMP_C) {
+    global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 1);
+  } else {
+    global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 0);
+  }
+} // updateFlagsFromTemperature
+
 static uint32_t next_check_time = 0;
+
 void Heater::update() {
   double new_temperature;
   if (millis() >= next_check_time) {
@@ -175,8 +184,8 @@ void Heater::update() {
     new_temperature = thermometer.readCelsius();
     next_check_time = millis() + 500;
   }
-  if(new_temperature == 0) { // Sensor was not polled
-     new_temperature = temperature;
+  if (new_temperature == 0) { // Sensor was not polled
+    new_temperature = temperature;
   }
   if ((int)new_temperature != (int)temperature) {
     // Prints out temperature changes
@@ -184,6 +193,8 @@ void Heater::update() {
     LOG_DEBUG(F("Output: ")); LOG_DEBUG(output); LOG_DEBUG('\n');
     LOG_DEBUG(F("Direct: ")); LOG_DEBUG(thermometer.readCelsius()); LOG_DEBUG('\n');
   }
+
+  updateFlagsFromTemperature(new_temperature);
 
   temperature = new_temperature;
 
@@ -208,10 +219,12 @@ TestResult_t Heater::TEST_heater() {
   TEST_ASSERT_EQUAL(int16_t(Heater::get_target()), 25, accumulator);
   Heater::set(0);
   TEST_ASSERT_EQUAL(int16_t(Heater::get_target()), 0, accumulator);
-  Heater::temperature = 26.0;
-  TEST_ASSERT_EQUAL(int16_t(Heater::temperature), 26, accumulator);
-  Heater::temperature = 0;
-  TEST_ASSERT_EQUAL(int16_t(Heater::temperature), 0, accumulator);
+  updateFlagsFromTemperature(MIN_EXTRUSION_TEMP_C - 1);
+  Heater::update();
+  TEST_ASSERT_EQUAL(global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP), true, accumulator);
+  updateFlagsFromTemperature(MIN_EXTRUSION_TEMP_C + 1);
+  TEST_ASSERT_EQUAL(global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP), false, accumulator);
+  updateFlagsFromTemperature(0);
 
   Heater::setConstants(1, 2, 3);
   TEST_ASSERT_EQUAL(int16_t(Heater::Kp), 1, accumulator);

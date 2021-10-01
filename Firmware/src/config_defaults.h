@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 17:03 Sep 11 2021
+ * @Last modified time: 14:11 Oct 01 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -23,6 +23,8 @@
 // HTR max/min temps
 #define HTR0_MAX_TEMP 220
 #define HTR0_MIN_TEMP 5
+
+#define MIN_EXTRUSION_TEMP_C 150
 
 // MOTORS /////////////////////////////////////////////////////////////////////
 

@@ -1,6 +1,10 @@
 #ifndef MOTOR_H
 #define MOTOR_H
+
 #include "../HAL/megaatmega2560/megaatmega2560.h"
+#include "blackboard/blackboard.h"
+#include "logger.h"
+#include "test/unit-testing.h"
 #include <AccelStepper.h>
 
 // Motor macros
@@ -37,6 +41,11 @@ static void run();
 // Homes the level winder
 void home_level_winder();
 
+/** Runs any safety tests needed, ex. minimum extrusion temperatures.
+ * Must be run periodically.
+ */
+void idle();
+
 // Set the bounds for the winder
 void set_winder_bounds(int left, int right);
 
@@ -45,13 +54,18 @@ static AccelStepper m_roller;
 static AccelStepper m_level;
 static AccelStepper m_winder;
 
+#ifdef UNIT_LEVEL_TESTING
+
+TestResult_t TEST_preventColdExtrusion();
+#endif // ifdef UNIT_LEVEL_TESTING
+
 private:
 static long winder_bound_left;
 static long winder_bound_right;
 static bool level_homed;
 static bool level_running;
-}; // class Motor
+}
 
-// class Motor
+;
 
 #endif // MOTOR_H

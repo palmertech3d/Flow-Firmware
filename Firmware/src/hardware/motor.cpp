@@ -1,4 +1,4 @@
-#include "motor.h"
+#include "hardware/motor.h"
 
 AccelStepper Motor::m_extruder = AccelStepper(AccelStepper::DRIVER, PIN_M_EXTRUDER_STEP, PIN_M_EXTRUDER_DIR);
 AccelStepper Motor::m_roller = AccelStepper(AccelStepper::DRIVER, PIN_M_ROLLER_STEP, PIN_M_ROLLER_DIR);
@@ -110,6 +110,15 @@ void Motor::run(){
   }
 } // Motor::run
 
+void Motor::idle() {
+  if (m_extruder.speed() > 0) {
+    if (global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP)) {
+      m_extruder.setSpeed(0);
+      LOG_WARN("Extruder stopping to prevent extrusion below min temp\n");
+    }
+  }
+} // Motor::idle
+
 void Motor::home_level_winder(){
   level_homed = 0;
 
@@ -134,3 +143,21 @@ void Motor::set_winder_bounds(int left, int right){
   winder_bound_left = left;
   winder_bound_right = right;
 } // Motor::set_winder_bounds
+
+#ifdef UNIT_LEVEL_TESTING
+
+TestResult_t Motor::TEST_preventColdExtrusion() {
+  TestResult_t accumulator;
+  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 0, accumulator);
+  this->m_extruder.setSpeed(10);
+  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 10, accumulator);
+  global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 0);
+  this->idle();
+  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 10, accumulator);
+  global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 1);
+  this->idle();
+  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 0, accumulator);
+  global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 0);
+  return accumulator;
+} // Motor::TEST_preventColdExtrusion
+#endif // ifdef UNIT_LEVEL_TESTING

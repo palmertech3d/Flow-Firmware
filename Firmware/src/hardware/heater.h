@@ -8,6 +8,7 @@
 #include <MAX6675_Thermocouple.h>
 #include "config_defaults.h"
 #include "logger.h"
+#include "blackboard/blackboard.h"
 #include "test/unit-testing.h"
 
 namespace TR {
@@ -78,6 +79,7 @@ static void handleHeaterError(const __FlashStringHelper *error_name);
 #ifdef UNIT_LEVEL_TESTING
 
 static TestResult_t TEST_heater();
+
 static TestResult_t TEST_runaway();
 #endif // ifdef UNIT_LEVEL_TESTING
 
@@ -88,6 +90,9 @@ static void runPidAutotuneUpdate();
 
 // Run any necesary procedures for thermal runaway protection
 static void stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state, int16_t current_temperature, int16_t target);
+
+/// Updates blackboard flags with any errors or information about the temperature
+static void updateFlagsFromTemperature(int16_t temperature);
 
 static double temperature; // The current temperature of the hotend
 static double target_temp; // The target temperature of the hotend
