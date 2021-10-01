@@ -67,7 +67,7 @@ GcodeCommand_t GcodeParser::parsegcode(char *input){
   }
 
   // Move to get command parameters
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < GCODE_MAX_ARGS; i++) {
     if ((input[index] >= 'A' && input[index] <= 'Z') || (input[index] >= 'a' && input[index] <= 'z')) { // If input[index] is a letter
       output.arg_char[i] = tolower(input[index]);
     } else {
