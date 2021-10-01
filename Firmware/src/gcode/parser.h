@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include "config_defaults.h"
 #include "logger.h"
+#include "test/unit-testing.h"
 
-typedef int16_t GcodeArg_t;
+typedef float GcodeArg_t;
 #define GCODE_ARG_VALUE_ERR -1
 #define GCODE_ARG_CHAR_ERR -1
 #define GCODE_LETTER_ERR -1
@@ -32,6 +33,11 @@ GcodeParser();
 // char letter = GCODE_LETTER_ERR if inputed string is invalid.
 GcodeCommand_t parsegcode(char *);
 
+#ifdef UNIT_LEVEL_TESTING
+
+TestResult_t TEST_gcodeParser();
+#endif // ifdef UNIT_LEVEL_TESTING
+
 private:
 
 // Cuts a string at the passed index, returning the string from the index
@@ -44,5 +50,7 @@ int getIntFromString(char *input, int numPlaces);
 // Takes in a char, returns true if it is a num, false if not.
 bool isNum(char data);
 }; // class GcodeParser
+
+// class GcodeParser
 
 #endif // PARSER_H

@@ -42,9 +42,9 @@ GcodeCommand_t GcodeParser::parsegcode(char *input){
   index++; // Move to the second character in input
 
   // Get the command number that should occur directly after the letter
-  char subString[strlen(input) - index]; // Create a substring
-  cutString(input, subString, &index); // Fill the substring
-  int temp = getIntFromString(subString, 3);
+  char sub_string[strlen(input) - index]; // Create a substring
+  cutString(input, sub_string, &index); // Fill the substring
+  int temp = getIntFromString(sub_string, 3);
   output.command = temp; // Get the data from the substring
 
   // If an invalid form was found in getIntFromString, return invalid
@@ -77,16 +77,16 @@ GcodeCommand_t GcodeParser::parsegcode(char *input){
 
     index++;
 
-    cutString(input, subString, &index); // Fill the substring
-    GcodeArg_t temp2 = getIntFromString(subString, 4);
+    cutString(input, sub_string, &index); // Fill the substring
+    // GcodeArg_t arg_from_string = getIntFromString(sub_string, 4);
+    GcodeArg_t arg_from_string = (GcodeArg_t)atof(sub_string);
 
     // If an invalid form was found in getIntFromString, return invalid
-    if (output.arg_value[i] == GCODE_ARG_VALUE_ERR) {
+    if (arg_from_string == -1) {
       output.letter = GCODE_ARG_CHAR_ERR;
-      return output;
+    } else {
+      output.arg_value[i] = arg_from_string; // Get the data from the substring
     }
-    output.arg_value[i] = temp2; // Get the data from the substring
-
     // Check for a space or a null byte.
     // If a space, move to get arguments.
     // If a null byte, return output.
@@ -122,6 +122,10 @@ int GcodeParser::getIntFromString(char *input, int numPlaces){
   return output;
 } // GcodeParser::getIntFromString
 
+// int GcodeParser::getIntFromString(char *input, int numPlaces) {
+//   return 0;
+// } // GcodeParser::getIntFromString
+
 void GcodeParser::cutString(char *input, char *output, unsigned int *index){
   int j = 0;
 
@@ -136,3 +140,39 @@ void GcodeParser::cutString(char *input, char *output, unsigned int *index){
 bool GcodeParser::isNum(char data){
   return  (data >= '0' && data <= '9');
 } // GcodeParser::isNum
+
+// TEST FUNCTIONS /////////////////////////////////////////////////////////////
+
+#ifdef UNIT_LEVEL_TESTING
+
+void testParsing(GcodeCommand_t *correct_values, GcodeCommand_t *test_values, TestResult_t *accumulator) {
+  TestResult_t subaccumulator;
+  TEST_ASSERT_EQUAL(test_values->letter, correct_values->letter, subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->command, correct_values->command, subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->arg_char[0], correct_values->arg_char[0], subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->arg_char[1], correct_values->arg_char[1], subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->arg_char[2], correct_values->arg_char[2], subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->arg_value[0], correct_values->arg_value[0], subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->arg_value[1], correct_values->arg_value[1], subaccumulator);
+  TEST_ASSERT_EQUAL(test_values->arg_value[2], correct_values->arg_value[2], subaccumulator);
+  accumulator->total += subaccumulator.total;
+  accumulator->failed += subaccumulator.failed;
+} // testParsing
+
+TestResult_t GcodeParser::TEST_gcodeParser() {
+  TestResult_t accumulator;
+  GcodeCommand_t correct_parsing;
+  static char cmd[GCODE_QUEUE_SIZE_CHARS] = {"G1 A0 B1.1 C-1000"};
+  correct_parsing.letter = 'g';
+  correct_parsing.command = 1;
+  correct_parsing.arg_char[0] = 'a';
+  correct_parsing.arg_value[0] = 0;
+  correct_parsing.arg_char[1] = 'b';
+  correct_parsing.arg_value[1] = 1.1;
+  correct_parsing.arg_char[2] = 'c';
+  correct_parsing.arg_value[2] = -1000;
+  GcodeCommand_t parsed = this->parsegcode(cmd);
+  testParsing(&correct_parsing, &parsed, &accumulator);
+  return accumulator;
+} // TEST_gcode
+#endif // ifdef UNIT_LEVEL_TESTING

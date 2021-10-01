@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:35 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 14:46 Oct 01 2021
+ * @Last modified time: 16:45 Oct 01 2021
  */
 
 #include "test-runner.h"
@@ -11,6 +11,7 @@
 
 #include <Arduino.h>
 #include "gcode/gcode.h"
+#include "gcode/parser.h"
 #include "hardware/heater.h"
 #include "hardware/motor.h"
 
@@ -28,6 +29,8 @@ void runUnitTestsThenLoop() {
   resultAccumulatorAdd(Heater::TEST_runaway(), &accumulator);
   Motor motor_handler;
   resultAccumulatorAdd(motor_handler.TEST_preventColdExtrusion(), &accumulator);
+  GcodeParser parser;
+  resultAccumulatorAdd(parser.TEST_gcodeParser(), &accumulator);
 
   // RESULTS OUTPUT ///////////////////////////////////////////////////////////
   LOG_INFO(F("################################################################################\n"));
