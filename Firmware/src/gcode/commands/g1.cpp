@@ -17,6 +17,6 @@ void GcodeExecuter::g1(GcodeCommand_t cmd){
     motor_handler.set_speed(motor, speed);
     motor_handler.start(motor);
   } else {
-    LOG_INFO(F("Invalid motor number entered.\n"));
+    LOG_WARN("Invalid motor number entered.\n");
   }
 } // GcodeExecuter::g1
