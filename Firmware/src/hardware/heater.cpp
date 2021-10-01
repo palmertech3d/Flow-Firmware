@@ -106,8 +106,8 @@ void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state,
   if (target == 0) {
     state->rampup_last_temperature = 0;
     state->state_type = TR::INACTIVE;
-  }
-  if (current_temperature > config->max_temp || current_temperature < config->min_temp) {
+  } else if (current_temperature > config->max_temp || current_temperature < config->min_temp) {
+    // Does not check min/max if temps aren't set, since it makes testing w/o heater easier
     state->state_type = TR::RUNAWAY;
   }
   switch (state->state_type) {
