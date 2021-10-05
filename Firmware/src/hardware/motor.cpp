@@ -112,6 +112,8 @@ void Motor::set_speed(int motor_num, float motor_speed){
 
   switch (motor_num) {
   case EXTRUDER:
+    if(global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP))
+      break;
     #ifdef M_EXTRUDER_INVERT
     m_extruder.setSpeed(-speed_converted);
     #else // ifdef M_EXTRUDER_INVERT
@@ -179,7 +181,7 @@ void Motor::run(){
 } // Motor::run
 
 void Motor::idle() {
-  if (m_extruder.speed() > 0) {
+  if (m_extruder.speed() != 0) {
     if (global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP)) {
       m_extruder.setSpeed(0);
       LOG_WARN("Extruder stopping to prevent extrusion below min temp\n");
