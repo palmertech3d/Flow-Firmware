@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 17:05 Sep 11 2021
+ * @Last modified time: 9:50 Oct 07 2021
  */
 
 #include "config_defaults.h"
@@ -31,7 +31,7 @@
 #endif /* ifdef ENABLE_INFO_LOGGING */
 
 #ifdef ENABLE_WARN_LOGGING
-  // This wil print the given string, after "WARN(<file name>:<linenumber>)"
+// This will print the given string, after "WARN(<file name>:<linenumber>)"
   #define WARN_LOG_FL(str, file, line) do{ Serial.print(F("WARNING(" file ":" MACRO_STRIZE(line) "): " str)); }while(0)
   #define LOG_WARN(str) WARN_LOG_FL(str, __FILE__, __LINE__)
 #else /* ifdef ENABLE_WARN_LOGGING */
@@ -39,8 +39,11 @@
 #endif /* ifdef ENABLE_WARN_LOGGING */
 
 // Error logging cannot be disabled
-// This wil print the given string, after "WARN(<file name>:<linenumber>)"
+// This will print the given string, after "WARN(<file name>:<linenumber>)"
 #define ERROR_LOG_FL(str, file, line) do{ Serial.print(F("ERROR(" file ":" MACRO_STRIZE(line) "): " str)); }while(0)
 #define LOG_ERROR(str) ERROR_LOG_FL(str, __FILE__, __LINE__)
+
+// For tabular data logging
+#define LOG_DATA(str) Serial.print(str)
 
 #endif /* ifndef LOGGER_H */

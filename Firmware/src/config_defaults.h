@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 16:31 Oct 01 2021
+ * @Last modified time: 22:25 Oct 06 2021
  */
 
 #ifndef CONFIG_DEFAULTS_H
@@ -63,6 +63,8 @@
 #define ENABLE_DEBUG_LOGGING
 #define ENABLE_INFO_LOGGING
 #define ENABLE_WARN_LOGGING
+
+#define TABULAR_DEFAULT_LOG_PERIOD_MS 2000
 
 // #define UNIT_LEVEL_TESTING // Don't use this! Run `make test` instead
 
