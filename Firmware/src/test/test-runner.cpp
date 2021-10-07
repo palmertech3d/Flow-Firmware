@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:35 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 16:45 Oct 01 2021
+ * @Last modified time: 23:15 Oct 06 2021
  */
 
 #include "test-runner.h"
@@ -14,6 +14,7 @@
 #include "gcode/parser.h"
 #include "hardware/heater.h"
 #include "hardware/motor.h"
+#include "tabular/tabular.h"
 
 void resultAccumulatorAdd(TestResult_t new_values, TestResult_t *accumulator) {
   accumulator->total += new_values.total;
@@ -31,6 +32,8 @@ void runUnitTestsThenLoop() {
   resultAccumulatorAdd(motor_handler.TEST_preventColdExtrusion(), &accumulator);
   GcodeParser parser;
   resultAccumulatorAdd(parser.TEST_gcodeParser(), &accumulator);
+  TabularTester_t tabtest;
+  resultAccumulatorAdd(tabtest.TEST_tabular(), &accumulator);
 
   // RESULTS OUTPUT ///////////////////////////////////////////////////////////
   LOG_INFO(F("################################################################################\n"));
