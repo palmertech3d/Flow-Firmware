@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:26 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 12:40 Sep 11 2021
+ * @Last modified time: 8:37 Oct 07 2021
  */
 
 // #include "logger.h"
@@ -18,8 +18,8 @@
 #define TEST_FAILED_LOG_FL(str, file, line, valx, valy) do{ Serial.print(F("FAILED! (" file ":" MACRO_STRIZE(line) "): " str " (first: ")); Serial.print(valx); Serial.print(F(", second: ")); Serial.print(valy); Serial.print(F(")\n")); }while(0)
 #define TEST_FAILED_LOG(str, valx, valy) TEST_FAILED_LOG_FL(str, __FILE__, __LINE__, valx, valy)
 
-#define TEST_ASSERT_EQUAL(x, y, test_result) do{ test_result.total++; if (x != y) { TEST_FAILED_LOG(#x " not equal to "  #y, x, y); test_result.failed++; } else {TEST_PASSED_LOG(#x " equal to "  #y);}}while(0)
-#define TEST_ASSERT_NEQUAL(x, y, test_result) do{ test_result.total++; if (x == y) { TEST_FAILED_LOG(#x " equal to "  #y, x, y); test_result.failed++; } else {TEST_PASSED_LOG(#x " not equal to "  #y);}}while(0)
+#define TEST_ASSERT_EQUAL(x, y, test_result) do{ test_result.total++; if ((x) != (y)) { TEST_FAILED_LOG(#x " not equal to "  #y, x, y); test_result.failed++; } else {TEST_PASSED_LOG(#x " equal to "  #y);}}while(0)
+#define TEST_ASSERT_NEQUAL(x, y, test_result) do{ test_result.total++; if ((x) == (y)) { TEST_FAILED_LOG(#x " equal to "  #y, x, y); test_result.failed++; } else {TEST_PASSED_LOG(#x " not equal to "  #y);}}while(0)
 
 typedef struct TestResult_struct {
   uint16_t failed = 0;
