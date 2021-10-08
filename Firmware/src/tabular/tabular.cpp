@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 18:21 Oct 08 2021
+ * @Last modified time: 18:29 Oct 08 2021
  */
 
 #include "config_defaults.h"
@@ -151,6 +151,11 @@ TestResult_t TabularTester_t::TEST_tabular() {
   delay(100); // Make sure it logs again
   tabular_delegator.idle();
   TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis() + 75, true, accumulator);
+
+  tabular_obj.stop();
+  delay(100); // Make sure it does not log again
+  tabular_delegator.idle();
+  TEST_ASSERT_EQUAL(tabular_obj.next_log_time < millis(), true, accumulator);
   return accumulator;
 } // Heater::TEST_heater
 
