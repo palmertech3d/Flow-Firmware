@@ -3,13 +3,13 @@
 #include "../HAL/megaatmega2560/megaatmega2560.h"
 #include "../HAL/megaatmega2560/serial.h"
 #include <PID_v1.h> // For PID control
-#include <PID_AutoTune_v0.h>
 #include <Thermocouple.h>
 #include <MAX6675_Thermocouple.h>
 #include "config_defaults.h"
 #include "logger.h"
 #include "blackboard/blackboard.h"
 #include "test/unit-testing.h"
+#include "abstract_logic/autotune.h"
 
 namespace TR {
 typedef enum TrStateType_enum {
@@ -64,10 +64,13 @@ static void setConstants(double Kp_set, double Ki_set, double Kd_set);
 static void get_constants(double *constants_out);
 
 // Experimental: Automatically tunes the PID constants for the heater
-static void autotune_init();
+static void autotune_init(uint16_t target_temp, uint16_t bandwidth);
 
 // Returns true if autotune is active, false if not
-static bool autotune_on();
+static bool isAutotuneOn();
+
+// Prevent autotune from continuing
+static void autotuneStop();
 
 // Updates the heater from the calculated PID value
 // Must be called regularly
@@ -85,7 +88,7 @@ static TestResult_t TEST_runaway();
 
 private:
 
-// Run the PID autotune or store the values if it is done. Must be called in update() when auto_on is true.
+// Run the PID autotune or store the values if it is done. Must be called in update() when autotune_on is true.
 static void runPidAutotuneUpdate();
 
 // Run any necesary procedures for thermal runaway protection
@@ -102,8 +105,8 @@ static MAX6675_Thermocouple thermometer;
 static PID temp_controller;
 
 // Autotune
-static PID_ATune pid_auto;
-static bool auto_on;
+static atune::GenericAutotune_t atune_handler;
+static bool autotune_on;
 
 // Thermal runaway
 static TR::TrConfig_t tr_config;

@@ -11,8 +11,8 @@ double Heater::output = 0;
 double Heater::Kp = PID_HTR0_P, Heater::Ki = PID_HTR0_I, Heater::Kd = PID_HTR0_D; // PID constants, default vals are samples
 MAX6675_Thermocouple Heater::thermometer = MAX6675_Thermocouple(PIN_THERMO_SCK, PIN_THERMO_CS, PIN_THERMO_SO);
 PID Heater::temp_controller = PID(&Heater::temperature, &Heater::output, &Heater::target_temp, Heater::Kp, Heater::Ki, Heater::Kd, DIRECT);
-PID_ATune Heater::pid_auto = PID_ATune(&Heater::temperature, &Heater::output);
-bool Heater::auto_on = false;
+bool Heater::autotune_on = false;
+atune::GenericAutotune_t Heater::atune_handler = atune::GenericAutotune_t();
 
 TR::TrConfig_t Heater::tr_config;
 TR::TrState_t Heater::tr_state;
@@ -66,37 +66,42 @@ void Heater::get_constants(double *constants_out){
   constants_out[2] = Kd;
 } // Heater::get_constants
 
-void Heater::autotune_init(){
-  auto_on = true;
-  pid_auto.SetControlType(1); // Set to PID control type
-  pid_auto.SetNoiseBand(2); // Set to ignore 2 degrees of noise
+void Heater::autotune_init(uint16_t target_temp, uint16_t band_distance){
+  autotune_on = true;
+  atune::AutotuneConfig_t cfg;
+  cfg.center_value = target_temp;
+  cfg.hysteresis_distance = band_distance;
+  cfg.output_min_allowable = 0;
+  cfg.output_max_allowable = 255;
+  cfg.output_ptr = &output;
+  cfg.centerline_allowed_error = 0.01;
+  cfg.duty_allowed_error = 0.1;
+  atune_handler.init(cfg);
 } // Heater::autotune_init
 
-bool Heater::autotune_on(){
-  return auto_on;
+void Heater::autotuneStop(){
+  autotune_on = false;
+  atune_handler.stop();
+} // Heater::autotune_init
+
+bool Heater::isAutotuneOn(){
+  return autotune_on;
 } // Heater::autotune_on
 
 void Heater::runPidAutotuneUpdate() {
-  if (auto_on) {
-    int tune_result = pid_auto.Runtime();
-    if (tune_result != 0) {
-      auto_on = false;
-
-      // return PID constants
-      setConstants(pid_auto.GetKp(), pid_auto.GetKi(), pid_auto.GetKd());
-      LOG_INFO(F("Autotuning complete. Constants stored in heater:\n"));
-      LOG_INFO(F("\tKp: ")); LOG_INFO(pid_auto.GetKp()); LOG_INFO(F("\n"));
-      LOG_INFO(F("\tKi: ")); LOG_INFO(pid_auto.GetKi()); LOG_INFO(F("\n"));
-      LOG_INFO(F("\tKd: ")); LOG_INFO(pid_auto.GetKd()); LOG_INFO(F("\n"));
-    }
+  if (!autotune_on) {
+    LOG_ERROR("Autotune runtime attempted without autotune being enabled");
+    return;
   }
+  atune_handler.runtime(temperature);
 } // Heater::runPidAutotuneUpdate
 
 void Heater::handleHeaterError(const __FlashStringHelper *error_name) {
   LOG_WARN("HEATER ERROR THROWN\n");
   LOG_INFO(F("Error desciption: ")); LOG_INFO(error_name); LOG_INFO(F("\n"));
   Heater::set(0);
-  auto_on = false;
+  autotune_on = false;
+  autotuneStop();
 } // Heater::handleHeaterError
 
 void Heater::stepThermalRunawayFsm(TR::TrConfig_t *config, TR::TrState_t *state, int16_t current_temperature, int16_t target) {
@@ -180,7 +185,7 @@ static uint32_t next_check_time = 0;
 void Heater::update() {
   double new_temperature;
   if (millis() >= next_check_time) {
-    // Must poll sensor slowly; do not know if this is a library or hardware issue though.
+    // Must poll sensor slowly; unclear if this is a library or hardware issue.
     new_temperature = thermometer.readCelsius();
     next_check_time = millis() + 500;
   }
@@ -200,13 +205,16 @@ void Heater::update() {
 
   stepThermalRunawayFsm(&tr_config, &tr_state, (int16_t)temperature, (int16_t) target_temp);
 
+  if (autotune_on) { // Autotune uses bang-bang control so just skip the PID controller
+    runPidAutotuneUpdate();
+    return;
+  }
+
   temp_controller.Compute(); // Compute & store control values into `output`
+
   // TODO: Convert this to a hardware abstraction where the output is synced to
   // zero-crossings of the AC input
   analogWrite(PIN_HEATER, output);
-
-  if (auto_on)
-    runPidAutotuneUpdate();
 } // Heater::update
 
 // TEST FUNCTIONS /////////////////////////////////////////////////////////////

@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:35 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 23:15 Oct 06 2021
+ * @Last modified time: 23:54 Oct 07 2021
  */
 
 #include "test-runner.h"
@@ -15,6 +15,7 @@
 #include "hardware/heater.h"
 #include "hardware/motor.h"
 #include "tabular/tabular.h"
+#include "abstract_logic/autotune.h"
 
 void resultAccumulatorAdd(TestResult_t new_values, TestResult_t *accumulator) {
   accumulator->total += new_values.total;
@@ -25,6 +26,8 @@ void runUnitTestsThenLoop() {
   TestResult_t accumulator;
 
   // TEST FUNCTIONS ///////////////////////////////////////////////////////////
+  atune::GenericAutotune_t at;
+  resultAccumulatorAdd(at.TEST_autotune(), &accumulator);
   resultAccumulatorAdd(TEST_gcode(), &accumulator);
   resultAccumulatorAdd(Heater::TEST_heater(), &accumulator);
   resultAccumulatorAdd(Heater::TEST_runaway(), &accumulator);

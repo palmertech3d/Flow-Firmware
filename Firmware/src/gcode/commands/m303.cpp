@@ -5,6 +5,13 @@
 
 // m303 activates PID auto tune for the hotend
 void GcodeExecuter::m303(GcodeCommand_t cmd){
-  LOG_INFO(F("Starting autotune for hotend..."));
-  Heater::autotune_init();
+  GcodeArg_t target = gcodeParseValueFor('s', cmd);
+  GcodeArg_t band = gcodeParseValueFor('b', cmd);
+  if (target == GCODE_ARG_VALUE_ERR || band == GCODE_ARG_VALUE_ERR) {
+    LOG_INFO("Stopping heater autotune\n");
+    Heater::autotuneStop();
+    return;
+  }
+  LOG_INFO("Starting heater autotune\n");
+  Heater::autotune_init(target, band);
 } // GcodeExecuter::m303

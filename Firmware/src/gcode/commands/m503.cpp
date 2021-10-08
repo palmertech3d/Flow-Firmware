@@ -16,7 +16,7 @@ void GcodeExecuter::m503(GcodeCommand_t cmd){
   Serial.print(F("\tKi: ")); Serial.println(constants[1]);
   Serial.print(F("\tKd: ")); Serial.println(constants[2]);
   Serial.print(F("Autotune active?: "));
-  if (Heater::autotune_on()) {
+  if (Heater::isAutotuneOn()) {
     Serial.println(F("Yes"));
   } else {
     Serial.println(F("No"));
