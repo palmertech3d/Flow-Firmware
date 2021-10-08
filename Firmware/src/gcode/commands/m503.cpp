@@ -3,10 +3,12 @@
 #include <Arduino.h>
 #include "../../hardware/heater.h"
 #include "../../hardware/motor.h"
+#include <MemoryFree.h>
 
 // M503 reports settings to the terminal
 void GcodeExecuter::m503(GcodeCommand_t cmd){
   Serial.println(F("Current settings for Flow Extruder:"));
+  Serial.print(F("Remaining RAM: ")); Serial.println(freeMemory());
   Serial.print(F("Current hotend temp: ")); Serial.println((int)Heater::get());
   Serial.print(F("Target hotend temp: ")); Serial.println((int)Heater::get_target());
   double constants[3];
