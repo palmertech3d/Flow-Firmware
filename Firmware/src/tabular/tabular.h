@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:59 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 18:08 Oct 08 2021
+ * @Last modified time: 19:22 Oct 08 2021
  */
 
 #include <stdint.h>
@@ -41,6 +41,22 @@ typedef struct TabularData_t {
   enum _TabularDataFmt_enum fmt;
 } TabularDataPtr_t;
 
+typedef struct TabularCallback_struct {
+  union {
+    float float_val;
+    double double_val;
+    uint8_t uint8_t_val;
+    uint16_t uint16_t_val;
+    uint32_t uint32_t_val;
+    int8_t int8_t_val;
+    int16_t int16_t_val;
+    int32_t int32_t_val;
+  } val;
+  enum _TabularDataFmt_enum fmt;
+} TabularCallback_t;
+
+using TabularCallback_f = TabularCallback_t (*)(uint8_t);
+
 #define _TABULAR_SOURCES_COUNT 4
 
 typedef enum TabularSource_enum {
@@ -60,6 +76,7 @@ uint32_t next_log_time;
 uint8_t ptr_arr_len_minus_one;
 TabularData_t *ptr_arr;
 const __FlashStringHelper *colnames;
+TabularCallback_f dataAccessorCallback;
 
 /**
  * Logs data when needed and resets internal countdown
@@ -79,6 +96,14 @@ void resetLogCountdown();
  */
 void logDataPoint(TabularData_t *tabular_ptr, bool print_comma = true);
 
+/**
+ * Same as the other, but for a callback's returned data.
+ *
+ * @param callback_data [description]
+ * @param print_comma   [description]
+ */
+void logDataPoint(TabularCallback_t callback_data, bool print_comma = true);
+
 public:
 
 Tabular_t();
@@ -94,6 +119,21 @@ Tabular_t();
  *                      should be named, in order of ptr_arr
  */
 void init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *ptr_arr, const __FlashStringHelper *colnames);
+
+/**
+ * Creates a tabular which uses a callback to get the data to be printed. Use
+ * this only when you cannot access the pointers to the data directly.
+ *
+ * As its first and only argument, The callback will recieve the zero-based
+ * index of the column of data to return.
+ *
+ * @param src           The source's unique ID which is used in the GCODE communication.
+ * @param col_count     Number of columns to call the callback for
+ * @param callback      Callback to run when data is needed, called col_count times
+ * @param colnames      Flash string defining what the columns should be named.
+ *                      Must be CSV formatted
+ */
+void init(TabularSource_t src, uint8_t col_count, TabularCallback_t (*callback)(uint8_t), const __FlashStringHelper *colnames);
 
 /**
  * Set the logging interval. The default is set in the constructor.

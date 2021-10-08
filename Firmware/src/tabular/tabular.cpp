@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 18:29 Oct 08 2021
+ * @Last modified time: 19:35 Oct 08 2021
  */
 
 #include "config_defaults.h"
@@ -22,7 +22,25 @@ void Tabular_t::init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *pt
   }
   this->src = src;
   this->ptr_arr = ptr_arr;
-  this->ptr_arr_len_minus_one = ptr_arr_len - 1; // Do this once, since the final element is handled seperately (see logIfNeeded)
+  this->ptr_arr_len_minus_one = ptr_arr_len - 1; // Do this now, since the full qty is never used (see logIfNeeded)
+  this->colnames = colnames;
+
+  this->flags = 0;
+
+  this->setLoggingInterval(TABULAR_DEFAULT_LOG_PERIOD_MS);
+
+  tabular_delegator.registerTabular(this, src);
+} // Tabular_t::init
+
+void Tabular_t::init(TabularSource_t src, uint8_t col_count, TabularCallback_f accessorCallback, const __FlashStringHelper *colnames) {
+  if (this->src != TDS_NONE_) {
+    // Already registered to a source or to the delegator
+    LOG_ERROR("Tabular will not init because this->src is not zero.\n");
+  }
+  this->src = src;
+  this->ptr_arr = NULL;
+  this->dataAccessorCallback = accessorCallback;
+  this->ptr_arr_len_minus_one = col_count - 1;
   this->colnames = colnames;
 
   this->flags = 0;
@@ -45,6 +63,38 @@ void Tabular_t::setLoggingInterval(uint16_t period_ms) {
   this->interval = period_ms;
   this->resetLogCountdown();
 } // Tabular_t::setLoggingInterval
+
+void Tabular_t::logDataPoint(TabularCallback_t callback_data, bool print_comma) {
+  // Generated using gen-tabular.py
+  switch (callback_data.fmt) {
+  case FMT_FLOAT:
+    LOG_DATA(callback_data.val.float_val);
+    break;
+  case FMT_DOUBLE:
+    LOG_DATA(callback_data.val.double_val);
+    break;
+  case FMT_UINT8_T:
+    LOG_DATA(callback_data.val.uint8_t_val);
+    break;
+  case FMT_UINT16_T:
+    LOG_DATA(callback_data.val.uint16_t_val);
+    break;
+  case FMT_UINT32_T:
+    LOG_DATA(callback_data.val.uint32_t_val);
+    break;
+  case FMT_INT8_T:
+    LOG_DATA(callback_data.val.int8_t_val);
+    break;
+  case FMT_INT16_T:
+    LOG_DATA(callback_data.val.int16_t_val);
+    break;
+  case FMT_INT32_T:
+    LOG_DATA(callback_data.val.int32_t_val);
+    break;
+  } // switch(callback_data->fmt)
+  if (print_comma)
+    LOG_DATA(',');
+} // Tabular_t::logDataPoint
 
 void Tabular_t::logDataPoint(TabularData_t *tabular_ptr, bool print_comma) {
   // Generated using gen-tabular.py
@@ -84,6 +134,9 @@ void Tabular_t::resetLogCountdown() {
 } // Tabular_t::resetLogCountdown
 
 void Tabular_t::logIfNeeded() {
+  if (this->src == TDS_NONE_) {
+    return;
+  }
   if ((this->flags & _TABFLAG_ALREADY_PRINTED_TITLE_MASK) == 0) {
     // Have not printed title row yet; print that before anything
     this->flags |= _TABFLAG_ALREADY_PRINTED_TITLE_MASK;
@@ -100,17 +153,59 @@ void Tabular_t::logIfNeeded() {
     LOG_DATA(F(" :"));
     LOG_DATA(millis());
     LOG_DATA(',');
-    for (uint8_t i = 0; i < this->ptr_arr_len_minus_one; i++) {
-      this->logDataPoint(this->ptr_arr + i);
+
+    if (this->ptr_arr != NULL) {
+      for (uint8_t i = 0; i < this->ptr_arr_len_minus_one; i++) {
+        this->logDataPoint(this->ptr_arr + i);
+      }
+      this->logDataPoint(this->ptr_arr + this->ptr_arr_len_minus_one, false);
+      LOG_DATA('\n');
+    } else {
+      // Using a callback
+      for (uint8_t i = 0; i < this->ptr_arr_len_minus_one; i++) {
+        this->logDataPoint(this->dataAccessorCallback(i));
+      }
+      this->logDataPoint(this->dataAccessorCallback(this->ptr_arr_len_minus_one), false);
+      LOG_DATA('\n');
     }
-    this->logDataPoint(this->ptr_arr + this->ptr_arr_len_minus_one, false);
-    LOG_DATA('\n');
   }
 } // Tabular_t::logIfNeeded
 
 // TEST FUNCTIONS /////////////////////////////////////////////////////////////
 
 #ifdef UNIT_LEVEL_TESTING
+uint8_t last_col_requested = 255;
+uint8_t went_to_default = 0;
+uint8_t requested_col_0 = 0;
+uint8_t requested_col_1 = 0;
+uint8_t requested_col_2 = 0;
+
+TabularCallback_t tabularCallbackTestFunction(uint8_t col) {
+  TabularCallback_t result;
+  last_col_requested = col;
+  switch (col) {
+  case 0:
+    requested_col_0 = 1;
+    result.fmt = FMT_FLOAT;
+    result.val.float_val = 1.11;
+    break;
+  case 1:
+    requested_col_1 = 1;
+    result.fmt = FMT_UINT8_T;
+    result.val.uint8_t_val = 222;
+    break;
+  case 2:
+    requested_col_2 = 1;
+    result.fmt = FMT_UINT16_T;
+    result.val.uint16_t_val = 333;
+    break;
+  default:
+    went_to_default = 1;
+    result.fmt = FMT_UINT8_T;
+    result.val.uint8_t_val = 0;
+  } // switch
+  return result;
+} // TabularCallbackTestFunction
 
 TestResult_t TabularTester_t::TEST_tabular() {
   TestResult_t accumulator;
@@ -156,6 +251,36 @@ TestResult_t TabularTester_t::TEST_tabular() {
   delay(100); // Make sure it does not log again
   tabular_delegator.idle();
   TEST_ASSERT_EQUAL(tabular_obj.next_log_time < millis(), true, accumulator);
+
+  tabular_obj.init(TDS_CORE, 3, &tabularCallbackTestFunction, F("func_result1, func_result2, func_result3"));
+  tabular_obj.setLoggingInterval(50);
+
+  last_col_requested = 255;
+  delay(50); tabular_delegator.idle();
+  TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis(), true, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_0, 1, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_1, 1, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_2, 1, accumulator);
+  TEST_ASSERT_EQUAL(last_col_requested, 2, accumulator);
+  TEST_ASSERT_EQUAL(went_to_default, 0, accumulator);
+
+  last_col_requested = 255;
+  delay(50); tabular_delegator.idle();
+  TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis(), true, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_0, 1, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_1, 1, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_2, 1, accumulator);
+  TEST_ASSERT_EQUAL(last_col_requested, 2, accumulator);
+  TEST_ASSERT_EQUAL(went_to_default, 0, accumulator);
+
+  last_col_requested = 255;
+  delay(50); tabular_delegator.idle();
+  TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis(), true, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_0, 1, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_1, 1, accumulator);
+  TEST_ASSERT_EQUAL(requested_col_2, 1, accumulator);
+  TEST_ASSERT_EQUAL(last_col_requested, 2, accumulator);
+  TEST_ASSERT_EQUAL(went_to_default, 0, accumulator);
   return accumulator;
 } // Heater::TEST_heater
 
