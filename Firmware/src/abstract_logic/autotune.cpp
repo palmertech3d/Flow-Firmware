@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   19:23 Oct 07 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 8:26 Oct 08 2021
+ * @Last modified time: 18:27 Oct 08 2021
  */
 
 #include <float.h>
@@ -18,11 +18,11 @@ using namespace atune;
 
 void GenericAutotune_t::init(AutotuneConfig_t cfg) {
   this->cfg = cfg;
-  LOG_INFO("Beginning autotune, target=");
+  LOG_INFO(F("Beginning autotune, target="));
   LOG_INFO(this->cfg.center_value);
-  LOG_INFO("; band=");
+  LOG_INFO(F("; band="));
   LOG_INFO(this->cfg.hysteresis_distance);
-  LOG_INFO("\n");
+  LOG_INFO(F("\n"));
   this->flags = 0;
   this->cycles_completed = -1; // Start at -1 to ensure first rampup will not be counted as a cycle
   this->state = atune::BEGIN_ATUNE;
@@ -93,9 +93,9 @@ void GenericAutotune_t::computePidValsFromAverages() {
   computed_i = 1.2 * (ultimate_gain / ultimate_period);
   computed_d = (3.0 / 40.0) * (ultimate_gain * ultimate_period);
 
-  LOG_DEBUG("P="); LOG_DEBUG(computed_p); LOG_DEBUG("\n");
-  LOG_DEBUG("I="); LOG_DEBUG(computed_i); LOG_DEBUG("\n");
-  LOG_DEBUG("D="); LOG_DEBUG(computed_d); LOG_DEBUG("\n");
+  LOG_DEBUG('P'); LOG_DEBUG(computed_p); LOG_DEBUG('\n');
+  LOG_DEBUG('I'); LOG_DEBUG(computed_i); LOG_DEBUG('\n');
+  LOG_DEBUG('D'); LOG_DEBUG(computed_d); LOG_DEBUG('\n');
 
   this->flags |= FLAGMASK_PID_VALUES_READY;
 } // GenericAutotune_t::computePidValsFromAverages
@@ -211,11 +211,11 @@ bool GenericAutotune_t::runtime(double last_measurement) {
     this->average_oscillation_min /= cycles_completed;
     this->average_oscillation_max /= cycles_completed;
     this->average_oscillation_period /= cycles_completed;
-    LOG_DEBUG("Autotune reached end successfully:\n");
-    LOG_DEBUG("\tCYCLES      = "); LOG_DEBUG(this->cycles_completed); LOG_DEBUG("\n");
-    LOG_DEBUG("\tAVG OSC MIN = "); LOG_DEBUG(this->average_oscillation_min); LOG_DEBUG("\n");
-    LOG_DEBUG("\tAVG OSC MAX = "); LOG_DEBUG(this->average_oscillation_max); LOG_DEBUG("\n");
-    LOG_DEBUG("\tAVG OSC PER = "); LOG_DEBUG(this->average_oscillation_period); LOG_DEBUG("\n");
+    LOG_DEBUG(F("Autotune reached end successfully:\n"));
+    LOG_DEBUG(F("\tCYCLES      = ")); LOG_DEBUG(this->cycles_completed); LOG_DEBUG('\n');
+    LOG_DEBUG(F("\tAVG OSC MIN = ")); LOG_DEBUG(this->average_oscillation_min); LOG_DEBUG('\n');
+    LOG_DEBUG(F("\tAVG OSC MAX = ")); LOG_DEBUG(this->average_oscillation_max); LOG_DEBUG('\n');
+    LOG_DEBUG(F("\tAVG OSC PER = ")); LOG_DEBUG(this->average_oscillation_period); LOG_DEBUG('\n');
 
     this->computePidValsFromAverages();
     this->state = STOPPED;
@@ -225,6 +225,6 @@ bool GenericAutotune_t::runtime(double last_measurement) {
 } // GenericAutotune_t::autotuneRuntime
 
 void GenericAutotune_t::stop() {
-  LOG_INFO("stopping autotune\n");
+  LOG_INFO(F("Stopping autotune\n"));
   this->state = STOPPED;
 } // GenericAutotune_t::autotuneStop

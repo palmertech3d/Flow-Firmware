@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   7:58 Oct 08 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 18:22 Oct 08 2021
+ * @Last modified time: 18:27 Oct 08 2021
  */
 
  #include "gcode/gcode.h"
@@ -18,7 +18,7 @@ void GcodeExecuter::m156(GcodeCommand_t cmd){
   TabularSource_t source = (TabularSource_t)((uint16_t)source_gc);
   GcodeArg_t rate = gcodeParseValueFor('r', cmd);
   if (rate == GCODE_ARG_VALUE_ERR) {
-    LOG_INFO("Stopping reporter #");
+    LOG_INFO(F("Stopping reporter #"));
     LOG_INFO((uint16_t)source_gc);
     LOG_INFO('\n');
     switch (source) {

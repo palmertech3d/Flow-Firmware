@@ -8,10 +8,10 @@ void GcodeExecuter::m303(GcodeCommand_t cmd){
   GcodeArg_t target = gcodeParseValueFor('s', cmd);
   GcodeArg_t band = gcodeParseValueFor('b', cmd);
   if (target == GCODE_ARG_VALUE_ERR || band == GCODE_ARG_VALUE_ERR) {
-    LOG_INFO("Stopping heater autotune\n");
+    LOG_INFO(F("Stopping heater autotune\n"));
     Heater::autotuneStop();
     return;
   }
-  LOG_INFO("Starting heater autotune\n");
+  LOG_INFO(F("Starting heater autotune\n"));
   Heater::autotune_init(target, band);
 } // GcodeExecuter::m303
