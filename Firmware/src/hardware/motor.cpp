@@ -82,6 +82,7 @@ float Motor::realUnitsToMotorTicks(int motor_num, float speed) {
     break;
   default:
     throwBadMotorNumber();
+    return 0;
     break;
   } // switch
 } // Motor::speedForMotor
@@ -102,6 +103,7 @@ float Motor::motorTicksToRealUnits(int motor_num, float tick_rate) {
     break;
   default:
     throwBadMotorNumber();
+    return 0;
     break;
   } // switch
 } // Motor::speedForMotor
@@ -112,7 +114,7 @@ void Motor::set_speed(int motor_num, float motor_speed){
 
   switch (motor_num) {
   case EXTRUDER:
-    if(global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP))
+    if (global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP))
       break;
     #ifdef M_EXTRUDER_INVERT
     m_extruder.setSpeed(-speed_converted);
