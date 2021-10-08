@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:59 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 9:38 Oct 07 2021
+ * @Last modified time: 7:56 Oct 08 2021
  */
 
 #include <stdint.h>
@@ -18,17 +18,19 @@
 // Generated using gen-tabular.py
 enum _TabularDataFmt_enum {
   FMT_FLOAT,
+  FMT_DOUBLE,
   FMT_UINT8_T,
   FMT_UINT16_T,
   FMT_UINT32_T,
   FMT_INT8_T,
   FMT_INT16_T,
-  FMT_INT32_T
+  FMT_INT32_T,
 };
 
 typedef struct TabularData_t {
   union {
     float    *float_ptr;
+    double   *double_ptr;
     uint8_t  *uint8_t_ptr;
     uint16_t *uint16_t_ptr;
     uint32_t *uint32_t_ptr;
@@ -42,9 +44,10 @@ typedef struct TabularData_t {
 #define _TABULAR_SOURCES_COUNT 3
 
 typedef enum TabularSource_enum {
-  TDS_CORE    = 1,
-  TDS_HEATER  = 2,
-  TDS_MOTOR   = 4
+  TDS_CORE          = 1,
+  TDS_HEATER        = 2,
+  TDS_MOTOR         = 4,
+  TDS_TEMP_ATUNE    = 8
 } TabularSource_t;
 
 class Tabular_t {
@@ -87,7 +90,7 @@ public:
  * @param colnames      A "\0" terminated array of flash strings defining what the columns
  *                      should be named, in order of ptr_arr
  */
-Tabular_t (TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *ptr_arr, const __FlashStringHelper *colnames);
+void init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *ptr_arr, const __FlashStringHelper *colnames);
 
 /**
  * Set the logging interval. The default is set in the constructor.

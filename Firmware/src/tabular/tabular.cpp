@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 9:49 Oct 07 2021
+ * @Last modified time: 7:56 Oct 08 2021
  */
 
 #include "config_defaults.h"
@@ -12,7 +12,7 @@
 
 TabularDelegator_t master_delegator;
 
-Tabular_t::Tabular_t (TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *ptr_arr, const __FlashStringHelper *colnames) {
+void Tabular_t::init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t * ptr_arr, const __FlashStringHelper * colnames) {
   this->src = src;
   this->ptr_arr = ptr_arr;
   this->ptr_arr_len_minus_one = ptr_arr_len - 1; // Do this once, since the final element is handled seperately (see logIfNeeded)
@@ -32,9 +32,13 @@ void Tabular_t::setLoggingInterval(uint16_t period_ms) {
 
 void Tabular_t::logDataPoint(TabularData_t *tabular_ptr, bool print_comma) {
   // Generated using gen-tabular.py
+  // Generated using gen-tabular.py
   switch (tabular_ptr->fmt) {
   case FMT_FLOAT:
     LOG_DATA(*tabular_ptr->ptr.float_ptr);
+    break;
+  case FMT_DOUBLE:
+    LOG_DATA(*tabular_ptr->ptr.double_ptr);
     break;
   case FMT_UINT8_T:
     LOG_DATA(*tabular_ptr->ptr.uint8_t_ptr);
@@ -111,7 +115,8 @@ TestResult_t TabularTester_t::TEST_tabular() {
     {.ptr = {.int32_t_ptr = &int32_t_2}, .fmt = FMT_INT32_T},
     {.ptr = {.int32_t_ptr = &int32_t_3}, .fmt = FMT_INT32_T}};
 
-  Tabular_t tabular_obj = Tabular_t(TDS_CORE, 9, ptr_arr, F("float_1,float_2,float_3,uint8_t_1,uint8_t_2,uint8_t_3,int32_1,int32_2,int32_3"));
+  Tabular_t tabular_obj = Tabular_t();
+  tabular_obj.init(TDS_CORE, 9, ptr_arr, F("float_1,float_2,float_3,uint8_t_1,uint8_t_2,uint8_t_3,int32_1,int32_2,int32_3"));
   tabular_obj.setLoggingInterval(100);
   TEST_ASSERT_EQUAL(tabular_obj.src, TDS_CORE, accumulator);
 
