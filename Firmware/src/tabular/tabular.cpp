@@ -2,17 +2,24 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 7:56 Oct 08 2021
+ * @Last modified time: 18:21 Oct 08 2021
  */
 
 #include "config_defaults.h"
 #include "tabular/tabular.h"
+#include "tabular/delegator-obj.h"
 
 #define _TABFLAG_ALREADY_PRINTED_TITLE_MASK 1
 
-TabularDelegator_t master_delegator;
+Tabular_t::Tabular_t() {
+  this->src = TDS_NONE_;
+}
 
-void Tabular_t::init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t * ptr_arr, const __FlashStringHelper * colnames) {
+void Tabular_t::init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *ptr_arr, const __FlashStringHelper *colnames) {
+  if (this->src != TDS_NONE_) {
+    // Already registered to a source or to the delegator
+    LOG_ERROR("Tabular will not init because this->src is not zero.\n");
+  }
   this->src = src;
   this->ptr_arr = ptr_arr;
   this->ptr_arr_len_minus_one = ptr_arr_len - 1; // Do this once, since the final element is handled seperately (see logIfNeeded)
@@ -22,8 +29,17 @@ void Tabular_t::init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t * p
 
   this->setLoggingInterval(TABULAR_DEFAULT_LOG_PERIOD_MS);
 
-  master_delegator.registerTabular(this, src);
-}
+  tabular_delegator.registerTabular(this, src);
+} // Tabular_t::init
+
+void Tabular_t::stop(){
+  if (this->src == TDS_NONE_) {
+    // Not registered to a source or to the delegator, so there's nothing to stop
+    return;
+  }
+  tabular_delegator.unregister(this, src);
+  this->src = TDS_NONE_;
+} // Tabular_t::init
 
 void Tabular_t::setLoggingInterval(uint16_t period_ms) {
   this->interval = period_ms;
@@ -123,17 +139,17 @@ TestResult_t TabularTester_t::TEST_tabular() {
   // Title not logged yet
   TEST_ASSERT_EQUAL((tabular_obj.flags & _TABFLAG_ALREADY_PRINTED_TITLE_MASK) == 0, true, accumulator);
   delay(50); // Wait some time to help checking that the data was not logged yet
-  master_delegator.idle();
+  tabular_delegator.idle();
   // Title has been logged
   TEST_ASSERT_EQUAL((tabular_obj.flags & _TABFLAG_ALREADY_PRINTED_TITLE_MASK) != 0, true, accumulator);
   // Data was not logged; check by making sure it's 'about' to log
   TEST_ASSERT_EQUAL(tabular_obj.next_log_time < millis() + 75, true, accumulator);
   delay(60); // Delay plenty of time to log data
-  master_delegator.idle();
+  tabular_delegator.idle();
   // Make sure it logged this time
   TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis() + 75, true, accumulator);
   delay(100); // Make sure it logs again
-  master_delegator.idle();
+  tabular_delegator.idle();
   TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis() + 75, true, accumulator);
   return accumulator;
 } // Heater::TEST_heater

@@ -24,6 +24,7 @@ void idle(){
   gcode_handler.executeBuffer();
   Heater::update();
   motor_handler.idle();
+  tabular_delegator.idle();
 } // idle
 
 /* FIRMWARE ENTRY POINT */
@@ -47,13 +48,12 @@ void setup() {
   // Init the tmc5160 driver for the extruder motor
   TMC5160::init();
 
-
   LOG_INFO(F("Flow Extruder MK1 running firmware version " VERSION " \n"));
   LOG_INFO(F("Type a gcode command.\n"));
 
   #ifdef UNIT_LEVEL_TESTING
   runUnitTestsThenLoop();
-  #endif
+  #endif // ifdef UNIT_LEVEL_TESTING
 } // setup
 
 /* THE MAIN LOOP */

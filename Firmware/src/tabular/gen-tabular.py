@@ -1,12 +1,13 @@
 # @Author: Nick Steele
 # @Date:   9:08 Oct 07 2021
 # @Last modified by:   Nick Steele
-# @Last modified time: 9:23 Oct 07 2021
+# @Last modified time: 7:40 Oct 08 2021
 
 # Generates a few lines of the tabular code
 
 datatypes = [
     'float',
+    'double',
     'uint8_t',
     'uint16_t',
     'uint32_t',

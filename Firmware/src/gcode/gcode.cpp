@@ -29,10 +29,10 @@ GcodeError_t GcodeExecuter::getGcode() {
   if (gcode_buffer_idx == 0) return GCODE_ERR_NO_DATA;
   if (gcode_buffer_idx >= GCODE_QUEUE_SIZE_CHARS) return GCODE_ERR_TOO_LONG;
 
-  if(recv != '\n' && recv != '\r') {
+  if (recv != '\n' && recv != '\r') {
     // Line did not end; return doing nothing, hoping that more data will
     // soon be available
-      return GCODE_ERR_SUCCESS; // Pretend it succeeded for now
+    return GCODE_ERR_SUCCESS;   // Pretend it succeeded for now
   }
   // If we got here, the line ended without any errors
   gcodeInChar[gcode_buffer_idx] = '\0'; // Terminate the string
@@ -81,6 +81,7 @@ GcodeError_t GcodeExecuter::executeGcode(GcodeCommand_t cmd) {
     switch (cmd.command) {
     case 104: m104(cmd); break;
     case 106: m106(cmd); break;
+    case 156: m156(cmd); break;
     case 303: m303(cmd); break;
     case 503: m503(cmd); break;
     default: return GCODE_ERR_NO_SUCH_NUMBER;
@@ -95,7 +96,6 @@ GcodeError_t GcodeExecuter::executeGcode(GcodeCommand_t cmd) {
 GcodeError_t GcodeExecuter::executeBuffer(){
   return executeGcode(buffer.get());
 } // GcodeExecuter::executeBuffer
-
 
 // Functions for use without GCODE handler ////////////////////////////////////
 

@@ -66,6 +66,22 @@ void Heater::get_constants(double *constants_out){
   constants_out[2] = Kd;
 } // Heater::get_constants
 
+void Heater::enableReporter(uint16_t rate){
+  LOG_ERROR("TODO");
+} // Heater::enableReporter
+
+void Heater::disableReporter(){
+  LOG_ERROR("TODO");
+} // Heater::enableReporter
+
+void Heater::enableAtuneReporter(uint16_t rate){
+  atune_handler.beginTabularReporting(TDS_TEMP_ATUNE, rate);
+} // Heater::enableAtuneReporter
+
+void Heater::disableAtuneReporter(){
+  atune_handler.endTabularReporting();
+} // Heater::enableAtuneReporter
+
 void Heater::autotune_init(uint16_t target_temp, uint16_t band_distance){
   autotune_on = true;
   atune::AutotuneConfig_t cfg;

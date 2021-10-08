@@ -63,6 +63,13 @@ static void setConstants(double Kp_set, double Ki_set, double Kd_set);
 // by reference
 static void get_constants(double *constants_out);
 
+static void enableAtuneReporter(uint16_t rate);
+
+static void enableReporter(uint16_t rate);
+static void disableAtuneReporter();
+
+static void disableReporter();
+
 // Experimental: Automatically tunes the PID constants for the heater
 static void autotune_init(uint16_t target_temp, uint16_t bandwidth);
 

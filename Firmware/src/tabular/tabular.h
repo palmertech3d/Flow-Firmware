@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:59 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 7:56 Oct 08 2021
+ * @Last modified time: 18:08 Oct 08 2021
  */
 
 #include <stdint.h>
@@ -41,13 +41,14 @@ typedef struct TabularData_t {
   enum _TabularDataFmt_enum fmt;
 } TabularDataPtr_t;
 
-#define _TABULAR_SOURCES_COUNT 3
+#define _TABULAR_SOURCES_COUNT 4
 
 typedef enum TabularSource_enum {
+  TDS_NONE_         = 0,
   TDS_CORE          = 1,
   TDS_HEATER        = 2,
-  TDS_MOTOR         = 4,
-  TDS_TEMP_ATUNE    = 8
+  TDS_MOTOR         = 3,
+  TDS_TEMP_ATUNE    = 4
 } TabularSource_t;
 
 class Tabular_t {
@@ -80,6 +81,8 @@ void logDataPoint(TabularData_t *tabular_ptr, bool print_comma = true);
 
 public:
 
+Tabular_t();
+
 /**
  * Creates the tabular with a pointer to a null_ptr terminated array of pointers
  * to all data to be printed.
@@ -99,6 +102,14 @@ void init(TabularSource_t src, uint8_t ptr_arr_len, TabularData_t *ptr_arr, cons
  */
 void setLoggingInterval(uint16_t period_ms);
 
+/**
+ * Stop reporting. Must call init again to enable again.
+ *
+ * @param tabular_ptr [description]
+ * @param src         [description]
+ */
+void stop();
+
 friend class TabularDelegator_t;
 friend class TabularTester_t;
 } // class Tabular_t
@@ -109,7 +120,22 @@ class TabularDelegator_t {
 private:
 Tabular_t *registered_tabulars[_TABULAR_SOURCES_COUNT];
 
+/**
+ * Make the delegator aware that the tabular instance needs to be pinged
+ * regularly so it can print periodically
+ *
+ * @param tabular_ptr [description]
+ * @param src         [description]
+ */
 void registerTabular(Tabular_t *tabular_ptr, TabularSource_t src);
+
+/**
+ * Stop pinging the tabular instance.
+ *
+ * @param tabular_ptr [description]
+ * @param src         [description]
+ */
+void unregister(Tabular_t *tabular_ptr, TabularSource_t src);
 
 public:
 

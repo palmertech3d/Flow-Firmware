@@ -38,10 +38,12 @@
 #include "hardware/heater.h"
 #include "hardware/motor.h"
 #include "hardware/tmc5160.h"
+#include "tabular/tabular.h"
+#include "tabular/delegator-obj.h"
 
 #ifdef UNIT_LEVEL_TESTING
 #include "test/test-runner.h"
-#endif
+#endif /* ifdef UNIT_LEVEL_TESTING */
 
 // Gcode objects
 GcodeExecuter gcode_handler;

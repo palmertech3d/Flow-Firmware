@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   19:23 Oct 07 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 23:58 Oct 07 2021
+ * @Last modified time: 8:26 Oct 08 2021
  */
 
 #include <float.h>
@@ -30,6 +30,17 @@ void GenericAutotune_t::init(AutotuneConfig_t cfg) {
   this->last_time_decreased_past_middle = 0;
   this->last_time_increased_past_middle = 0;
 } // GenericAutotune_t::autotuneInit
+
+void GenericAutotune_t::beginTabularReporting(TabularSource_t src_id, uint16_t interval) {
+  this->tabular_obj.init(src_id,
+                         sizeof(this->tabular_ptr_arr) / sizeof(this->tabular_ptr_arr[0]), this->tabular_ptr_arr,
+                         F("computed_p,computed_i,computed_d,latest_duty_cycle,output_min_compensated,output_max_compensated,min_measured_in_cycle,max_measured_in_cycle,average_oscillation_min,average_oscillation_max,cfg.output_ptr,last_time_increased_past_middle,last_time_decreased_past_middle,average_oscillation_period,cycles_completed,state"));
+  this->tabular_obj.setLoggingInterval(interval);
+} // beginTabularReporting
+
+void GenericAutotune_t::endTabularReporting() {
+  this->tabular_obj.stop();
+} // endTabularReporting
 
 bool GenericAutotune_t::computeDutyCycleAndCompensate() {
   uint32_t on_time, off_time, now = millis();

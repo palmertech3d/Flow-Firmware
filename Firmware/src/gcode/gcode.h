@@ -49,6 +49,8 @@ void m104(GcodeCommand_t cmd);
 
 void m106(GcodeCommand_t cmd);
 
+void m156(GcodeCommand_t cmd);
+
 void m303(GcodeCommand_t cmd);
 
 void m503(GcodeCommand_t cmd);

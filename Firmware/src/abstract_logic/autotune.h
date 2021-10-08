@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   19:22 Oct 07 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 23:41 Oct 07 2021
+ * @Last modified time: 8:25 Oct 08 2021
  */
 
 // Uses the Relay Method to autotune the heater within a given range around a given setpoint.
@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include "logger.h"
 #include "test/unit-testing.h"
+#include "tabular/tabular.h"
 
 #define ATUNE_CYCLES_REQUIRED_AT_STARTUP 2
 #define ATUNE_CYCLES_REQUIRED_FOR_MEASUREMENT 8
@@ -62,6 +63,29 @@ float average_oscillation_max;
 // PID values assumed
 float computed_p, computed_i, computed_d;
 
+// For reporting data while autotuning; must be enabled with a tabular ID
+TabularData_t tabular_ptr_arr[16] = {
+  {.ptr = {.float_ptr = &computed_p}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &computed_i}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &computed_d}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &latest_duty_cycle}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &output_min_compensated}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &output_max_compensated}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &min_measured_in_cycle}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &max_measured_in_cycle}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &average_oscillation_min}, .fmt = FMT_FLOAT},
+  {.ptr = {.float_ptr = &average_oscillation_max}, .fmt = FMT_FLOAT},
+  {.ptr = {.double_ptr = cfg.output_ptr}, .fmt = FMT_DOUBLE},
+
+  {.ptr = {.uint32_t_ptr = &last_time_increased_past_middle}, .fmt = FMT_UINT32_T},
+  {.ptr = {.uint32_t_ptr = &last_time_decreased_past_middle}, .fmt = FMT_UINT32_T},
+  {.ptr = {.uint32_t_ptr = &average_oscillation_period}, .fmt = FMT_UINT32_T},
+  {.ptr = {.int16_t_ptr = &cycles_completed}, .fmt = FMT_INT16_T},
+  {.ptr = {.uint8_t_ptr = ((uint8_t *)&state)}, .fmt = FMT_UINT8_T}
+};
+
+Tabular_t tabular_obj;
+
 /**
  * Computes and stores the duty cycle, then compensates for duty cycles outside
  * of the allowed error
@@ -78,6 +102,16 @@ public:
 bool getPid(double *p, double *i, double *d);
 
 bool runtime(double last_measurement);
+
+/**
+ * Start reporting the data using Tabular.
+ *
+ * @param src_id The tabular ID for the object's PID autotune data. Do NOT use
+ *               the object's ID here, since it'll jumble all the data.
+ */
+void beginTabularReporting(TabularSource_t src_id, uint16_t interval);
+
+void endTabularReporting();
 
 void init(AutotuneConfig_t cfg);
 

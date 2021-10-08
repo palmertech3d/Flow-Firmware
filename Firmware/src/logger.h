@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   13:35 Sep 05 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 9:50 Oct 07 2021
+ * @Last modified time: 18:14 Oct 08 2021
  */
 
 #include "config_defaults.h"
@@ -22,6 +22,12 @@
   #define LOG_DEBUG(str) Serial.print(str)
 #else /* ifdef ENABLE_DEBUG_LOGGING */
   #define LOG_DEBUG(str)
+#endif /* ifdef ENABLE_DEBUG_LOGGING */
+
+#ifdef ENABLE_DEBUG_LOGGING
+  #define LOG_DEBUG_PTR_ADDR(ptr) Serial.print((uint16_t)ptr, HEX)
+#else /* ifdef ENABLE_DEBUG_LOGGING */
+  #define LOG_DEBUG_PTR_ADDR(ptr)
 #endif /* ifdef ENABLE_DEBUG_LOGGING */
 
 #ifdef ENABLE_INFO_LOGGING
