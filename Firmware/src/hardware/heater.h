@@ -66,6 +66,7 @@ static void get_constants(double *constants_out);
 static void enableAtuneReporter(uint16_t rate);
 
 static void enableReporter(uint16_t rate);
+
 static void disableAtuneReporter();
 
 static void disableReporter();
@@ -118,6 +119,11 @@ static bool autotune_on;
 // Thermal runaway
 static TR::TrConfig_t tr_config;
 static TR::TrState_t tr_state;
+
+// For reporting data
+static TabularData_t tabular_ptr_arr[5];
+
+static Tabular_t tabular_obj;
 }
 
 ;

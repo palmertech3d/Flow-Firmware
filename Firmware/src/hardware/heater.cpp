@@ -13,6 +13,14 @@ MAX6675_Thermocouple Heater::thermometer = MAX6675_Thermocouple(PIN_THERMO_SCK, 
 PID Heater::temp_controller = PID(&Heater::temperature, &Heater::output, &Heater::target_temp, Heater::Kp, Heater::Ki, Heater::Kd, DIRECT);
 bool Heater::autotune_on = false;
 atune::GenericAutotune_t Heater::atune_handler = atune::GenericAutotune_t();
+Tabular_t Heater::tabular_obj = Tabular_t();
+TabularData_t Heater::tabular_ptr_arr[5] = {
+  {.ptr = {.double_ptr = &Heater::temperature}, .fmt = FMT_DOUBLE},
+  {.ptr = {.double_ptr = &Heater::target_temp}, .fmt = FMT_DOUBLE},
+  {.ptr = {.double_ptr = &Heater::output}, .fmt = FMT_DOUBLE},
+  {.ptr = {.uint8_t_ptr = ((uint8_t *)&Heater::autotune_on)}, .fmt = FMT_UINT8_T},
+  {.ptr = {.uint8_t_ptr = ((uint8_t *)&Heater::tr_state)}, .fmt = FMT_UINT8_T}
+};
 
 TR::TrConfig_t Heater::tr_config;
 TR::TrState_t Heater::tr_state;
@@ -67,12 +75,15 @@ void Heater::get_constants(double *constants_out){
 } // Heater::get_constants
 
 void Heater::enableReporter(uint16_t rate){
-  LOG_ERROR("TODO");
+  Heater::tabular_obj.init(TDS_HEATER,
+                           sizeof(Heater::tabular_ptr_arr) / sizeof(Heater::tabular_ptr_arr[0]), Heater::tabular_ptr_arr,
+                           F("temperature,target_temp,output,autotune_on,tr_state"));
+  Heater::tabular_obj.setLoggingInterval(rate);
 } // Heater::enableReporter
 
 void Heater::disableReporter(){
-  LOG_ERROR("TODO");
-} // Heater::enableReporter
+  Heater::tabular_obj.stop();
+} // Heater::disableReporter
 
 void Heater::enableAtuneReporter(uint16_t rate){
   atune_handler.beginTabularReporting(TDS_TEMP_ATUNE, rate);
@@ -80,7 +91,7 @@ void Heater::enableAtuneReporter(uint16_t rate){
 
 void Heater::disableAtuneReporter(){
   atune_handler.endTabularReporting();
-} // Heater::enableAtuneReporter
+} // Heater::disableAtuneReporter
 
 void Heater::autotune_init(uint16_t target_temp, uint16_t band_distance){
   autotune_on = true;
