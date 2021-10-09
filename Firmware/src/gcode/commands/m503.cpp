@@ -23,14 +23,13 @@ void GcodeExecuter::m503(GcodeCommand_t cmd){
   } else {
     Serial.println(F("No"));
   }
-  Motor motor_handler;
   Serial.println(F("Motor speeds (steps/sec):"));
   Serial.print(F("Extruder: "));
-  Serial.println(motor_handler.get_speed(EXTRUDER));
+  Serial.println(Motor::get_speed(EXTRUDER));
   Serial.print(F("Rollers: "));
-  Serial.println(motor_handler.get_speed(PULLERS));
+  Serial.println(Motor::get_speed(PULLERS));
   Serial.print(F("Level Winder: "));
-  Serial.println(motor_handler.get_speed(LEVEL));
+  Serial.println(Motor::get_speed(LEVEL));
   Serial.print(F("Winder: "));
-  Serial.println(motor_handler.get_speed(WINDER));
+  Serial.println(Motor::get_speed(WINDER));
 } // GcodeExecuter::m503

@@ -12,8 +12,7 @@ void GcodeExecuter::g28(GcodeCommand_t cmd) {
   }
   if (home_winder || home_all) {
     LOG_INFO(F("Homing the level winder...\n"));
-    Motor motor_handler;
-    motor_handler.home_level_winder();
+    Motor::home_level_winder();
   } else {
     LOG_WARN("No valid axes chosen to home.\n");
   }

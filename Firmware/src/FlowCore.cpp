@@ -23,7 +23,7 @@ void idle(){
   gcode_handler.getGcode();
   gcode_handler.executeBuffer();
   Heater::update();
-  motor_handler.idle();
+  Motor::idle();
   tabular_delegator.idle();
 } // idle
 
@@ -36,6 +36,8 @@ void setup() {
   SET_INPUT(PIN_LIM_SWITCH_WINDER);
   SET_INPUT_PULLUP(PIN_LIM_SWITCH_WINDER);
   SET_OUTPUT(PIN_EXTRUDER_CS);
+
+  Motor::init();
 
   // Configure the hotend
   Heater::init();

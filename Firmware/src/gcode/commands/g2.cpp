@@ -5,9 +5,8 @@
 /// Stops the given motor
 void GcodeExecuter::g2(GcodeCommand_t cmd){
   GcodeArg_t motor = gcodeParseValueFor('m', cmd);
-  Motor motor_handler;
-  if (motor_handler.isValidMotor(motor)) {
+  if (Motor::isValidMotor(motor)) {
     LOG_INFO(F("Stopping a motor...\n"));
-    motor_handler.stop(motor);
+    Motor::stop(motor);
   }
 } // GcodeExecuter::g2
