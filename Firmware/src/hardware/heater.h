@@ -10,6 +10,7 @@
 #include "blackboard/blackboard.h"
 #include "test/unit-testing.h"
 #include "abstract_logic/autotune.h"
+#include "tabular/tabular.h"
 
 namespace TR {
 typedef enum TrStateType_enum {

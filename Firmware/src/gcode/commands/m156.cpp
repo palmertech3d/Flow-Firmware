@@ -2,12 +2,13 @@
  * @Author: Nick Steele
  * @Date:   7:58 Oct 08 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 18:27 Oct 08 2021
+ * @Last modified time: 20:16 Oct 08 2021
  */
 
  #include "gcode/gcode.h"
  #include "tabular/tabular.h"
  #include "hardware/heater.h"
+ #include "hardware/motor.h"
 
 void GcodeExecuter::m156(GcodeCommand_t cmd){
   GcodeArg_t source_gc = gcodeParseValueFor('c', cmd);
@@ -28,6 +29,7 @@ void GcodeExecuter::m156(GcodeCommand_t cmd){
       Heater::disableReporter();
       break;
     case TDS_MOTOR:
+      Motor::disableReporter();
       break;
     case TDS_TEMP_ATUNE:
       Heater::disableAtuneReporter();
@@ -43,6 +45,7 @@ void GcodeExecuter::m156(GcodeCommand_t cmd){
       Heater::enableReporter(rate);
       break;
     case TDS_MOTOR:
+      Motor::enableReporter(rate);
       break;
     case TDS_TEMP_ATUNE:
       Heater::enableAtuneReporter(rate);
