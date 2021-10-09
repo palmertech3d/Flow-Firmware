@@ -17,37 +17,38 @@
 class Motor {
 public:
 
-Motor();
+// Default constructor
+static void init();
 
 // Starts the motor with the corresponding key
-void start(int motor_num);
+static void start(int motor_num);
 
-bool isValidMotor(int16_t motor) {
+static bool isValidMotor(int16_t motor) {
   return (motor == EXTRUDER || motor == PULLERS || motor == WINDER || motor == LEVEL);
 } // isValidMotor
 
 // Stops the motor with the corresponding key
-void stop(int motor_num);
+static void stop(int motor_num);
 
 // Sets the speed of the motor with the corresponding key
-void set_speed(int motor_num, float motor_speed);
+static void set_speed(int motor_num, float motor_speed);
 
 // Gets the speed of the motor with the corresponding key
-float get_speed(int motor_num);
+static float get_speed(int motor_num);
 
 // Runs the motors
 static void run();
 
 // Homes the level winder
-void home_level_winder();
+static void home_level_winder();
 
 /** Runs any safety tests needed, ex. minimum extrusion temperatures.
  * Must be run periodically.
  */
-void idle();
+static void idle();
 
 // Set the bounds for the winder
-void set_winder_bounds(int left, int right);
+static void set_winder_bounds(int left, int right);
 
 /**
  * Callback for the tabular data to access the motor data
@@ -68,7 +69,7 @@ static AccelStepper m_winder;
 
 #ifdef UNIT_LEVEL_TESTING
 
-TestResult_t TEST_preventColdExtrusion();
+static TestResult_t TEST_preventColdExtrusion();
 #endif // ifdef UNIT_LEVEL_TESTING
 
 private:

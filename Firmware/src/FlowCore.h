@@ -49,8 +49,5 @@
 GcodeExecuter gcode_handler;
 GcodeParser parser_handler;
 
-// Motor objects
-Motor motor_handler;
-
 // All checkups are done within this function.
 void idle();

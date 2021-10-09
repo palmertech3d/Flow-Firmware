@@ -4,7 +4,6 @@
 
 /// Starts the given motor with the given speed
 void GcodeExecuter::g1(GcodeCommand_t cmd){
-  Motor motor_handler; // TODO: Should this be creating this every time?
   GcodeArg_t motor = gcodeParseValueFor('m', cmd);
   GcodeArg_t speed = gcodeParseValueFor('s', cmd);
   if(motor == GCODE_ARG_VALUE_ERR) motor = -1; // Set to invalid motor number
@@ -12,10 +11,10 @@ void GcodeExecuter::g1(GcodeCommand_t cmd){
     LOG_WARN("Motor speed invalid; setting to zero\n");
     speed = 0;
     }
-  if (motor_handler.isValidMotor(motor)) {
+  if (Motor::isValidMotor(motor)) {
     LOG_INFO(F("Setting motor speed\n"));
-    motor_handler.set_speed(motor, speed);
-    motor_handler.start(motor);
+    Motor::set_speed(motor, speed);
+    Motor::start(motor);
   } else {
     LOG_WARN("Invalid motor number entered.\n");
   }

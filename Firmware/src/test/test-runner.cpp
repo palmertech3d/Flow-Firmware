@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:35 Sep 09 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 23:54 Oct 07 2021
+ * @Last modified time: 20:22 Oct 08 2021
  */
 
 #include "test-runner.h"
@@ -31,8 +31,7 @@ void runUnitTestsThenLoop() {
   resultAccumulatorAdd(TEST_gcode(), &accumulator);
   resultAccumulatorAdd(Heater::TEST_heater(), &accumulator);
   resultAccumulatorAdd(Heater::TEST_runaway(), &accumulator);
-  Motor motor_handler;
-  resultAccumulatorAdd(motor_handler.TEST_preventColdExtrusion(), &accumulator);
+  resultAccumulatorAdd(Motor::TEST_preventColdExtrusion(), &accumulator);
   GcodeParser parser;
   resultAccumulatorAdd(parser.TEST_gcodeParser(), &accumulator);
   TabularTester_t tabtest;

@@ -15,7 +15,7 @@ void throwBadMotorNumber(){
   LOG_ERROR("BAD MOTOR NUMBER\n");
 } // throwBadMotorNumber
 
-Motor::Motor(){
+void Motor::init() {
   m_extruder.setMaxSpeed(300);
   m_extruder.setAcceleration(100.0);
   // m_extruder.setSpeed(100.0);
@@ -31,7 +31,7 @@ Motor::Motor(){
   m_winder.setMaxSpeed(1000);
   m_winder.setAcceleration(100.0);
   // m_winder.setSpeed(100.0);
-}
+} // Motor::init
 
 void Motor::start(int motor_num){
   switch (motor_num) {
@@ -249,15 +249,15 @@ TabularCallback_t Motor::motorTabularCallback(uint8_t col) {
 
 TestResult_t Motor::TEST_preventColdExtrusion() {
   TestResult_t accumulator;
-  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 0, accumulator);
-  this->m_extruder.setSpeed(10);
-  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 10, accumulator);
+  TEST_ASSERT_EQUAL(Motor::m_extruder.speed(), 0, accumulator);
+  Motor::m_extruder.setSpeed(10);
+  TEST_ASSERT_EQUAL(Motor::m_extruder.speed(), 10, accumulator);
   global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 0);
-  this->idle();
-  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 10, accumulator);
+  Motor::idle();
+  TEST_ASSERT_EQUAL(Motor::m_extruder.speed(), 10, accumulator);
   global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 1);
-  this->idle();
-  TEST_ASSERT_EQUAL(this->m_extruder.speed(), 0, accumulator);
+  Motor::idle();
+  TEST_ASSERT_EQUAL(Motor::m_extruder.speed(), 0, accumulator);
   global_blackboard.setFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP, 0);
   return accumulator;
 } // Motor::TEST_preventColdExtrusion
