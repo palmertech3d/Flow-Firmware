@@ -52,7 +52,7 @@ void Motor::start(int motor_num){
 } // Motor::start
 
 void Motor::stop(int motor_num) {
-  Motor::set_speed(motor_num, 0);
+  Motor::setSpeed(motor_num, 0);
 } // Motor::stop
 
 float Motor::realUnitsToMotorTicks(int motor_num, float speed) {
@@ -97,7 +97,7 @@ float Motor::motorTicksToRealUnits(int motor_num, float tick_rate) {
   } // switch
 } // Motor::speedForMotor
 
-void Motor::set_speed(int motor_num, float motor_speed){
+void Motor::setSpeed(int motor_num, float motor_speed){
   static float speed_converted;
   speed_converted = realUnitsToMotorTicks(motor_num, motor_speed);
 
@@ -142,9 +142,9 @@ void Motor::set_speed(int motor_num, float motor_speed){
   // Triggering logging on motor changes (as opposed to polling)
   // means less data needs to clutter the serial output
   Motor::tabular_obj.triggerImmediateLogging();
-} // Motor::set_speed
+} // Motor::setSpeed
 
-float Motor::get_speed(int motor_num){
+float Motor::getSpeed(int motor_num){
   switch (motor_num) {
   case EXTRUDER:
     return motorTicksToRealUnits(EXTRUDER, m_extruder.speed());
@@ -158,7 +158,7 @@ float Motor::get_speed(int motor_num){
     throwBadMotorNumber();
     return -1;
   } // switch
-} // Motor::get_speed
+} // Motor::getSpeed
 
 void Motor::run(){
   m_extruder.runSpeed();
@@ -178,13 +178,13 @@ void Motor::run(){
 void Motor::idle() {
   if (m_extruder.speed() != 0) {
     if (global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP)) {
-      Motor::set_speed(EXTRUDER, 0);
+      Motor::setSpeed(EXTRUDER, 0);
       LOG_WARN("Extruder stopping to prevent extrusion below min temp\n");
     }
   }
 } // Motor::idle
 
-void Motor::home_level_winder(){
+void Motor::homeLevelWinder(){
   level_homed = 0;
 
   // Get level winder ready to be homed
@@ -202,7 +202,7 @@ void Motor::home_level_winder(){
       m_level.moveTo(19500); // Move the level winder out from the limit switch
     }
   }
-} // Motor::home_level_winder
+} // Motor::homeLevelWinder
 
 void Motor::enableReporter(uint16_t rate){
   Motor::tabular_obj.init(TDS_MOTOR, 4, Motor::motorTabularCallback,
@@ -218,19 +218,19 @@ TabularCallback_t Motor::motorTabularCallback(uint8_t col) {
   TabularCallback_t result;
   switch (col) {
   case 0:
-    result.val.float_val = Motor::get_speed(EXTRUDER);
+    result.val.float_val = Motor::getSpeed(EXTRUDER);
     result.fmt = FMT_FLOAT;
     break;
   case 1:
-    result.val.float_val = Motor::get_speed(PULLERS);
+    result.val.float_val = Motor::getSpeed(PULLERS);
     result.fmt = FMT_FLOAT;
     break;
   case 2:
-    result.val.float_val = Motor::get_speed(LEVEL);
+    result.val.float_val = Motor::getSpeed(LEVEL);
     result.fmt = FMT_FLOAT;
     break;
   case 3:
-    result.val.float_val = Motor::get_speed(WINDER);
+    result.val.float_val = Motor::getSpeed(WINDER);
     result.fmt = FMT_FLOAT;
     break;
   } // switch

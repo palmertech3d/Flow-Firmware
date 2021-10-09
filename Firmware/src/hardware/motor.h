@@ -31,16 +31,16 @@ static bool isValidMotor(int16_t motor) {
 static void stop(int motor_num);
 
 // Sets the speed of the motor with the corresponding key
-static void set_speed(int motor_num, float motor_speed);
+static void setSpeed(int motor_num, float motor_speed);
 
 // Gets the speed of the motor with the corresponding key
-static float get_speed(int motor_num);
+static float getSpeed(int motor_num);
 
 // Runs the motors
 static void run();
 
 // Homes the level winder
-static void home_level_winder();
+static void homeLevelWinder();
 
 /** Runs any safety tests needed, ex. minimum extrusion temperatures.
  * Must be run periodically.

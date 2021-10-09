@@ -13,7 +13,7 @@ void GcodeExecuter::g1(GcodeCommand_t cmd){
     }
   if (Motor::isValidMotor(motor)) {
     LOG_INFO(F("Setting motor speed\n"));
-    Motor::set_speed(motor, speed);
+    Motor::setSpeed(motor, speed);
     Motor::start(motor);
   } else {
     LOG_WARN("Invalid motor number entered.\n");
