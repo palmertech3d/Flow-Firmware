@@ -103,7 +103,7 @@ void Motor::setSpeed(int motor_num, float motor_speed){
 
   switch (motor_num) {
   case EXTRUDER:
-    if (global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP))
+    if (speed_converted != 0 && global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP))
       break;
     #ifdef M_EXTRUDER_INVERT
     m_extruder.setSpeed(-speed_converted);
