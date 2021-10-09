@@ -2,12 +2,13 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 19:35 Oct 08 2021
+ * @Last modified time: 19:54 Oct 08 2021
  */
 
 #include "config_defaults.h"
 #include "tabular/tabular.h"
 #include "tabular/delegator-obj.h"
+#include "tabular/generated/tabular-generated.h"
 
 #define _TABFLAG_ALREADY_PRINTED_TITLE_MASK 1
 
@@ -63,71 +64,6 @@ void Tabular_t::setLoggingInterval(uint16_t period_ms) {
   this->interval = period_ms;
   this->resetLogCountdown();
 } // Tabular_t::setLoggingInterval
-
-void Tabular_t::logDataPoint(TabularCallback_t callback_data, bool print_comma) {
-  // Generated using gen-tabular.py
-  switch (callback_data.fmt) {
-  case FMT_FLOAT:
-    LOG_DATA(callback_data.val.float_val);
-    break;
-  case FMT_DOUBLE:
-    LOG_DATA(callback_data.val.double_val);
-    break;
-  case FMT_UINT8_T:
-    LOG_DATA(callback_data.val.uint8_t_val);
-    break;
-  case FMT_UINT16_T:
-    LOG_DATA(callback_data.val.uint16_t_val);
-    break;
-  case FMT_UINT32_T:
-    LOG_DATA(callback_data.val.uint32_t_val);
-    break;
-  case FMT_INT8_T:
-    LOG_DATA(callback_data.val.int8_t_val);
-    break;
-  case FMT_INT16_T:
-    LOG_DATA(callback_data.val.int16_t_val);
-    break;
-  case FMT_INT32_T:
-    LOG_DATA(callback_data.val.int32_t_val);
-    break;
-  } // switch(callback_data->fmt)
-  if (print_comma)
-    LOG_DATA(',');
-} // Tabular_t::logDataPoint
-
-void Tabular_t::logDataPoint(TabularData_t *tabular_ptr, bool print_comma) {
-  // Generated using gen-tabular.py
-  // Generated using gen-tabular.py
-  switch (tabular_ptr->fmt) {
-  case FMT_FLOAT:
-    LOG_DATA(*tabular_ptr->ptr.float_ptr);
-    break;
-  case FMT_DOUBLE:
-    LOG_DATA(*tabular_ptr->ptr.double_ptr);
-    break;
-  case FMT_UINT8_T:
-    LOG_DATA(*tabular_ptr->ptr.uint8_t_ptr);
-    break;
-  case FMT_UINT16_T:
-    LOG_DATA(*tabular_ptr->ptr.uint16_t_ptr);
-    break;
-  case FMT_UINT32_T:
-    LOG_DATA(*tabular_ptr->ptr.uint32_t_ptr);
-    break;
-  case FMT_INT8_T:
-    LOG_DATA(*tabular_ptr->ptr.int8_t_ptr);
-    break;
-  case FMT_INT16_T:
-    LOG_DATA(*tabular_ptr->ptr.int16_t_ptr);
-    break;
-  case FMT_INT32_T:
-    LOG_DATA(*tabular_ptr->ptr.int32_t_ptr);
-    break;
-  } // switch(tabular_ptr->fmt)
-  if (print_comma)
-    LOG_DATA(',');
-} // Tabular_t::logDataPoint
 
 void Tabular_t::resetLogCountdown() {
   this->next_log_time = millis() + this->interval;
