@@ -30,7 +30,6 @@ void idle(){
 /* FIRMWARE ENTRY POINT */
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
-  // Setting output for fan, heater, and winder limit switch
   SET_OUTPUT(PIN_FAN);
   SET_OUTPUT(PIN_HEATER);
   SET_INPUT(PIN_LIM_SWITCH_WINDER);
@@ -58,8 +57,6 @@ void setup() {
   #endif // ifdef UNIT_LEVEL_TESTING
 } // setup
 
-/* THE MAIN LOOP */
 void loop() {
   idle();
-  // _delay_ms(250);
 } // loop
