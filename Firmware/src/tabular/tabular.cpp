@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 20:44 Oct 08 2021
+ * @Last modified time: 20:56 Oct 08 2021
  */
 
 #include "config_defaults.h"
@@ -199,10 +199,13 @@ TestResult_t TabularTester_t::TEST_tabular() {
   TEST_ASSERT((tabular_obj.next_log_time > millis() + 900), accumulator); // countdown was indeed reset
 
   tabular_obj.setLoggingInterval(100);
+  tabular_obj.resetLogCountdown();
+  delay(100);
+  tabular_delegator.idle();
   tabular_obj.stop();
   delay(100); // Make sure it does not log again
   tabular_delegator.idle();
-  TEST_ASSERT_EQUAL(tabular_obj.next_log_time < millis(), true, accumulator);
+  TEST_ASSERT_EQUAL((tabular_obj.next_log_time < millis()), true, accumulator);
 
   tabular_obj.init(TDS_CORE, 3, &tabularCallbackTestFunction, F("func_result1, func_result2, func_result3"));
   tabular_obj.setLoggingInterval(50);
