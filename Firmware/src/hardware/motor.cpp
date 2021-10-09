@@ -51,21 +51,8 @@ void Motor::start(int motor_num){
   } // switch
 } // Motor::start
 
-void Motor::stop(int motor_num){
-  switch (motor_num) {
-  case EXTRUDER:
-    m_extruder.setSpeed(0);
-    break;
-  case PULLERS:
-    m_roller.setSpeed(0);
-    break;
-  case LEVEL:
-    m_level.stop();
-    break;
-  case WINDER:
-    m_winder.setSpeed(0);
-    break;
-  } // switch
+void Motor::stop(int motor_num) {
+  Motor::set_speed(motor_num, 0);
 } // Motor::stop
 
 float Motor::realUnitsToMotorTicks(int motor_num, float speed) {
@@ -151,6 +138,10 @@ void Motor::set_speed(int motor_num, float motor_speed){
     throwBadMotorNumber();
     break;
   } // switch
+
+  // Triggering logging on motor changes (as opposed to polling)
+  // means less data needs to clutter the serial output
+  Motor::tabular_obj.triggerImmediateLogging();
 } // Motor::set_speed
 
 float Motor::get_speed(int motor_num){
@@ -187,7 +178,7 @@ void Motor::run(){
 void Motor::idle() {
   if (m_extruder.speed() != 0) {
     if (global_blackboard.getFlag(BBFLAG_BELOW_EXTRUSION_MINTEMP)) {
-      m_extruder.setSpeed(0);
+      Motor::set_speed(EXTRUDER, 0);
       LOG_WARN("Extruder stopping to prevent extrusion below min temp\n");
     }
   }

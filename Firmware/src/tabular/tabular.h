@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   21:59 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 19:52 Oct 08 2021
+ * @Last modified time: 20:38 Oct 08 2021
  */
 
 #include <stdint.h>
@@ -105,6 +105,16 @@ void init(TabularSource_t src, uint8_t col_count, TabularCallback_t (*callback)(
  * @param period_ms The period to log in milliseconds.
  */
 void setLoggingInterval(uint16_t period_ms);
+
+/**
+ * Make the tabular log at the next delegator's next idle() regardless of
+ * interval.
+ *
+ * The interval will be reset once this logs. For example, if interval = 10s,
+ * and this is triggered at 5s, there will be 10s until the next logging event
+ * (unless triggered again).
+ */
+void triggerImmediateLogging();
 
 /**
  * Stop reporting. Must call init again to enable again.

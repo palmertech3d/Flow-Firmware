@@ -2,7 +2,7 @@
  * @Author: Nick Steele
  * @Date:   22:12 Oct 06 2021
  * @Last modified by:   Nick Steele
- * @Last modified time: 19:54 Oct 08 2021
+ * @Last modified time: 20:44 Oct 08 2021
  */
 
 #include "config_defaults.h"
@@ -68,6 +68,10 @@ void Tabular_t::setLoggingInterval(uint16_t period_ms) {
 void Tabular_t::resetLogCountdown() {
   this->next_log_time = millis() + this->interval;
 } // Tabular_t::resetLogCountdown
+
+void Tabular_t::triggerImmediateLogging() {
+  this->next_log_time = 0;
+} // Tabular_t::triggerImmediateLogging
 
 void Tabular_t::logIfNeeded() {
   if (this->src == TDS_NONE_) {
@@ -183,6 +187,18 @@ TestResult_t TabularTester_t::TEST_tabular() {
   tabular_delegator.idle();
   TEST_ASSERT_EQUAL(tabular_obj.next_log_time > millis() + 75, true, accumulator);
 
+  // Test immediately triggered logging
+  tabular_obj.setLoggingInterval(1000);
+  tabular_obj.resetLogCountdown();
+  delay(500);
+  tabular_delegator.idle();
+  TEST_ASSERT((tabular_obj.next_log_time < millis() + 550), accumulator); // countdown not reset
+  // Unless triggered, it shouldn't log until after the second ends, so trigger it now
+  tabular_obj.triggerImmediateLogging();
+  tabular_delegator.idle();
+  TEST_ASSERT((tabular_obj.next_log_time > millis() + 900), accumulator); // countdown was indeed reset
+
+  tabular_obj.setLoggingInterval(100);
   tabular_obj.stop();
   delay(100); // Make sure it does not log again
   tabular_delegator.idle();
