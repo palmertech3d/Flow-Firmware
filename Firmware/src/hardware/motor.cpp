@@ -243,6 +243,9 @@ TabularCallback_t Motor::motorTabularCallback(uint8_t col) {
     result.fmt = FMT_FLOAT;
     break;
   } // switch
+  // Get rid of negatives for easier data handling
+  result.val.float_val = abs(result.val.float_val);
+  return result;
 } // Motor::motorTabularCallback
 
 #ifdef UNIT_LEVEL_TESTING
