@@ -6,6 +6,7 @@
 #include "logger.h"
 #include "test/unit-testing.h"
 #include <AccelStepper.h>
+#include "tabular/tabular.h"
 
 // Motor macros
 #define EXTRUDER 0
@@ -16,7 +17,6 @@
 class Motor {
 public:
 
-// Default constructor
 Motor();
 
 // Starts the motor with the corresponding key
@@ -49,6 +49,18 @@ void idle();
 // Set the bounds for the winder
 void set_winder_bounds(int left, int right);
 
+/**
+ * Callback for the tabular data to access the motor data
+ *
+ * @param  col [description]
+ * @return     [description]
+ */
+static TabularCallback_t motorTabularCallback(uint8_t col);
+
+static void enableReporter(uint16_t rate);
+
+static void disableReporter();
+
 static AccelStepper m_extruder;
 static AccelStepper m_roller;
 static AccelStepper m_level;
@@ -69,6 +81,9 @@ static long winder_bound_left;
 static long winder_bound_right;
 static bool level_homed;
 static bool level_running;
+
+// For data logging
+static Tabular_t tabular_obj;
 }
 
 ;

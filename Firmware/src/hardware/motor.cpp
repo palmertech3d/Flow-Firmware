@@ -9,6 +9,8 @@ long Motor::winder_bound_right = 14250;
 bool Motor::level_homed = 0;
 bool Motor::level_running = 0;
 
+Tabular_t Motor::tabular_obj = Tabular_t();
+
 void throwBadMotorNumber(){
   LOG_ERROR("BAD MOTOR NUMBER\n");
 } // throwBadMotorNumber
@@ -211,10 +213,37 @@ void Motor::home_level_winder(){
   }
 } // Motor::home_level_winder
 
-void Motor::set_winder_bounds(int left, int right){
-  winder_bound_left = left;
-  winder_bound_right = right;
-} // Motor::set_winder_bounds
+void Motor::enableReporter(uint16_t rate){
+  Motor::tabular_obj.init(TDS_MOTOR, 4, Motor::motorTabularCallback,
+                          F("extruder,puller,level,winder"));
+  Motor::tabular_obj.setLoggingInterval(rate);
+} // Motor::enableReporter
+
+void Motor::disableReporter(){
+  Motor::tabular_obj.stop();
+} // Heater::disableReporter
+
+TabularCallback_t Motor::motorTabularCallback(uint8_t col) {
+  TabularCallback_t result;
+  switch (col) {
+  case 0:
+    result.val.float_val = Motor::get_speed(EXTRUDER);
+    result.fmt = FMT_FLOAT;
+    break;
+  case 1:
+    result.val.float_val = Motor::get_speed(PULLERS);
+    result.fmt = FMT_FLOAT;
+    break;
+  case 2:
+    result.val.float_val = Motor::get_speed(LEVEL);
+    result.fmt = FMT_FLOAT;
+    break;
+  case 3:
+    result.val.float_val = Motor::get_speed(WINDER);
+    result.fmt = FMT_FLOAT;
+    break;
+  } // switch
+} // Motor::motorTabularCallback
 
 #ifdef UNIT_LEVEL_TESTING
 
