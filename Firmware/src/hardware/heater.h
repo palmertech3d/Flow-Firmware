@@ -14,12 +14,12 @@
 
 namespace TR {
 typedef enum TrStateType_enum {
-  INACTIVE,
-  RAMPUP,
-  RAMPUP_OUT_OF_MIN_RAMP,
-  AT_TEMP,
-  AT_TEMP_OUT_OF_HYST,
-  RUNAWAY
+  INACTIVE = 0,
+  RAMPUP = 1,
+  RAMPUP_OUT_OF_MIN_RAMP = 100,
+  AT_TEMP = 2,
+  AT_TEMP_OUT_OF_HYST = 101,
+  RUNAWAY = 255
 } TrStateType_t;
 
 typedef struct TrConfig_struct {

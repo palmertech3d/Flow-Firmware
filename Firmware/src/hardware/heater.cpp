@@ -219,12 +219,12 @@ void Heater::update() {
   if (new_temperature == 0) { // Sensor was not polled
     new_temperature = temperature;
   }
-  if ((int)new_temperature != (int)temperature) {
-    // Prints out temperature changes
-    Serial.print(F("Hotend: ")); Serial.print((int)temperature); Serial.println(F("C"));
-    LOG_DEBUG(F("Output: ")); LOG_DEBUG(output); LOG_DEBUG('\n');
-    LOG_DEBUG(F("Direct: ")); LOG_DEBUG(thermometer.readCelsius()); LOG_DEBUG('\n');
-  }
+  // if ((int)new_temperature != (int)temperature) {
+  //   // Prints out temperature changes
+  //   Serial.print(F("Hotend: ")); Serial.print((int)temperature); Serial.println(F("C"));
+  //   LOG_DEBUG(F("Output: ")); LOG_DEBUG(output); LOG_DEBUG('\n');
+  //   LOG_DEBUG(F("Direct: ")); LOG_DEBUG(thermometer.readCelsius()); LOG_DEBUG('\n');
+  // }
 
   updateFlagsFromTemperature(new_temperature);
 
